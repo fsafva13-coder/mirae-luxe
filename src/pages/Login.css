@@ -1,0 +1,136 @@
+.login-page {
+  padding: 80px 0;
+  min-height: 80vh;
+  background: var(--soft-beige);
+}
+
+.login-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.login-card {
+  background: var(--pure-white);
+  padding: 50px;
+  border: 1px solid var(--warm-taupe);
+}
+
+.login-card h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: var(--almost-black);
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--warm-taupe);
+  margin-bottom: 40px;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  margin-bottom: 25px;
+  border-left: 4px solid #c62828;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--almost-black);
+}
+
+.form-group small {
+  display: block;
+  font-size: 12px;
+  color: var(--warm-taupe);
+  margin-top: 6px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.btn-full {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.btn-full:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggle-text {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: var(--almost-black);
+}
+
+.toggle-text span {
+  color: var(--muted-bronze);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle-text span:hover {
+  color: var(--almost-black);
+}
+
+.login-benefits {
+  background: var(--pure-white);
+  padding: 40px;
+  border: 1px solid var(--warm-taupe);
+  height: fit-content;
+  position: sticky;
+  top: 120px;
+}
+
+.login-benefits h3 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: var(--almost-black);
+}
+
+.login-benefits ul {
+  list-style: none;
+  padding: 0;
+}
+
+.login-benefits li {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: var(--almost-black);
+  padding-left: 0;
+}
+
+@media (max-width: 992px) {
+  .login-container {
+    grid-template-columns: 1fr;
+  }
+
+  .login-benefits {
+    position: static;
+  }
+
+  .login-card {
+    padding: 35px;
+  }
+}

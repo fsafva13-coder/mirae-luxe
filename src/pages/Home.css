@@ -1,0 +1,407 @@
+/* Hero Section */
+.hero {
+  min-height: 600px;
+  background: linear-gradient(135deg, var(--soft-beige) 0%, var(--warm-taupe) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(139, 115, 85, 0.1) 0%, transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: 72px;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  color: var(--almost-black);
+}
+
+.hero-content p {
+  font-size: 24px;
+  color: var(--muted-bronze);
+  margin-bottom: 15px;
+}
+
+.hero-subtitle {
+  font-size: 16px !important;
+  color: var(--almost-black) !important;
+  margin-bottom: 40px !important;
+}
+
+/* Features Section */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 40px 30px;
+  background: var(--pure-white);
+  border: 1px solid var(--warm-taupe);
+  cursor: pointer;
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: var(--almost-black);
+}
+
+.feature-card p {
+  font-size: 16px;
+  color: var(--warm-taupe);
+  line-height: 1.6;
+}
+
+/* Category Showcase */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.category-card {
+  height: 350px;
+  background: var(--warm-taupe);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover Effect - Pop Up */
+.category-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  text-decoration: none !important;
+}
+
+.category-card:focus,
+.category-card:active {
+  text-decoration: none !important;
+}
+
+/* Add subtle gradient overlay */
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.category-card:hover::before {
+  opacity: 0.7;
+}
+
+.category-overlay {
+  text-align: center;
+  color: var(--pure-white);
+  z-index: 1;
+  position: relative;
+  transform: translateY(0);
+  transition: transform 0.4s ease;
+}
+
+/* Text pops up slightly on hover */
+.category-card:hover .category-overlay {
+  transform: translateY(-8px);
+}
+
+.category-overlay h3 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: var(--pure-white);
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+}
+
+.category-card:hover .category-overlay h3 {
+  letter-spacing: 4px;
+  transform: scale(1.05);
+}
+
+.category-overlay p {
+  font-size: 18px;
+  color: var(--soft-beige);
+  text-decoration: none !important;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.category-card:hover .category-overlay p {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+/* Remove underline from all links inside category cards */
+.category-card * {
+  text-decoration: none !important;
+}
+
+/* Add border effect on hover */
+.category-card::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 2px solid var(--pure-white);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.category-card:hover::after {
+  opacity: 0.6;
+}
+
+/* Membership CTA */
+.membership-cta {
+  background: linear-gradient(135deg, var(--muted-bronze) 0%, var(--almost-black) 100%);
+  color: var(--pure-white);
+}
+
+.membership-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.membership-text h2 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: var(--pure-white);
+}
+
+.membership-text .lead {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: var(--soft-beige);
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.benefits-list li {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--pure-white);
+}
+
+.membership-badge {
+  background: var(--pure-white);
+  color: var(--almost-black);
+  padding: 60px;
+  text-align: center;
+  border-radius: 50%;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.badge-text {
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--muted-bronze);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.badge-price {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--almost-black);
+  display: block;
+  font-family: var(--heading-font);
+}
+
+.badge-period {
+  font-size: 18px;
+  color: var(--warm-taupe);
+  display: block;
+}
+
+/* Values Section */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.value-item {
+  text-align: center;
+  padding: 30px;
+}
+
+.value-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+}
+
+.value-item h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--almost-black);
+}
+
+.value-item p {
+  font-size: 15px;
+  color: var(--warm-taupe);
+}
+
+/* CTA Section */
+.cta-section h2 {
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: var(--almost-black);
+}
+
+.cta-section p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: var(--almost-black);
+}
+
+/* Best Sellers Section */
+.best-sellers {
+  background: var(--pure-white);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 42px;
+  margin-bottom: 15px;
+  color: var(--almost-black);
+}
+
+.section-header p {
+  font-size: 18px;
+  color: var(--warm-taupe);
+}
+
+.best-sellers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.no-products-message {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.no-products-message p {
+  font-size: 18px;
+  color: var(--warm-taupe);
+  margin-bottom: 25px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 32px;
+  }
+
+  .best-sellers-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 500px;
+  }
+
+  .hero-content h1 {
+    font-size: 42px;
+    letter-spacing: 4px;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+  }
+
+  .features-grid,
+  .category-grid,
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .membership-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .membership-badge {
+    width: 220px;
+    height: 220px;
+    padding: 40px;
+  }
+
+  .badge-price {
+    font-size: 36px;
+  }
+
+  .cta-section h2 {
+    font-size: 32px;
+  }
+
+  .category-card {
+    min-height: 250px;
+  }
+}

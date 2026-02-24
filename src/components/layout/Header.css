@@ -1,0 +1,146 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--pure-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header-top {
+  background-color: var(--soft-beige);
+  padding: 10px 0;
+  text-align: center;
+}
+
+.header-top p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--almost-black);
+  letter-spacing: 0.5px;
+}
+
+.header-main {
+  padding: 20px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo h1 {
+  font-family: var(--heading-font);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--almost-black);
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+.nav-menu a {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--almost-black);
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-menu a:hover {
+  color: var(--muted-bronze);
+}
+
+.header-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.icon-link {
+  position: relative;
+  color: var(--almost-black);
+  transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+  color: var(--muted-bronze);
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--muted-bronze);
+  color: var(--pure-white);
+  font-size: 11px;
+  font-weight: 600;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--almost-black);
+  cursor: pointer;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--pure-white);
+    flex-direction: column;
+    padding: 80px 30px 30px;
+    gap: 25px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .logo {
+  text-decoration: none; /* Add this line */
+}
+
+.logo h1 {
+  font-family: var(--heading-font);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--almost-black);
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+.logo:hover h1 {
+  color: var(--muted-bronze); /* Optional: subtle hover effect */
+}
+
+  .header-icons {
+    gap: 15px;
+  }
+}

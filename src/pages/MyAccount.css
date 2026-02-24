@@ -1,0 +1,291 @@
+.my-account-page {
+  padding: 60px 0 100px;
+  min-height: 80vh;
+}
+
+.my-account-page h1 {
+  font-size: 42px;
+  margin-bottom: 50px;
+  color: var(--almost-black);
+}
+
+.account-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+}
+
+/* Sidebar */
+.account-sidebar {
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+}
+
+.user-info {
+  background: var(--soft-beige);
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid var(--warm-taupe);
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--muted-bronze);
+  color: var(--pure-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 auto 15px;
+}
+
+.user-info h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--almost-black);
+}
+
+.user-info p {
+  font-size: 14px;
+  color: var(--warm-taupe);
+  margin-bottom: 15px;
+}
+
+.member-badge {
+  display: inline-block;
+  padding: 6px 15px;
+  background: var(--muted-bronze);
+  color: var(--pure-white);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 20px;
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.account-nav button,
+.account-nav .nav-link {
+  padding: 15px 20px;
+  background: var(--pure-white);
+  border: 1px solid var(--warm-taupe);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  color: var(--almost-black);
+  text-decoration: none;
+  display: block;
+}
+
+.account-nav button:hover,
+.account-nav .nav-link:hover {
+  background: var(--soft-beige);
+}
+
+.account-nav button.active {
+  background: var(--muted-bronze);
+  color: var(--pure-white);
+  border-color: var(--muted-bronze);
+}
+
+.logout-btn {
+  margin-top: 20px;
+  background: var(--almost-black) !important;
+  color: var(--pure-white) !important;
+  border-color: var(--almost-black) !important;
+}
+
+.logout-btn:hover {
+  background: var(--muted-bronze) !important;
+}
+
+/* Main Content */
+.account-main {
+  background: var(--pure-white);
+  padding: 40px;
+  border: 1px solid var(--warm-taupe);
+}
+
+.account-section h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: var(--almost-black);
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--warm-taupe);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--warm-taupe);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.info-item p {
+  font-size: 16px;
+  color: var(--almost-black);
+}
+
+/* Orders */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  background: var(--soft-beige);
+  padding: 25px;
+  border: 1px solid var(--warm-taupe);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.order-number {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--almost-black);
+  margin-bottom: 5px;
+}
+
+.order-date {
+  font-size: 13px;
+  color: var(--warm-taupe);
+}
+
+.order-status {
+  padding: 6px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 20px;
+}
+
+.order-status.pending { background: #fff3cd; color: #856404; }
+.order-status.paid { background: #d1ecf1; color: #0c5460; }
+.order-status.processing { background: #d1ecf1; color: #0c5460; }
+.order-status.shipped { background: #cce5ff; color: #004085; }
+.order-status.delivered { background: #d4edda; color: #155724; }
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: var(--almost-black);
+}
+
+.order-total {
+  font-weight: 600;
+}
+
+.view-order-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--muted-bronze);
+  color: var(--pure-white);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.view-order-btn:hover {
+  background: var(--almost-black);
+}
+
+/* Membership */
+.membership-status-card {
+  background: var(--soft-beige);
+  padding: 40px;
+  text-align: center;
+  border: 2px solid var(--muted-bronze);
+}
+
+.membership-status-card .status-badge {
+  margin-bottom: 20px;
+}
+
+.membership-status-card h3 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: var(--almost-black);
+}
+
+.membership-details {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.membership-details p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: var(--almost-black);
+}
+
+.membership-cta {
+  background: var(--soft-beige);
+  padding: 50px;
+  text-align: center;
+  border: 2px dashed var(--warm-taupe);
+}
+
+.membership-cta h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: var(--almost-black);
+}
+
+.membership-cta p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: var(--warm-taupe);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--warm-taupe);
+  margin-bottom: 25px;
+}
+
+@media (max-width: 992px) {
+  .account-content {
+    grid-template-columns: 1fr;
+  }
+
+  .account-sidebar {
+    position: static;
+  }
+
+  .account-main {
+    padding: 30px 20px;
+  }
+}
