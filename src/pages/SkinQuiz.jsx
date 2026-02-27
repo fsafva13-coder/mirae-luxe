@@ -110,16 +110,17 @@ const SkinQuiz = () => {
                 ))}
               </div>
             </div>
-          )}
+           )}
 
-          {/* Step 2: Skin Concerns */}
-          {step === 2 && (
-            <div className="quiz-step">
-              <h2>What are your main skin concerns?</h2>
-              <p className="step-subtitle">Select all that apply</p>
-              
-              <div className="options-grid">
+           {/* Step 2: Skin Concerns */}
+           {step === 2 && (
+             <div className="quiz-step">
+               <h2>What are your main skin concerns?</h2>
+               <p className="step-subtitle">Select all that apply (or choose "No Specific Concerns")</p>
+    
+               <div className="options-grid">
                 {[
+                  { value: 'No Concerns', desc: 'My skin is balanced and healthy' },
                   { value: 'Acne', desc: 'Breakouts and blemishes' },
                   { value: 'Dark Spots', desc: 'Hyperpigmentation' },
                   { value: 'Dryness', desc: 'Dehydrated skin' },

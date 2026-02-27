@@ -30,13 +30,35 @@
   gap: 40px;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.logo-icon {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.brand-text {
+  height: 25px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover .logo-icon,
+.logo:hover .brand-text {
+  opacity: 0.8;
+}
+
 .logo h1 {
-  font-family: var(--heading-font);
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--almost-black);
-  margin: 0;
-  letter-spacing: 3px;
+  display: none;
 }
 
 .nav-menu {
@@ -52,6 +74,8 @@
   color: var(--almost-black);
   transition: color 0.3s ease;
   font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .nav-menu a:hover {
@@ -64,10 +88,22 @@
   align-items: center;
 }
 
+.header-icons > div {
+  position: relative;
+  color: var(--almost-black);
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.header-icons > div:hover {
+  color: var(--muted-bronze);
+}
+
 .icon-link {
   position: relative;
   color: var(--almost-black);
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
 .icon-link:hover {
@@ -96,14 +132,21 @@
   border: none;
   color: var(--almost-black);
   cursor: pointer;
+  padding: 5px;
 }
 
-/* Mobile Responsive */
+.menu-toggle:hover {
+  color: var(--muted-bronze);
+}
+
+
 @media (max-width: 768px) {
+  /* Show mobile menu toggle */
   .menu-toggle {
     display: block;
   }
 
+  /* Mobile navigation menu */
   .nav-menu {
     position: fixed;
     top: 0;
@@ -117,30 +160,48 @@
     transition: left 0.3s ease;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     align-items: flex-start;
+    z-index: 999;
   }
 
   .nav-menu.active {
     left: 0;
   }
 
-  .logo {
-  text-decoration: none; /* Add this line */
-}
+  /* Mobile logo sizing */
+  .logo-icon {
+    height: 32px;
+  }
+  
+  .brand-text {
+    height: 20px;
+  }
 
-.logo h1 {
-  font-family: var(--heading-font);
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--almost-black);
-  margin: 0;
-  letter-spacing: 3px;
-}
-
-.logo:hover h1 {
-  color: var(--muted-bronze); /* Optional: subtle hover effect */
-}
-
+  /* Mobile header icons */
   .header-icons {
     gap: 15px;
+  }
+
+  /* Smaller header padding on mobile */
+  .header-main {
+    padding: 15px 0;
+  }
+}
+
+
+@media (max-width: 992px) and (min-width: 769px) {
+  .nav-menu {
+    gap: 25px;
+  }
+
+  .nav-menu a {
+    font-size: 13px;
+  }
+
+  .logo-icon {
+    height: 36px;
+  }
+  
+  .brand-text {
+    height: 22px;
   }
 }

@@ -18,7 +18,16 @@
 
 .hero-subtitle {
   font-size: 20px;
-  color: var(--soft-beige);
+  color: #E8DED3 !important; /* Light beige - FORCED */
+}
+
+/* Also add this to be extra sure */
+.membership-hero .hero-subtitle {
+  color: #E8DED3 !important;
+}
+
+.membership-hero p {
+  color: #E8DED3 !important;
 }
 
 /* Membership Status Card */
@@ -137,7 +146,7 @@
 
 .period {
   font-size: 20px;
-  color: var(--warm-taupe);
+  color: #8B7355; /* Change this line */
   margin-left: 5px;
 }
 
@@ -239,6 +248,11 @@
   text-align: center;
   font-size: 18px;
   color: var(--almost-black);
+  border-left: 1px solid var(--warm-taupe); /* Add vertical line */
+}
+
+.header-cell:first-child {
+  border-left: none; /* Remove left border on first cell */
 }
 
 .header-cell.highlight {
@@ -256,18 +270,20 @@
   padding: 20px;
   font-weight: 600;
   color: var(--almost-black);
+  border-right: 1px solid var(--warm-taupe); /* Add vertical line */
 }
 
 .row-cell {
   padding: 20px;
   text-align: center;
-  border-left: 1px solid var(--warm-taupe);
-  color: var(--warm-taupe);
+  border-left: 1px solid var(--warm-taupe); /* Complete vertical lines */
+  color: #6B5D50; /* Darker than before but lighter than member column */
+  font-weight: 500;
 }
 
 .row-cell.highlight {
   background: rgba(139, 115, 85, 0.05);
-  color: var(--muted-bronze);
+  color: var(--almost-black); /* Darker for member column */
   font-weight: 600;
 }
 
@@ -289,12 +305,26 @@
   background: var(--soft-beige);
   padding: 30px;
   border-left: 4px solid var(--muted-bronze);
+  transition: all 0.3s ease; /* Add transition */
+  cursor: pointer; /* Add pointer cursor */
+}
+
+.faq-item:hover {
+  transform: translateX(10px); /* Slide right on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
+  background: #EBE3D8; /* Slightly lighter background */
+  border-left-width: 6px; /* Thicker border */
 }
 
 .faq-item h4 {
   font-size: 20px;
   margin-bottom: 12px;
   color: var(--almost-black);
+  transition: color 0.3s ease;
+}
+
+.faq-item:hover h4 {
+  color: var(--muted-bronze); /* Change color on hover */
 }
 
 .faq-item p {

@@ -26,8 +26,9 @@
 
 .subtitle {
   font-size: 16px;
-  color: var(--warm-taupe);
+  color: var(--almost-black); /* Changed from warm-taupe to almost-black */
   margin-bottom: 40px;
+  opacity: 0.8; /* Slightly transparent for elegance */
 }
 
 .error-message {

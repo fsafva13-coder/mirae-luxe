@@ -45,62 +45,55 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero" data-aos="fade-in">
-        <div className="hero-content">
-          <h1 data-aos="fade-down" data-aos-delay="200">MIRAÉ LUXE</h1>
-          <p data-aos="fade-up" data-aos-delay="400">Elevate Your Beauty Ritual</p>
-          <p className="hero-subtitle" data-aos="fade-up" data-aos-delay="600">
-            Premium Skincare & Makeup | Vegan • Cruelty-Free
-          </p>
-          <Link to="/shop" data-aos="zoom-in" data-aos-delay="800">
-            <button className="btn-primary btn-pulse">SHOP NOW</button>
+
+{/* Hero Section */}
+<section className="hero" data-aos="fade-in">
+  <div className="hero-content">
+    <h1 data-aos="fade-down" data-aos-delay="200">MIRAÉ LUXE</h1>
+    <p data-aos="fade-up" data-aos-delay="400">Elevate Your Beauty Ritual</p>
+    <Link to="/shop" data-aos="zoom-in" data-aos-delay="800">
+      <button className="btn-primary btn-pulse">SHOP NOW</button>
+    </Link>
+  </div>
+</section>
+
+{/* Best Sellers */}
+<section className="best-sellers section-padding" data-aos="fade-up">
+  <div className="container">
+    <h2>Best Sellers</h2>
+    <p className="section-subtitle">Our most-loved products, handpicked by our community</p>
+    
+    {loading ? (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading best sellers...</p>
+      </div>
+    ) : bestSellers.length > 0 ? (
+      <>
+        <div className="products-grid">
+          {bestSellers.map(product => (
+            <ProductCard key={product.productId} product={product} />
+          ))}
+        </div>
+        <div className="text-center mt-4">
+          <Link to="/shop">
+            <button className="btn-primary">View All Products</button>
           </Link>
         </div>
-      </section>
-
-      {/* Best Sellers Section - NEW! */}
-      <section className="best-sellers section-padding">
-        <div className="container">
-          <div className="section-header" data-aos="fade-up">
-            <h2>Best Sellers</h2>
-            <p>Our most-loved products, handpicked by our community</p>
-          </div>
-
-          {loading ? (
-            <div className="loading-spinner">
-              <div className="spinner"></div>
-            </div>
-          ) : bestSellers.length > 0 ? (
-            <div className="best-sellers-grid">
-              {bestSellers.map((product, index) => (
-                <div key={product.productId} data-aos="fade-up" data-aos-delay={index * 100}>
-                  <ProductCard
-                    product={product}
-                    onAddToCart={handleAddToCart}
-                    onAddToWishlist={handleAddToWishlist}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="no-products-message" data-aos="fade-up">
-              <p>Our best sellers will appear here soon!</p>
-              <Link to="/shop">
-                <button className="btn-outline">Explore All Products</button>
-              </Link>
-            </div>
-          )}
-
-          {bestSellers.length > 0 && (
-            <div className="text-center mt-5" data-aos="fade-up">
-              <Link to="/shop">
-                <button className="btn-outline">View All Products</button>
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
+      </>
+    ) : (
+      <div className="empty-state">
+        <p>✨ Our best sellers will appear here soon!</p>
+        <p style={{ fontSize: '14px', color: 'var(--warm-taupe)', marginTop: '10px' }}>
+          Start your backend server and add products to see them here.
+        </p>
+        <Link to="/shop" style={{ marginTop: '20px', display: 'inline-block' }}>
+          <button className="btn-primary">Browse All Products</button>
+        </Link>
+      </div>
+    )}
+  </div>
+</section>
 
       {/* Features */}
       <section className="features section-padding">
@@ -148,32 +141,45 @@ const Home = () => {
       </section>
 
       {/* Membership CTA */}
-      <section className="membership-cta section-padding" data-aos="fade-up">
-        <div className="container">
-          <div className="membership-content">
-            <div className="membership-text" data-aos="slide-in-left">
-              <h2>Become a Member</h2>
-              <p className="lead">Unlock exclusive benefits and elevate your beauty experience</p>
-              <ul className="benefits-list">
-                <li>✓ 15% off every order</li>
-                <li>✓ Free mini product with every purchase</li>
-                <li>✓ Early access to new launches</li>
-                <li>✓ Member-only sales & events</li>
-              </ul>
-              <Link to="/membership">
-                <button className="btn-primary mt-3">JOIN FOR AED 99/YEAR</button>
-              </Link>
-            </div>
-            <div className="membership-image" data-aos="slide-in-right">
-              <div className="membership-badge">
-                <span className="badge-text">PREMIUM</span>
-                <span className="badge-price">AED 99</span>
-                <span className="badge-period">/year</span>
-              </div>
-            </div>
+      <section 
+       className="membership-cta section-padding" 
+       style={{ 
+         background: 'linear-gradient(135deg, #5A4D40 0%, #3D342B 100%)',
+         color: '#FFFFFF',
+         border: 'none',
+         outline: 'none',
+         borderTop: 'none',
+         borderBottom: 'none'
+       }}
+       data-aos="fade-up"
+     >
+    <div className="container">
+      <div className="membership-content">
+        <div className="membership-text" data-aos="slide-in-left">
+          <h2 style={{ color: '#FFFFFF' }}>Become a Member</h2>
+          <p className="lead" style={{ color: '#E8DED3' }}>
+            Unlock exclusive benefits and elevate your beauty experience
+          </p>
+          <ul className="benefits-list">
+            <li style={{ color: '#FFFFFF' }}>✓ 15% off every order</li>
+            <li style={{ color: '#FFFFFF' }}>✓ Free mini product with every purchase</li>
+            <li style={{ color: '#FFFFFF' }}>✓ Early access to new launches</li>
+            <li style={{ color: '#FFFFFF' }}>✓ Member-only sales & events</li>
+          </ul>
+          <Link to="/membership">
+            <button className="btn-primary mt-3">JOIN FOR AED 99/YEAR</button>
+          </Link>
+        </div>
+        <div className="membership-image" data-aos="slide-in-right">
+          <div className="membership-badge">
+            <span className="badge-text">PREMIUM</span>
+            <span className="badge-price">AED 99</span>
+            <span className="badge-period">/year</span>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
       {/* Skin Quiz CTA */}
       <section className="cta-section section-padding bg-beige" data-aos="fade-up">

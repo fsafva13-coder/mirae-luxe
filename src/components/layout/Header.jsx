@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiShoppingCart, FiHeart, FiUser, FiMenu, FiX } from 'react-icons/fi';
 import './Header.css';
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
@@ -12,12 +13,24 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Function to scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Function to handle navigation with scroll to top
+  const handleNavClick = (path) => {
+    setIsMenuOpen(false);
+    navigate(path);
+    scrollToTop();
+  };
+
   return (
     <header className="header">
       {/* Top Bar */}
       <div className="header-top">
         <div className="container">
-          <p>Free shipping on orders AED 200+ | Members get 15% off + free gift on every order!</p>
+          <p>Free shipping on orders over AED 200 | Members get 15% off + free gift on every order!</p>
         </div>
       </div>
 
@@ -30,34 +43,45 @@ const Header = () => {
               {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
 
-            {/* Logo */}
-            <Link to="/" className="logo">
-              <h1>MIRAÉ LUXE</h1>
-            </Link>
+{/* Logo */}
+<Link to="/" onClick={scrollToTop} style={{ textDecoration: 'none' }}>
+  <div className="logo">
+    <img 
+      src={require('../../assets/images/logo-icon.png')} 
+      alt="MIRAÉ LUXE Logo" 
+      className="logo-icon"
+    />
+    <img 
+      src={require('../../assets/images/brand-text.png')} 
+      alt="MIRAÉ LUXE" 
+      className="brand-text"
+    />
+  </div>
+</Link>
 
             {/* Navigation */}
             <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-              <Link to="/shop" onClick={() => setIsMenuOpen(false)}>Shop All</Link>
-              <Link to="/skin-quiz" onClick={() => setIsMenuOpen(false)}>Skin Quiz</Link>
-              <Link to="/membership" onClick={() => setIsMenuOpen(false)}>Membership</Link>
-              <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
-              <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              <a onClick={() => handleNavClick('/')}>Home</a>
+              <a onClick={() => handleNavClick('/shop')}>Shop All</a>
+              <a onClick={() => handleNavClick('/skin-quiz')}>Skin Quiz</a>
+              <a onClick={() => handleNavClick('/membership')}>Membership</a>
+              <a onClick={() => handleNavClick('/about')}>About</a>
+              <a onClick={() => handleNavClick('/contact')}>Contact</a>
             </nav>
 
             {/* Icons */}
             <div className="header-icons">
-              <Link to="/my-account" className="icon-link">
+              <div onClick={() => handleNavClick('/my-account')} style={{ cursor: 'pointer' }}>
                 <FiUser size={20} />
-              </Link>
-              <Link to="/wishlist" className="icon-link">
+              </div>
+              <div onClick={() => handleNavClick('/wishlist')} style={{ cursor: 'pointer', position: 'relative' }}>
                 <FiHeart size={20} />
                 {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
-              </Link>
-              <Link to="/cart" className="icon-link">
+              </div>
+              <div onClick={() => handleNavClick('/cart')} style={{ cursor: 'pointer', position: 'relative' }}>
                 <FiShoppingCart size={20} />
                 {cartCount > 0 && <span className="badge">{cartCount}</span>}
-              </Link>
+              </div>
             </div>
           </div>
         </div>

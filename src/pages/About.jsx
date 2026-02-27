@@ -26,7 +26,7 @@ const About = () => {
                 cost of our planet and its creatures, we dared to dream differently.
               </p>
               <p>
-                Founded in Dubai in 2024, MIRAÉ LUXE represents the future of beauty – 
+                Founded in Dubai in 2026, MIRAÉ LUXE represents the future of beauty - 
                 where high-performance formulations meet uncompromising ethics. 
                 Our name combines "Mirae" (미래), meaning "future" in Korean, with 
                 "Luxe" symbolizing our commitment to luxury.
@@ -38,10 +38,17 @@ const About = () => {
               </p>
             </div>
             <div className="story-image" data-aos="fade-left">
-              <div className="image-placeholder">
-                <span>✨</span>
-              </div>
-            </div>
+              <img 
+                src={require('../assets/images/logo-full.png')} 
+                alt="MIRAÉ LUXE Logo" 
+               style={{
+                 width: '100%',
+                 maxWidth: '400px',
+                height: 'auto',
+                 objectFit: 'contain'
+               }}
+             />
+           </div>
           </div>
         </div>
       </section>
@@ -141,11 +148,11 @@ const About = () => {
             <div className="team-members">
               <p><strong>Team Members:</strong></p>
               <ul>
-                <li>Fathima Safva (Project Lead)</li>
-                <li>Fathimath Neha (UI/UX Design)</li>
-                <li>Asna Haris (Backend Development)</li>
-                <li>Nishna Valiyakath (Features Development)</li>
-                <li>Helen Moncy Abraham (Quality Assurance)</li>
+                <li>Fathima Safva Ovinakath Kammukkakath</li>
+                <li>Fathimath Neha Mirsa Sajid</li>
+                <li>Asna Haris</li>
+                <li>Nishna Valiyakath Noushad</li>
+                <li>Helen Moncy Abraham</li>
               </ul>
             </div>
           </div>

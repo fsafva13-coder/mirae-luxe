@@ -18,7 +18,16 @@
 
 .hero-subtitle {
   font-size: 22px;
-  color: var(--soft-beige);
+  color: #E8DED3 !important; /* Light beige - FORCED */
+}
+
+/* Also add this to be extra sure */
+.about-hero .hero-subtitle {
+  color: #E8DED3 !important;
+}
+
+.about-hero p {
+  color: #E8DED3 !important;
 }
 
 /* Story Section */

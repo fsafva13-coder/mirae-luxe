@@ -103,7 +103,7 @@
 
 .social-section p {
   font-size: 15px;
-  color: var(--warm-taupe);
+  color: #8B7355; /* Muted bronze - darker but lighter than button */
   margin-bottom: 20px;
 }
 
