@@ -62,6 +62,24 @@
   border: 2px solid var(--warm-taupe);
 }
 
+.story-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(245, 240, 235, 0.5) 0%, rgba(212, 196, 176, 0.3) 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(139, 115, 85, 0.15);
+}
+
+.story-image img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(139, 115, 85, 0.2));
+}
+
 /* Values Section */
 .section-title {
   font-size: 42px;

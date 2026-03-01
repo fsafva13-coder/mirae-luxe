@@ -1,3 +1,7 @@
+/* ========================================
+   HEADER - COMPLETE & UPDATED
+======================================== */
+
 .header {
   position: sticky;
   top: 0;
@@ -6,6 +10,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Top Bar */
 .header-top {
   background-color: var(--soft-beige);
   padding: 10px 0;
@@ -19,6 +24,7 @@
   letter-spacing: 0.5px;
 }
 
+/* Main Header */
 .header-main {
   padding: 20px 0;
 }
@@ -30,36 +36,53 @@
   gap: 40px;
 }
 
+/* LOGO STYLES - LARGER SIZES */
+
 .logo {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
   cursor: pointer;
   text-decoration: none;
+  padding: 8px 15px;
+  background: rgba(212, 196, 176, 0.1); /* Very subtle taupe background */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  background: rgba(212, 196, 176, 0.15);
 }
 
 .logo-icon {
-  height: 40px;
+  height: 70px; /* UPDATED - LARGER */
   width: auto;
   object-fit: contain;
-  transition: opacity 0.3s ease;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 3px rgba(255, 255, 255, 0.3));
 }
 
 .brand-text {
-  height: 25px;
+  height: 45px; /* UPDATED - LARGER */
   width: auto;
   object-fit: contain;
-  transition: opacity 0.3s ease;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 2px 3px rgba(255, 255, 255, 0.3));
 }
 
 .logo:hover .logo-icon,
 .logo:hover .brand-text {
-  opacity: 0.8;
+  transform: scale(1.03);
 }
 
+/* Hide old text logo if it exists */
 .logo h1 {
   display: none;
 }
+
+/* ========================================
+   NAVIGATION MENU
+======================================== */
 
 .nav-menu {
   display: flex;
@@ -81,6 +104,16 @@
 .nav-menu a:hover {
   color: var(--muted-bronze);
 }
+
+/* Active navigation link */
+.nav-menu a.active-link {
+  color: var(--muted-bronze);
+  font-weight: 600;
+}
+
+/* ========================================
+   HEADER ICONS
+======================================== */
 
 .header-icons {
   display: flex;
@@ -126,6 +159,10 @@
   justify-content: center;
 }
 
+/* ========================================
+   MOBILE MENU TOGGLE
+======================================== */
+
 .menu-toggle {
   display: none;
   background: none;
@@ -139,6 +176,31 @@
   color: var(--muted-bronze);
 }
 
+/* ========================================
+   TABLET RESPONSIVE (992px - 769px)
+======================================== */
+
+@media (max-width: 992px) and (min-width: 769px) {
+  .nav-menu {
+    gap: 25px;
+  }
+
+  .nav-menu a {
+    font-size: 13px;
+  }
+
+  .logo-icon {
+    height: 60px; /* UPDATED - LARGER */
+  }
+  
+  .brand-text {
+    height: 38px; /* UPDATED - LARGER */
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE (768px and below)
+======================================== */
 
 @media (max-width: 768px) {
   /* Show mobile menu toggle */
@@ -169,11 +231,15 @@
 
   /* Mobile logo sizing */
   .logo-icon {
-    height: 32px;
+    height: 50px; /* UPDATED - LARGER */
   }
   
   .brand-text {
-    height: 20px;
+    height: 32px; /* UPDATED - LARGER */
+  }
+
+  .logo {
+    gap: 15px;
   }
 
   /* Mobile header icons */
@@ -188,20 +254,3 @@
 }
 
 
-@media (max-width: 992px) and (min-width: 769px) {
-  .nav-menu {
-    gap: 25px;
-  }
-
-  .nav-menu a {
-    font-size: 13px;
-  }
-
-  .logo-icon {
-    height: 36px;
-  }
-  
-  .brand-text {
-    height: 22px;
-  }
-}

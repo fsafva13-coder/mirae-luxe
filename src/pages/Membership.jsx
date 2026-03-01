@@ -10,12 +10,17 @@ const Membership = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Will get from auth context later
 
   useEffect(() => {
-    if (isLoggedIn) {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+
+    if (token && userData) {
+      setIsLoggedIn(true);
       fetchMembershipStatus();
     } else {
+      setIsLoggedIn(false);
       setLoading(false);
     }
-  }, [isLoggedIn]);
+  }, []);
 
   const fetchMembershipStatus = async () => {
     try {
@@ -117,143 +122,6 @@ const Membership = () => {
                 {isLoggedIn ? 'Join Now' : 'Sign In to Join'}
               </button>
             )}
-          </div>
-        </div>
-
-        {/* Benefits Grid */}
-        <div className="benefits-section">
-          <h2 className="section-title" data-aos="fade-up">Membership Benefits</h2>
-          
-          <div className="benefits-grid">
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="100">
-              <div className="benefit-icon">💰</div>
-              <h3>15% Off Every Order</h3>
-              <p>Automatic discount applied to all purchases. Save on every item, every time.</p>
-              <div className="benefit-example">
-                <span>Example: Save AED 30 on a AED 200 order</span>
-              </div>
-            </div>
-
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="200">
-              <div className="benefit-icon">🎁</div>
-              <h3>Free Gift Every Order</h3>
-              <p>Receive a complimentary mini product with every purchase, no minimum required.</p>
-              <div className="benefit-example">
-                <span>Worth AED 25-50 per gift</span>
-              </div>
-            </div>
-
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="300">
-              <div className="benefit-icon">⭐</div>
-              <h3>Early Access</h3>
-              <p>Be the first to shop new product launches and limited editions.</p>
-              <div className="benefit-example">
-                <span>24-48 hours before public release</span>
-              </div>
-            </div>
-
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="400">
-              <div className="benefit-icon">🎉</div>
-              <h3>Exclusive Sales</h3>
-              <p>Access member-only promotions and special event pricing.</p>
-              <div className="benefit-example">
-                <span>Up to 25% off during member sales</span>
-              </div>
-            </div>
-
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="500">
-              <div className="benefit-icon">💬</div>
-              <h3>Priority Support</h3>
-              <p>Get faster responses from our customer service team.</p>
-              <div className="benefit-example">
-                <span>Dedicated member support line</span>
-              </div>
-            </div>
-
-            <div className="benefit-card" data-aos="fade-up" data-aos-delay="600">
-              <div className="benefit-icon">🎂</div>
-              <h3>Birthday Surprise</h3>
-              <p>Receive a special gift during your birthday month.</p>
-              <div className="benefit-example">
-                <span>Exclusive birthday gift worth AED 75</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Comparison Table */}
-        <div className="comparison-section" data-aos="fade-up">
-          <h2 className="section-title">Member vs Non-Member</h2>
-          
-          <div className="comparison-table">
-            <div className="comparison-header">
-              <div className="header-cell"></div>
-              <div className="header-cell">Non-Member</div>
-              <div className="header-cell highlight">Member</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Discount on Orders</div>
-              <div className="row-cell">0%</div>
-              <div className="row-cell highlight">15%</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Free Gift</div>
-              <div className="row-cell">On orders AED 120+</div>
-              <div className="row-cell highlight">Every Order</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Early Access</div>
-              <div className="row-cell">✗</div>
-              <div className="row-cell highlight">✓</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Exclusive Sales</div>
-              <div className="row-cell">✗</div>
-              <div className="row-cell highlight">✓</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Priority Support</div>
-              <div className="row-cell">✗</div>
-              <div className="row-cell highlight">✓</div>
-            </div>
-
-            <div className="comparison-row">
-              <div className="row-label">Birthday Gift</div>
-              <div className="row-cell">✗</div>
-              <div className="row-cell highlight">✓</div>
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ Section */}
-        <div className="faq-section" data-aos="fade-up">
-          <h2 className="section-title">Frequently Asked Questions</h2>
-          
-          <div className="faq-list">
-            <div className="faq-item">
-              <h4>How does the 15% discount work?</h4>
-              <p>The discount is automatically applied to your cart at checkout. No codes needed!</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>Can I cancel my membership?</h4>
-              <p>Yes, you can cancel anytime. Your benefits remain active until the expiration date.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>How do I choose my free gift?</h4>
-              <p>During checkout, you'll be able to select from our available mini products.</p>
-            </div>
-
-            <div className="faq-item">
-              <h4>When does my membership renew?</h4>
-              <p>Memberships are valid for one year from the purchase date. You can renew anytime.</p>
-            </div>
           </div>
         </div>
 

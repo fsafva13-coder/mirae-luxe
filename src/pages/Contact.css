@@ -2,22 +2,52 @@
   padding-bottom: 80px;
 }
 
-/* Hero Section */
+/* Contact Hero Section */
 .contact-hero {
   background: linear-gradient(135deg, var(--soft-beige) 0%, var(--warm-taupe) 100%);
-  padding: 80px 0;
+  padding: 100px 0;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(139, 115, 85, 0.1) 0%, transparent 70%);
+}
+
+.contact-hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-hero h1 {
-  font-size: 52px;
+  font-size: 64px;
+  letter-spacing: 4px;
   margin-bottom: 20px;
   color: var(--almost-black);
 }
 
+.contact-hero p {
+  font-size: 22px;
+  color: #6B5D50; /* CHANGED: Much darker brown */
+  font-weight: 500; /* ADDED: Make it bolder */
+  letter-spacing: 0.5px; /* ADDED: Better readability */
+  opacity: 1; /* ADDED: Full opacity */
+}
+
+/* Alternative - if above doesn't work, try this */
 .hero-subtitle {
-  font-size: 20px;
-  color: var(--muted-bronze);
+  font-size: 22px;
+  color: #6B5D50 !important; /* Force darker color */
+  font-weight: 500 !important;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
 }
 
 /* Contact Content */

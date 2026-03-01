@@ -59,30 +59,85 @@ const Header = () => {
   </div>
 </Link>
 
-            {/* Navigation */}
-            <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              <a onClick={() => handleNavClick('/')}>Home</a>
-              <a onClick={() => handleNavClick('/shop')}>Shop All</a>
-              <a onClick={() => handleNavClick('/skin-quiz')}>Skin Quiz</a>
-              <a onClick={() => handleNavClick('/membership')}>Membership</a>
-              <a onClick={() => handleNavClick('/about')}>About</a>
-              <a onClick={() => handleNavClick('/contact')}>Contact</a>
-            </nav>
+{/* Navigation */}
+<nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+  <Link 
+    to="/" 
+    className={window.location.pathname === '/' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    Home
+  </Link>
+  <Link 
+    to="/shop" 
+    className={window.location.pathname === '/shop' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    Shop All
+  </Link>
+  <Link 
+    to="/skin-quiz" 
+    className={window.location.pathname === '/skin-quiz' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    Skin Quiz
+  </Link>
+  <Link 
+    to="/membership" 
+    className={window.location.pathname === '/membership' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    Membership
+  </Link>
+  <Link 
+    to="/about" 
+    className={window.location.pathname === '/about' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    About
+  </Link>
+  <Link 
+    to="/contact" 
+    className={window.location.pathname === '/contact' ? 'active-link' : ''}
+    onClick={() => { setIsMenuOpen(false); scrollToTop(); }}
+  >
+    Contact
+  </Link>
+</nav>
+            {/* Header Icons */}
+<div className="header-icons">
+  {/* Account Icon */}
+  <div onClick={() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/my-account'); // Go to account if logged in
+    } else {
+      navigate('/login'); // Go to login if not logged in
+    }
+    scrollToTop();
+  }}>
+    <FiUser size={22} />
+  </div>
 
-            {/* Icons */}
-            <div className="header-icons">
-              <div onClick={() => handleNavClick('/my-account')} style={{ cursor: 'pointer' }}>
-                <FiUser size={20} />
-              </div>
-              <div onClick={() => handleNavClick('/wishlist')} style={{ cursor: 'pointer', position: 'relative' }}>
-                <FiHeart size={20} />
-                {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
-              </div>
-              <div onClick={() => handleNavClick('/cart')} style={{ cursor: 'pointer', position: 'relative' }}>
-                <FiShoppingCart size={20} />
-                {cartCount > 0 && <span className="badge">{cartCount}</span>}
-              </div>
-            </div>
+  {/* Wishlist Icon */}
+  <div onClick={() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/wishlist'); // Go to wishlist if logged in
+    } else {
+      navigate('/login', { state: { from: '/wishlist', message: 'Please login to view your wishlist' } }); // Ask to login
+    }
+    scrollToTop();
+  }}>
+    <FiHeart size={22} />
+  </div>
+
+  {/* Cart Icon */}
+  <div onClick={() => { navigate('/cart'); scrollToTop(); }}>
+    <FiShoppingCart size={22} />
+    {cartCount > 0 && <span className="badge">{cartCount}</span>}
+  </div>
+</div>
           </div>
         </div>
       </div>

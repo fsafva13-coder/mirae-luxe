@@ -105,7 +105,7 @@ const About = () => {
             <p className="mission-text">
               To revolutionize the beauty industry by proving that luxury, performance, 
               and ethics can coexist. We're building a future where every beauty ritual 
-              is a conscious choice – one that nourishes your skin while respecting our planet.
+              is a conscious choice - one that nourishes your skin while respecting our planet.
             </p>
           </div>
         </div>

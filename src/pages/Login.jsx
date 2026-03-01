@@ -28,45 +28,141 @@ const Login = () => {
     setError('');
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    try {
-      const response = await usersAPI.login({
-        email: formData.email,
-        password: formData.password
-      });
+  try {
+    console.log('Attempting login with:', formData.email);
+    
+    const response = await usersAPI.login({
+      email: formData.email,
+      password: formData.password
+    });
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data));
+    console.log('Full login response:', response); // Check what we get
 
-      const from = location.state?.from || '/';
-      navigate(from);
-    } catch (error) {
-      setError(error.response?.data?.message || 'Invalid email or password');
-    } finally {
-      setLoading(false);
+    if (!response || !response.data) {
+      throw new Error('Invalid response from server');
     }
-  };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    const responseData = response.data;
 
-    try {
-      await usersAPI.register(formData);
-      alert('Registration successful! Please login.');
-      setIsLogin(true);
-      setFormData({ ...formData, password: '' });
-    } catch (error) {
-      setError(error.response?.data?.errors?.[0] || 'Registration failed. Please try again.');
-    } finally {
-      setLoading(false);
+    // Store token
+    const token = responseData.token || responseData.data?.token || responseData.accessToken;
+    
+    if (!token) {
+      throw new Error('No token received from server');
     }
-  };
+
+    localStorage.setItem('token', token);
+
+    // UPDATED: Better handling of user data
+    // The backend might return user data in different structures
+    let userData;
+    
+    if (responseData.user) {
+      userData = responseData.user;
+    } else if (responseData.data && responseData.data.user) {
+      userData = responseData.data.user;
+    } else {
+      // If no user object, the response itself might be the user data
+      userData = responseData;
+    }
+
+    console.log('User data extracted:', userData); // Debug log
+
+    // Create comprehensive user object with all fields
+    const userToStore = {
+      userId: userData.userId || userData.id || userData.UserId,
+      firstName: userData.firstName || userData.FirstName || '',
+      lastName: userData.lastName || userData.LastName || '',
+      email: userData.email || userData.Email || formData.email,
+      phoneNumber: userData.phoneNumber || userData.PhoneNumber || userData.phone || '',
+      address: userData.address || userData.Address || '',
+      city: userData.city || userData.City || '',
+      postalCode: userData.postalCode || userData.PostalCode || '',
+      isMember: userData.isMember || userData.IsMember || false,
+      membershipStartDate: userData.membershipStartDate || userData.MembershipStartDate || null,
+      membershipEndDate: userData.membershipEndDate || userData.MembershipEndDate || null,
+      createdDate: userData.createdDate || userData.CreatedDate || new Date().toISOString()
+    };
+
+    localStorage.setItem('user', JSON.stringify(userToStore));
+    console.log('User stored in localStorage:', userToStore);
+
+    alert('Login successful!');
+    navigate('/my-account');
+    
+  } catch (err) {
+    console.error('Login error:', err);
+    console.error('Error response:', err.response?.data);
+    
+    const errorMessage = err.response?.data?.message 
+      || err.response?.data?.error
+      || err.message 
+      || 'Invalid email or password';
+      
+    setError(errorMessage);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleRegister = async (e) => {
+  e.preventDefault();
+  setError('');
+  setLoading(true);
+
+  try {
+    console.log('Attempting registration with:', formData.email); // Debug log
+    
+    const response = await usersAPI.register({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      phoneNumber: formData.phoneNumber,
+      address: formData.address,
+      city: formData.city,
+      postalCode: formData.postalCode
+    });
+
+    console.log('Registration response:', response); // Debug log
+
+    // Registration successful
+    alert('Account created successfully! Please sign in.');
+    
+    // Switch to login form
+    setIsLogin(true);
+    
+    // Clear form
+    setFormData({
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      address: '',
+      city: '',
+      postalCode: ''
+    });
+    
+  } catch (err) {
+    console.error('Registration error:', err);
+    console.error('Error response:', err.response?.data);
+    
+    const errorMessage = err.response?.data?.message 
+      || err.response?.data?.error
+      || err.message 
+      || 'Registration failed. Please try again.';
+      
+    setError(errorMessage);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-page">

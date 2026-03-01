@@ -58,10 +58,12 @@ const Home = () => {
 </section>
 
 {/* Best Sellers */}
-<section className="best-sellers section-padding" data-aos="fade-up">
+<section className="best-sellers section-padding" data-aos="fade-up" data-aos-duration="1000" data-aos-offset="200">
   <div className="container">
-    <h2>Best Sellers</h2>
-    <p className="section-subtitle">Our most-loved products, handpicked by our community</p>
+    <h2 data-aos="fade-down" data-aos-delay="100">Best Sellers</h2>
+    <p className="section-subtitle" data-aos="fade-up" data-aos-delay="200">
+      Our most-loved products, handpicked by our community
+    </p>
     
     {loading ? (
       <div className="loading-container">
@@ -71,8 +73,15 @@ const Home = () => {
     ) : bestSellers.length > 0 ? (
       <>
         <div className="products-grid">
-          {bestSellers.map(product => (
-            <ProductCard key={product.productId} product={product} />
+          {bestSellers.map((product, index) => (
+            <div 
+              key={product.productId} 
+              data-aos="zoom-in" 
+              data-aos-delay={100 * (index + 1)}
+              data-aos-duration="800"
+            >
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
         <div className="text-center mt-4">
