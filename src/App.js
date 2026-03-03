@@ -15,6 +15,7 @@ import Contact from './pages/Contact';
 import SkinQuiz from './pages/SkinQuiz';
 import MyAccount from './pages/MyAccount';
 import Wishlist from './pages/Wishlist';
+import QuizResults from './pages/QuizResults';
 import './App.css';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/skin-quiz" element={<SkinQuiz />} />
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/quiz-results" element={<QuizResults />} />
           </Routes>
         </main>
         <Footer />

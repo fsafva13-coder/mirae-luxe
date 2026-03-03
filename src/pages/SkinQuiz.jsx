@@ -44,20 +44,30 @@ const SkinQuiz = () => {
     setStep(step - 1);
   };
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      const response = await quizAPI.submitQuiz(quizData);
-      // Store results and navigate
-      localStorage.setItem('quizResults', JSON.stringify(response.data));
-      navigate('/quiz-results', { state: { results: response.data } });
-    } catch (error) {
-      console.error('Error submitting quiz:', error);
-      alert('Failed to submit quiz. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleSubmit = async () => {
+  try {
+    // Save quiz data to localStorage
+    localStorage.setItem('lastQuizData', JSON.stringify(quizData));
+    
+    // Navigate to results page
+    navigate('/quiz-results', { state: { quizData } });
+
+    // TODO: Uncomment when products are added
+    /*
+    const response = await quizAPI.submitQuiz(quizData);
+    navigate('/quiz-results', { 
+      state: { 
+        quizData, 
+        recommendations: response.data 
+      } 
+    });
+    */
+
+  } catch (error) {
+    console.error('Quiz error:', error);
+    alert('Failed to submit quiz. Please try again.');
+  }
+};
 
   const isStepValid = () => {
     switch (step) {

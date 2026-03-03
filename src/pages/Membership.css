@@ -197,6 +197,15 @@
 .benefit-icon {
   font-size: 56px;
   margin-bottom: 20px;
+  color: var(--muted-bronze); /* Muted bronze color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon svg {
+  color: var(--muted-bronze);
+  stroke: var(--muted-bronze);
 }
 
 .benefit-card h3 {
@@ -208,7 +217,7 @@
 .benefit-card p {
   font-size: 15px;
   line-height: 1.7;
-  color: var(--almost-black);
+  color: var(--muted-bronze);
   margin-bottom: 20px;
 }
 
