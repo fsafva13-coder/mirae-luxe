@@ -16,14 +16,16 @@ import SkinQuiz from './pages/SkinQuiz';
 import MyAccount from './pages/MyAccount';
 import Wishlist from './pages/Wishlist';
 import QuizResults from './pages/QuizResults';
+import ChatBot from './components/ChatBot/ChatBot';
 import './App.css';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop /> {/* This makes every page start from top */}
-      <div className="App">
+    <div className="App">
+      <Router>
+        <ScrollToTop />
         <Header />
+        
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,9 +44,13 @@ function App() {
             <Route path="/quiz-results" element={<QuizResults />} />
           </Routes>
         </main>
+        
         <Footer />
-      </div>
-    </Router>
+      </Router>
+      
+      {/* ChatBot appears on all pages */}
+      <ChatBot />
+    </div>
   );
 }
 

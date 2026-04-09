@@ -40,11 +40,22 @@ export const usersAPI = {
   updateProfile: (data) => api.put('/Users/Profile', data),
 };
 
+// ✅ FIXED: Using /Cart/AddItem (your backend endpoint)
 export const cartAPI = {
   getCart: () => api.get('/Cart'),
+  
+  // ✅ CORRECT ENDPOINT: /Cart/AddItem
+  addToCart: (data) => {
+    console.log('cartAPI.addToCart called with:', data);
+    return api.post('/Cart/AddItem', data);
+  },
+  
   addItem: (data) => api.post('/Cart/AddItem', data),
+  
   updateQuantity: (data) => api.put('/Cart/UpdateQuantity', data),
+  
   removeItem: (id) => api.delete(`/Cart/RemoveItem/${id}`),
+  
   clearCart: () => api.delete('/Cart/Clear'),
 };
 
@@ -74,9 +85,16 @@ export const reviewsAPI = {
 
 export const wishlistAPI = {
   getWishlist: () => api.get('/Wishlist'),
-  addToWishlist: (data) => api.post('/Wishlist/Add', data),
+  
+  addToWishlist: (data) => {
+    console.log('wishlistAPI.addToWishlist called with:', data);
+    return api.post('/Wishlist/Add', data);
+  },
+  
   removeFromWishlist: (id) => api.delete(`/Wishlist/Remove/${id}`),
+  
   checkIfInWishlist: (productId) => api.get(`/Wishlist/Check/${productId}`),
+  
   moveToCart: (id) => api.post(`/Wishlist/MoveToCart/${id}`),
 };
 

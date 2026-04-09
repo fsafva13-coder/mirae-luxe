@@ -45,27 +45,36 @@ const SkinQuiz = () => {
   };
 
 const handleSubmit = async () => {
+  setLoading(true);
   try {
-    // Save quiz data to localStorage
+    // Convert preferences array to string for backend
+    const preferencesString = quizData.preferences.length > 0 
+      ? quizData.preferences.join(', ') 
+      : 'No preference';
+
+    // Submit to backend
+    const response = await quizAPI.submitQuiz({
+      skinType: quizData.skinType,
+      concerns: quizData.concerns,
+      budgetRange: quizData.budgetRange,
+      preferences: preferencesString // Backend expects a string, not array
+    });
+
+    console.log('Backend response:', response.data); // Debug
+
+    // Save to localStorage as backup
     localStorage.setItem('lastQuizData', JSON.stringify(quizData));
     
-    // Navigate to results page
-    navigate('/quiz-results', { state: { quizData } });
-
-    // TODO: Uncomment when products are added
-    /*
-    const response = await quizAPI.submitQuiz(quizData);
+    // Navigate with backend recommendations
     navigate('/quiz-results', { 
-      state: { 
-        quizData, 
-        recommendations: response.data 
-      } 
+      state: { quizResults: response.data } 
     });
-    */
 
   } catch (error) {
     console.error('Quiz error:', error);
     alert('Failed to submit quiz. Please try again.');
+  } finally {
+    setLoading(false);
   }
 };
 

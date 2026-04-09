@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import ProductCard from '../components/common/ProductCard';
 import './QuizResults.css';
 
 const QuizResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [quizData, setQuizData] = useState(null);
+  const [quizResults, setQuizResults] = useState(null);
 
   useEffect(() => {
-    // Get quiz data from navigation state or localStorage
-    const data = location.state?.quizData || JSON.parse(localStorage.getItem('lastQuizData') || 'null');
+    // Get quiz results from navigation state
+    const results = location.state?.quizResults;
     
-    if (!data) {
-      // No quiz data - redirect to quiz
+    if (!results) {
+      // No quiz results - redirect to quiz
       navigate('/skin-quiz');
       return;
     }
     
-    setQuizData(data);
+    console.log('Quiz Results:', results); // Debug
+    setQuizResults(results);
   }, [location, navigate]);
 
-  if (!quizData) {
+  if (!quizResults) {
     return (
       <div className="loading-container">
         <p>Loading your results...</p>
@@ -32,72 +34,110 @@ const QuizResults = () => {
     <div className="quiz-results-page">
       <div className="container">
         <section className="results-hero" data-aos="fade-up">
-          <h1>Your Skin Profile</h1>
-          <p>Based on your quiz answers, here's what we learned about your skin</p>
+          <h1>Your Personalized Skincare Profile</h1>
+          <p>{quizResults.message || 'Quiz completed successfully!'}</p>
         </section>
 
         {/* Skin Analysis */}
         <section className="skin-analysis" data-aos="fade-up">
           <div className="analysis-card">
             <h2>Your Skin Type</h2>
-            <div className="skin-type-badge">{quizData.skinType}</div>
+            <div className="skin-type-badge">{quizResults.skinType}</div>
             <p className="analysis-description">
-              {getSkinTypeDescription(quizData.skinType)}
+              {getSkinTypeDescription(quizResults.skinType)}
             </p>
           </div>
 
-          {quizData.concerns && quizData.concerns.length > 0 && (
+          {quizResults.concerns && quizResults.concerns.length > 0 && (
             <div className="analysis-card">
               <h2>Primary Concerns</h2>
               <div className="concerns-list">
-                {quizData.concerns.map((concern, index) => (
+                {quizResults.concerns.map((concern, index) => (
                   <span key={index} className="concern-tag">{concern}</span>
                 ))}
               </div>
             </div>
           )}
 
-          {quizData.preferences && quizData.preferences.length > 0 && (
+          {quizResults.budgetRange && (
+            <div className="analysis-card">
+              <h2>Your Budget</h2>
+              <div className="budget-badge">{quizResults.budgetRange}</div>
+            </div>
+          )}
+
+          {quizResults.preferences && (
             <div className="analysis-card">
               <h2>Your Preferences</h2>
               <div className="preferences-list">
-                {quizData.preferences.map((pref, index) => (
-                  <span key={index} className="preference-tag">✓ {pref}</span>
-                ))}
+                <span className="preference-tag">✓ {quizResults.preferences}</span>
               </div>
             </div>
           )}
         </section>
 
-        {/* Recommendations Coming Soon */}
-        <section className="recommendations-section" data-aos="fade-up">
-          <div className="coming-soon-card">
-            <h2>Personalized Recommendations</h2>
-            <p>We're curating the perfect products for your {quizData.skinType} skin.</p>
-            <p>Check back soon for personalized recommendations based on your skin profile!</p>
-            
-            <div className="action-buttons">
-              <button 
-                className="btn-primary"
-                onClick={() => navigate('/shop')}
-              >
-                Browse All Products
-              </button>
-              <button 
-                className="btn-outline"
-                onClick={() => navigate('/skin-quiz')}
-              >
-                Retake Quiz
-              </button>
+        {/* Routine Advice */}
+        {quizResults.routineAdvice && (
+          <section className="routine-advice" data-aos="fade-up">
+            <div className="advice-card">
+              <h2>💡 Expert Advice</h2>
+              <p>{quizResults.routineAdvice}</p>
             </div>
+          </section>
+        )}
+
+        {/* Personalized Recommendations by Concern */}
+        {quizResults.recommendations && quizResults.recommendations.length > 0 && (
+          <section className="recommendations-section" data-aos="fade-up">
+            <h2>Your Personalized Product Recommendations</h2>
+            
+            {quizResults.recommendations.map((rec, index) => (
+              <div key={index} className="recommendation-group">
+                <div className="recommendation-header">
+                  <h3>{rec.concern}</h3>
+                  <p className="recommendation-text">{rec.recommendation}</p>
+                </div>
+
+                {rec.products && rec.products.length > 0 && (
+                  <div className="products-grid">
+                    {rec.products.map((product) => (
+                      <div key={product.productId} className="recommendation-item">
+                        <ProductCard product={product} />
+                        <div className="match-badge">
+                          ✨ Perfect for {rec.concern}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Action Buttons */}
+        <section className="action-section" data-aos="fade-up">
+          <div className="action-buttons">
+            <button 
+              className="btn-primary"
+              onClick={() => navigate('/shop')}
+            >
+              Browse All Products
+            </button>
+            <button 
+              className="btn-outline"
+              onClick={() => navigate('/skin-quiz')}
+            >
+              Retake Quiz
+            </button>
           </div>
         </section>
 
         {/* General Tips */}
         <section className="tips-section" data-aos="fade-up">
-          <h2>General Skincare Tips for {quizData.skinType} Skin</h2>
+          <h2>Skincare Tips for {quizResults.skinType} Skin</h2>
           <div className="tips-grid">
-            {getSkincareTips(quizData.skinType).map((tip, index) => (
+            {getSkincareTips(quizResults.skinType).map((tip, index) => (
               <div key={index} className="tip-card">
                 <h3>{tip.title}</h3>
                 <p>{tip.description}</p>

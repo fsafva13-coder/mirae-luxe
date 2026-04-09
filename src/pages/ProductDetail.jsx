@@ -1,105 +1,199 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FiShoppingCart, FiHeart, FiChevronLeft } from 'react-icons/fi';
-import { FaHeart } from 'react-icons/fa';
-import { productsAPI, reviewsAPI } from '../services/api';
+import { productsAPI, cartAPI, wishlistAPI, reviewsAPI } from '../services/api';
+import ProductCard from '../components/common/ProductCard';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [selectedShade, setSelectedShade] = useState('');
-  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   useEffect(() => {
-    fetchProduct();
+    fetchProductDetails();
     fetchReviews();
   }, [id]);
 
-  const fetchProduct = async () => {
-    try {
-      const response = await productsAPI.getById(id);
-      setProduct(response.data);
-      setSelectedImage(0);
-    } catch (error) {
-      console.error('Error fetching product:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+const fetchProductDetails = async () => {
+  try {
+    const response = await productsAPI.getById(id);
+    
+    // ✅ FIX: Extract the product object from response.data.product
+    setProduct(response.data.product);
+
+    // Fetch related products
+    const relatedResponse = await productsAPI.getAll({
+      category: response.data.product.category
+    });
+    
+    const related = relatedResponse.data
+      .filter(p => p.productId !== response.data.product.productId)
+      .slice(0, 4);
+    
+    setRelatedProducts(related);
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    alert('Product not found');
+    navigate('/shop');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchReviews = async () => {
+    setReviewsLoading(true);
     try {
       const response = await reviewsAPI.getProductReviews(id);
       setReviews(response.data.reviews || []);
     } catch (error) {
       console.error('Error fetching reviews:', error);
+    } finally {
+      setReviewsLoading(false);
     }
   };
 
-  const handleAddToCart = () => {
-    console.log('Add to cart:', { product, quantity, selectedShade });
-    alert(`${product.name} added to cart!`);
+  // ✅ FIXED: Actually call cart API instead of alert
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        alert('Please login to add items to cart');
+        navigate('/login');
+        return;
+      }
+
+      await cartAPI.addToCart({
+        productId: product.productId,
+        quantity: quantity
+      });
+
+      alert(`${quantity} x ${product.name} added to cart!`);
+      
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      
+      if (error.response?.status === 401) {
+        alert('Please login to add items to cart');
+        navigate('/login');
+      } else {
+        alert('Failed to add to cart. Please try again.');
+      }
+    }
   };
 
-  const handleWishlistToggle = () => {
-    setIsInWishlist(!isInWishlist);
-    alert(isInWishlist ? 'Removed from wishlist' : 'Added to wishlist!');
+  // ✅ FIXED: Actually call wishlist API instead of alert
+  const handleAddToWishlist = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        alert('Please login to add items to wishlist');
+        navigate('/login');
+        return;
+      }
+
+      await wishlistAPI.addToWishlist({ productId: product.productId });
+      alert('Added to wishlist!');
+      
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      
+      if (error.response?.status === 401) {
+        alert('Please login to add items to wishlist');
+        navigate('/login');
+      } else if (error.response?.status === 400) {
+        alert('Item already in wishlist');
+      } else {
+        alert('Failed to add to wishlist. Please try again.');
+      }
+    }
+  };
+
+  const getProductImages = () => {
+    if (!product) return [];
+    return [
+      product.imageUrl1,
+      product.imageUrl2,
+      product.imageUrl3
+    ].filter(Boolean);
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < 5; i++) {
+      if (i < fullStars) {
+        stars.push(<span key={i} className="star">★</span>);
+      } else if (i === fullStars && hasHalfStar) {
+        stars.push(<span key={i} className="star half">★</span>);
+      } else {
+        stars.push(<span key={i} className="star empty">☆</span>);
+      }
+    }
+    return stars;
   };
 
   if (loading) {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
+        <p>Loading product details...</p>
       </div>
     );
   }
 
   if (!product) {
-    return (
-      <div className="error-container">
-        <h2>Product not found</h2>
-        <button className="btn-primary" onClick={() => navigate('/shop')}>
-          Back to Shop
-        </button>
-      </div>
-    );
+    return <div className="error-message">Product not found</div>;
   }
 
-  const images = [product.imageUrl1, product.imageUrl2, product.imageUrl3].filter(Boolean);
-  const shades = product.availableShades ? product.availableShades.split(',').map(s => s.trim()) : [];
+  const images = getProductImages();
 
   return (
     <div className="product-detail-page">
-      {/* Back Button */}
       <div className="container">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <FiChevronLeft /> Back
-        </button>
-      </div>
+        {/* Breadcrumb */}
+        <nav className="breadcrumb" data-aos="fade-down">
+          <span onClick={() => navigate('/')}>Home</span> / 
+          <span onClick={() => navigate('/shop')}>Shop</span> / 
+          <span onClick={() => navigate(`/shop?category=${product.category}`)}>{product.category}</span> / 
+          <span className="current">{product.name}</span>
+        </nav>
 
-      <div className="container">
-        <div className="product-detail-content">
-          {/* Product Images */}
-          <div className="product-images" data-aos="fade-right">
-            <div className="main-image">
-              <img src={images[selectedImage]} alt={product.name} />
-              {product.isVegan && <span className="badge badge-vegan">Vegan</span>}
-              {product.isCrueltyFree && <span className="badge badge-cruelty-free">Cruelty-Free</span>}
+        {/* Product Details */}
+        <section className="product-details-section" data-aos="fade-up">
+          {/* Image Gallery */}
+          <div className="product-gallery">
+            <div className="main-image-container">
+              <img 
+                src={images[selectedImage]} 
+                alt={product.name}
+                className="main-image"
+              />
+              {product.isVegan && (
+                <span className="badge vegan-badge">VEGAN</span>
+              )}
+              {product.isCrueltyFree && (
+                <span className="badge cruelty-free-badge">CRUELTY-FREE</span>
+              )}
             </div>
+
             {images.length > 1 && (
-              <div className="image-thumbnails">
+              <div className="thumbnail-gallery">
                 {images.map((img, index) => (
                   <img
                     key={index}
                     src={img}
                     alt={`${product.name} ${index + 1}`}
-                    className={selectedImage === index ? 'active' : ''}
+                    className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
                     onClick={() => setSelectedImage(index)}
                   />
                 ))}
@@ -108,154 +202,173 @@ const ProductDetail = () => {
           </div>
 
           {/* Product Info */}
-          <div className="product-info-section" data-aos="fade-left">
-            <p className="product-brand">{product.brand}</p>
-            <h1 className="product-title">{product.name}</h1>
-            <p className="product-category">{product.subCategory}</p>
-
-            {/* Rating */}
-            {product.rating > 0 && (
-              <div className="product-rating">
-                <span className="stars">{'★'.repeat(Math.round(product.rating))}</span>
-                <span className="rating-text">
-                  {product.rating.toFixed(1)} ({product.reviewCount} reviews)
-                </span>
-              </div>
-            )}
-
-            {/* Price */}
-            <div className="product-price-section">
-              <p className="price">AED {product.price.toFixed(2)}</p>
-              <p className="size">{product.size}</p>
+          <div className="product-info-section">
+            <div className="product-header">
+              <span className="product-brand">{product.brand}</span>
+              <h1 className="product-title">{product.name}</h1>
+              <p className="product-category">{product.category} • {product.subCategory}</p>
             </div>
+
+{/* Rating */}
+{product.rating > 0 && (
+  <div className="product-rating">
+    <div className="stars">
+      {renderStars(product.rating)}
+    </div>
+    <span className="rating-text">
+      {(product.rating || 0).toFixed(1)} ({product.reviewCount || 0} reviews)
+    </span>
+  </div>
+)}
+
+{/* Price */}
+<div className="product-price-section">
+  <span className="price">AED {(product.price || 0).toFixed(2)}</span>
+  {product.stockQuantity < 10 && product.stockQuantity > 0 && (
+    <span className="low-stock-warning">Only {product.stockQuantity} left in stock!</span>
+  )}
+</div>
 
             {/* Description */}
             <div className="product-description">
+              <h3>About This Product</h3>
               <p>{product.description}</p>
             </div>
 
-            {/* Key Ingredients */}
-            <div className="product-details">
-              <h3>Key Ingredients</h3>
-              <p>{product.keyIngredients}</p>
-            </div>
-
             {/* Skin Type */}
-            <div className="product-details">
-              <h3>Suitable For</h3>
-              <p>{product.skinType}</p>
-            </div>
-
-            {/* Shades Selection */}
-            {shades.length > 0 && (
-              <div className="shade-selector">
-                <label>Select Shade:</label>
-                <div className="shade-options">
-                  {shades.map(shade => (
-                    <button
-                      key={shade}
-                      className={`shade-btn ${selectedShade === shade ? 'active' : ''}`}
-                      onClick={() => setSelectedShade(shade)}
-                    >
-                      {shade}
-                    </button>
-                  ))}
-                </div>
+            {product.skinType && (
+              <div className="product-meta">
+                <h4>Best For:</h4>
+                <p>{product.skinType}</p>
               </div>
             )}
 
-            {/* Quantity */}
-            <div className="quantity-selector">
+            {/* Key Ingredients */}
+            {product.keyIngredients && (
+              <div className="product-meta">
+                <h4>Key Ingredients:</h4>
+                <p>{product.keyIngredients}</p>
+              </div>
+            )}
+
+            {/* Quantity Selector */}
+            <div className="quantity-section">
               <label>Quantity:</label>
-              <div className="quantity-controls">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                <span>{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)}>+</button>
+              <div className="quantity-selector">
+                <button 
+                  className="qty-btn"
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  disabled={quantity <= 1}
+                >
+                  −
+                </button>
+                <input 
+                  type="number" 
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  min="1"
+                  max={product.stockQuantity}
+                />
+                <button 
+                  className="qty-btn"
+                  onClick={() => setQuantity(Math.min(product.stockQuantity, quantity + 1))}
+                  disabled={quantity >= product.stockQuantity}
+                >
+                  +
+                </button>
               </div>
             </div>
 
-            {/* Stock Status */}
-            <div className="stock-status">
-              {product.stockQuantity > 0 ? (
-                <span className="in-stock">✓ In Stock</span>
-              ) : (
-                <span className="out-of-stock">Out of Stock</span>
-              )}
-            </div>
-
-            {/* Action Buttons */}
+            {/* ✅ FIXED: Action Buttons - ALWAYS VISIBLE */}
             <div className="product-actions">
-              <button
+              <button 
                 className="btn-primary add-to-cart-btn"
                 onClick={handleAddToCart}
                 disabled={product.stockQuantity === 0}
               >
-                <FiShoppingCart /> Add to Cart
+                {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
               </button>
-              <button className="btn-wishlist" onClick={handleWishlistToggle}>
-                {isInWishlist ? <FaHeart size={22} /> : <FiHeart size={22} />}
+              <button 
+                className="btn-outline wishlist-btn"
+                onClick={handleAddToWishlist}
+              >
+                ♡ Add to Wishlist
               </button>
             </div>
 
-            {/* Product Features */}
+            {/* Features */}
             <div className="product-features">
-              <div className="feature-item">
-                <span className="icon">✓</span>
-                <span>Free shipping on orders over AED 200</span>
-              </div>
-              <div className="feature-item">
-                <span className="icon">✓</span>
-                <span>Members get 15% off + free gift</span>
-              </div>
               {product.isVegan && (
-                <div className="feature-item">
-                  <span className="icon">🌱</span>
-                  <span>100% Vegan</span>
+                <div className="feature-badge">
+                  <span>🌱</span> Vegan
                 </div>
               )}
               {product.isCrueltyFree && (
-                <div className="feature-item">
-                  <span className="icon">🐰</span>
-                  <span>Cruelty-Free</span>
+                <div className="feature-badge">
+                  <span>🐰</span> Cruelty-Free
                 </div>
               )}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Reviews Section */}
-        <div className="reviews-section" data-aos="fade-up">
+        <section className="reviews-section" data-aos="fade-up">
           <h2>Customer Reviews</h2>
-          {reviews.length > 0 ? (
+          {reviewsLoading ? (
+            <p>Loading reviews...</p>
+          ) : reviews.length > 0 ? (
             <div className="reviews-list">
-              {reviews.map(review => (
+              {reviews.map((review) => (
                 <div key={review.reviewId} className="review-card">
                   <div className="review-header">
                     <div className="reviewer-info">
-                      <div className="avatar">{review.reviewerInitials}</div>
+                      <div className="reviewer-avatar">
+                        {review.reviewerInitials}
+                      </div>
                       <div>
-                        <p className="reviewer-name">{review.reviewerName}</p>
-                        <p className="review-date">
-                          {new Date(review.reviewDate).toLocaleDateString()}
-                        </p>
+                        <h4>{review.reviewerName}</h4>
+                        {review.isVerifiedPurchase && (
+                          <span className="verified-badge">✓ Verified Purchase</span>
+                        )}
                       </div>
                     </div>
                     <div className="review-rating">
-                      {'★'.repeat(review.rating)}
+                      {renderStars(review.rating)}
                     </div>
                   </div>
-                  <h4>{review.title}</h4>
-                  <p>{review.comment}</p>
-                  {review.isVerifiedPurchase && (
-                    <span className="verified-badge">✓ Verified Purchase</span>
-                  )}
+                  <h3 className="review-title">{review.title}</h3>
+                  <p className="review-comment">{review.comment}</p>
+                  <div className="review-footer">
+                    <span className="review-date">
+                      {new Date(review.reviewDate).toLocaleDateString()}
+                    </span>
+                    <span className="helpful-count">
+                      {review.helpfulCount} found this helpful
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="no-reviews">No reviews yet. Be the first to review!</p>
+            <p className="no-reviews">No reviews yet. Be the first to review this product!</p>
           )}
-        </div>
+        </section>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <section className="related-products-section" data-aos="fade-up">
+            <h2>You May Also Like</h2>
+            <div className="related-products-grid">
+              {relatedProducts.map((relatedProduct) => (
+                <ProductCard 
+                  key={relatedProduct.productId} 
+                  product={relatedProduct}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
