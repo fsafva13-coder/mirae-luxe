@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';      
+import { cartAPI, wishlistAPI } from '../../services/api';
 import './ProductCard.css';
 import ProductImage from './ProductImage'; 
 
 const ProductCard = ({ product, onAddToCart, onAddToWishlist }) => {
+  const navigate = useNavigate();
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -21,21 +23,61 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist }) => {
     return stars;
   };
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onAddToCart) {
-      onAddToCart(product);
+const handleAddToCart = async (e) => {
+  e.preventDefault(); // Prevent navigation
+  e.stopPropagation(); // Stop event bubbling
+  
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to add items to cart');
+      navigate('/login');
+      return;
     }
-  };
 
-  const handleAddToWishlist = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onAddToWishlist) {
-      onAddToWishlist(product.productId);
+    await cartAPI.addToCart({
+      productId: product.productId,
+      quantity: 1
+    });
+
+    alert(`${product.name} added to cart!`);
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    if (error.response?.status === 401) {
+      alert('Please login to add items to cart');
+      navigate('/login');
+    } else {
+      alert('Failed to add to cart. Please try again.');
     }
-  };
+  }
+};
+
+const handleAddToWishlist = async (e) => {
+  e.preventDefault(); // Prevent navigation
+  e.stopPropagation(); // Stop event bubbling
+  
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to add items to wishlist');
+      navigate('/login');
+      return;
+    }
+
+    await wishlistAPI.addToWishlist({ productId: product.productId });
+    alert('Added to wishlist!');
+  } catch (error) {
+    console.error('Error adding to wishlist:', error);
+    if (error.response?.status === 401) {
+      alert('Please login to add items to wishlist');
+      navigate('/login');
+    } else if (error.response?.status === 400) {
+      alert('Item already in wishlist');
+    } else {
+      alert('Failed to add to wishlist. Please try again.');
+    }
+  }
+};
 
   return (
     <div className="product-card">

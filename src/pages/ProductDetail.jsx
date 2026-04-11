@@ -102,18 +102,17 @@ const fetchProductDetails = async () => {
       await wishlistAPI.addToWishlist({ productId: product.productId });
       alert('Added to wishlist!');
       
-    } catch (error) {
-      console.error('Error adding to wishlist:', error);
-      
-      if (error.response?.status === 401) {
-        alert('Please login to add items to wishlist');
-        navigate('/login');
-      } else if (error.response?.status === 400) {
-        alert('Item already in wishlist');
-      } else {
-        alert('Failed to add to wishlist. Please try again.');
-      }
-    }
+} catch (error) {
+  console.error('Error adding to cart:', error);
+  if (error.response?.status === 401) {
+    alert('Please login to add items to cart');
+    navigate('/login');
+  } else if (error.response?.status === 400) {
+    alert(error.response.data?.message || 'This item is out of stock');  // ← specific message
+  } else {
+    alert('Failed to add to cart. Please try again.');
+  }
+}
   };
 
   const getProductImages = () => {

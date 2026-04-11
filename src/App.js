@@ -25,7 +25,7 @@ function App() {
       <Router>
         <ScrollToTop />
         <Header />
-        
+
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,13 +42,14 @@ function App() {
             <Route path="/my-account" element={<MyAccount />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/quiz-results" element={<QuizResults />} />
+            {/* ← ADDED: order detail redirects to account page where orders are shown */}
+            <Route path="/orders/:id" element={<MyAccount />} />
           </Routes>
         </main>
-        
+
         <Footer />
       </Router>
-      
-      {/* ChatBot appears on all pages */}
+
       <ChatBot />
     </div>
   );

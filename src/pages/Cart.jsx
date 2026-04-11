@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiTrash2, FiShoppingBag } from 'react-icons/fi';
-import { cartAPI } from '../services/api';
+import { cartAPI, membershipAPI } from '../services/api'; // ← added membershipAPI
 import './Cart.css';
 
 const Cart = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isMember, setIsMember] = useState(false); // Will get from auth context later
+  const [isMember, setIsMember] = useState(false);
 
   useEffect(() => {
     fetchCart();
+    checkMembership(); // ← added
   }, []);
 
   const fetchCart = async () => {
@@ -26,12 +27,36 @@ const Cart = () => {
     }
   };
 
+  // ← ADDED: check real membership status from backend
+  const checkMembership = async () => {
+    try {
+      const response = await membershipAPI.getStatus();
+      setIsMember(response.data.isMember || false);
+
+      // Keep localStorage in sync
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = JSON.parse(userData);
+        user.isMember = response.data.isMember || false;
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+    } catch (error) {
+      // Fall back to localStorage if API unavailable
+      try {
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          const user = JSON.parse(userData);
+          setIsMember(user.isMember || false);
+        }
+      } catch (e) {}
+    }
+  };
+
   const handleUpdateQuantity = async (cartItemId, newQuantity) => {
     if (newQuantity < 1) return;
-    
     try {
       await cartAPI.updateQuantity({ cartItemId, quantity: newQuantity });
-      fetchCart(); // Refresh cart
+      fetchCart();
     } catch (error) {
       console.error('Error updating quantity:', error);
       alert('Failed to update quantity');
@@ -41,7 +66,7 @@ const Cart = () => {
   const handleRemoveItem = async (cartItemId) => {
     try {
       await cartAPI.removeItem(cartItemId);
-      fetchCart(); // Refresh cart
+      fetchCart();
     } catch (error) {
       console.error('Error removing item:', error);
       alert('Failed to remove item');
@@ -50,10 +75,9 @@ const Cart = () => {
 
   const handleClearCart = async () => {
     if (!window.confirm('Are you sure you want to clear your cart?')) return;
-    
     try {
       await cartAPI.clearCart();
-      fetchCart(); // Refresh cart
+      fetchCart();
     } catch (error) {
       console.error('Error clearing cart:', error);
       alert('Failed to clear cart');
@@ -70,7 +94,7 @@ const Cart = () => {
 
   const subtotal = cart?.subtotal || 0;
   const memberDiscount = isMember ? subtotal * 0.15 : 0;
-  const shipping = subtotal >= 200 ? 0 : 20;
+  const shipping = isMember ? 0 : subtotal >= 200 ? 0 : 20; // members always free shipping
   const total = subtotal - memberDiscount + shipping;
   const giftEligible = isMember || subtotal >= 120;
 
@@ -90,7 +114,6 @@ const Cart = () => {
           </div>
         ) : (
           <div className="cart-content">
-            {/* Cart Items */}
             <div className="cart-items-section" data-aos="fade-right">
               <div className="cart-header">
                 <h3>{cart.itemCount} {cart.itemCount === 1 ? 'Item' : 'Items'}</h3>
@@ -106,28 +129,20 @@ const Cart = () => {
                     <div className="item-details">
                       <p className="item-brand">{item.brand}</p>
                       <h4>{item.name}</h4>
-                      {item.selectedShade && (
+                      {item.selectedShade && item.selectedShade !== '' && (
                         <p className="item-shade">Shade: {item.selectedShade}</p>
                       )}
                       <p className="item-price">AED {item.price.toFixed(2)}</p>
                     </div>
                     <div className="item-quantity">
-                      <button 
-                        onClick={() => handleUpdateQuantity(item.cartItemId, item.quantity - 1)}
-                      >
-                        -
-                      </button>
+                      <button onClick={() => handleUpdateQuantity(item.cartItemId, item.quantity - 1)}>-</button>
                       <span>{item.quantity}</span>
-                      <button 
-                        onClick={() => handleUpdateQuantity(item.cartItemId, item.quantity + 1)}
-                      >
-                        +
-                      </button>
+                      <button onClick={() => handleUpdateQuantity(item.cartItemId, item.quantity + 1)}>+</button>
                     </div>
                     <div className="item-subtotal">
                       <p>AED {item.subtotal.toFixed(2)}</p>
                     </div>
-                    <button 
+                    <button
                       className="remove-btn"
                       onClick={() => handleRemoveItem(item.cartItemId)}
                     >
@@ -138,7 +153,6 @@ const Cart = () => {
               </div>
             </div>
 
-            {/* Order Summary */}
             <div className="order-summary" data-aos="fade-left">
               <h3>Order Summary</h3>
 
@@ -176,13 +190,14 @@ const Cart = () => {
                 <span>AED {total.toFixed(2)}</span>
               </div>
 
-              <button 
+              <button
                 className="btn-primary checkout-btn"
                 onClick={() => navigate('/checkout')}
               >
                 Proceed to Checkout
               </button>
 
+              {/* ← Only show membership promo if genuinely not a member */}
               {!isMember && (
                 <div className="membership-promo">
                   <p>Join membership and save 15% on this order!</p>

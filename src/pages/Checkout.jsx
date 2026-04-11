@@ -9,6 +9,7 @@ const Checkout = () => {
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
   const [isMember, setIsMember] = useState(false);
+  const [cartError, setCartError] = useState(false);
   const [formData, setFormData] = useState({
     shippingAddress: '',
     paymentMethod: 'Card'
@@ -22,10 +23,14 @@ const Checkout = () => {
   const fetchCart = async () => {
     try {
       const response = await cartAPI.getCart();
+      if (!response.data || response.data.itemCount === 0) {
+        navigate('/cart');
+        return;
+      }
       setCart(response.data);
     } catch (error) {
       console.error('Error fetching cart:', error);
-      navigate('/cart');
+      setCartError(true);
     } finally {
       setLoading(false);
     }
@@ -41,28 +46,45 @@ const Checkout = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const subtotal = cart?.subtotal || 0;
+  const memberDiscount = isMember ? subtotal * 0.15 : 0;
+  const shippingFee = isMember ? 0 : subtotal >= 200 ? 0 : 20; // members always get free shipping
+  const total = subtotal - memberDiscount + shippingFee;
+  const giftEligible = isMember || subtotal >= 120;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setProcessing(true);
 
+    if (!formData.shippingAddress.trim()) {
+      alert('Please enter a shipping address.');
+      return;
+    }
+
+    setProcessing(true);
     try {
       const response = await ordersAPI.checkout({
         shippingAddress: formData.shippingAddress,
         paymentMethod: formData.paymentMethod,
-        shippingFee: shipping
+        shippingFee: shippingFee
       });
 
-      alert('Order placed successfully!');
-      navigate(`/orders/${response.data.orderId}`);
+      alert(`Order placed successfully! Tracking number: ${response.data.trackingNumber}`);
+      // ← FIXED: navigate to my-account where orders are visible, not /orders/:id
+      navigate('/my-account');
+
     } catch (error) {
       console.error('Error placing order:', error);
-      alert('Failed to place order. Please try again.');
+      if (error.response?.status === 400) {
+        alert(error.response.data?.message || 'Cart is empty or invalid.');
+      } else if (error.response?.status === 401) {
+        alert('Session expired. Please login again.');
+        navigate('/login');
+      } else {
+        alert('Failed to place order. Please make sure the backend is running.');
+      }
     } finally {
       setProcessing(false);
     }
@@ -76,16 +98,27 @@ const Checkout = () => {
     );
   }
 
+  if (cartError) {
+    return (
+      <div className="loading-container">
+        <p style={{ color: 'var(--color-text-secondary)', textAlign: 'center' }}>
+          Could not load your cart. Please make sure the backend is running.
+        </p>
+        <button
+          className="btn-outline"
+          style={{ marginTop: '16px' }}
+          onClick={() => navigate('/cart')}
+        >
+          Back to Cart
+        </button>
+      </div>
+    );
+  }
+
   if (!cart || cart.itemCount === 0) {
     navigate('/cart');
     return null;
   }
-
-  const subtotal = cart.subtotal;
-  const memberDiscount = isMember ? subtotal * 0.15 : 0;
-  const shipping = subtotal >= 200 ? 0 : 20;
-  const total = subtotal - memberDiscount + shipping;
-  const giftEligible = isMember || subtotal >= 120;
 
   return (
     <div className="checkout-page">
@@ -93,10 +126,9 @@ const Checkout = () => {
         <h1 data-aos="fade-up">Checkout</h1>
 
         <div className="checkout-content">
-          {/* Checkout Form */}
           <div className="checkout-form-section" data-aos="fade-right">
             <form onSubmit={handleSubmit}>
-              {/* Shipping Address */}
+
               <div className="form-section">
                 <h3>Shipping Address</h3>
                 <div className="form-group">
@@ -113,7 +145,6 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {/* Payment Method */}
               <div className="form-section">
                 <h3>Payment Method</h3>
                 <div className="payment-options">
@@ -143,18 +174,20 @@ const Checkout = () => {
                 </p>
               </div>
 
-              <button type="submit" className="btn-primary btn-full" disabled={processing}>
-                {processing ? 'Processing...' : `Place Order - AED ${total.toFixed(2)}`}
+              <button
+                type="submit"
+                className="btn-primary btn-full"
+                disabled={processing}
+              >
+                {processing ? 'Processing...' : `Place Order — AED ${total.toFixed(2)}`}
               </button>
             </form>
           </div>
 
-          {/* Order Summary */}
           <div className="order-summary-section" data-aos="fade-left">
             <div className="order-summary-card">
               <h3>Order Summary</h3>
 
-              {/* Cart Items */}
               <div className="summary-items">
                 {cart.items.map(item => (
                   <div key={item.cartItemId} className="summary-item">
@@ -168,7 +201,6 @@ const Checkout = () => {
                 ))}
               </div>
 
-              {/* Price Breakdown */}
               <div className="price-breakdown">
                 <div className="price-row">
                   <span>Subtotal</span>
@@ -184,8 +216,14 @@ const Checkout = () => {
 
                 <div className="price-row">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? 'FREE' : `AED ${shipping.toFixed(2)}`}</span>
+                  <span>{shippingFee === 0 ? 'FREE' : `AED ${shippingFee.toFixed(2)}`}</span>
                 </div>
+
+                {shippingFee > 0 && (
+                  <div className="shipping-notice">
+                    <p>Add AED {(200 - subtotal).toFixed(2)} more for free shipping</p>
+                  </div>
+                )}
 
                 {giftEligible && (
                   <div className="gift-banner">
@@ -199,12 +237,12 @@ const Checkout = () => {
                 </div>
               </div>
 
-              {/* Member Benefits */}
               {isMember && (
                 <div className="member-benefits-box">
                   <h4>Member Benefits Applied:</h4>
                   <ul>
-                    <li>✓ 15% discount: AED {memberDiscount.toFixed(2)} saved</li>
+                    <li>✓ 15% discount — AED {memberDiscount.toFixed(2)} saved</li>
+                    <li>✓ Free shipping</li>
                     <li>✓ Free gift included</li>
                   </ul>
                 </div>
