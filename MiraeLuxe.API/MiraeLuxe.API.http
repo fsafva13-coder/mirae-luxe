@@ -1,0 +1,6 @@
+@MiraeLuxe.API_HostAddress = http://localhost:5225
+
+GET {{MiraeLuxe.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
