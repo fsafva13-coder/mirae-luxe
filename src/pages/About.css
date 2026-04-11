@@ -1,0 +1,244 @@
+.about-page {
+  padding-bottom: 0;
+}
+
+/* Hero Section */
+.about-hero {
+  background: linear-gradient(135deg, var(--muted-bronze) 0%, var(--almost-black) 100%);
+  padding: 100px 0;
+  text-align: center;
+  color: var(--pure-white);
+}
+
+.about-hero h1 {
+  font-size: 56px;
+  margin-bottom: 20px;
+  color: var(--pure-white);
+}
+
+.hero-subtitle {
+  font-size: 22px;
+  color: #E8DED3 !important; /* Light beige - FORCED */
+}
+
+/* Also add this to be extra sure */
+.about-hero .hero-subtitle {
+  color: #E8DED3 !important;
+}
+
+.about-hero p {
+  color: #E8DED3 !important;
+}
+
+/* Story Section */
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.story-text h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: var(--almost-black);
+}
+
+.story-text p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: var(--almost-black);
+}
+
+.image-placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--soft-beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  border: 2px solid var(--warm-taupe);
+}
+
+.story-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(245, 240, 235, 0.5) 0%, rgba(212, 196, 176, 0.3) 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(139, 115, 85, 0.15);
+}
+
+.story-image img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(139, 115, 85, 0.2));
+}
+
+/* Values Section */
+.section-title {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--almost-black);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.value-card {
+  text-align: center;
+  padding: 40px 30px;
+  background: var(--pure-white);
+  border: 1px solid var(--warm-taupe);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.value-icon {
+  font-size: 60px;
+  margin-bottom: 25px;
+}
+
+.value-card h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: var(--almost-black);
+}
+
+.value-card p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--almost-black);
+}
+
+/* Mission Section */
+.mission-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mission-content h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: var(--almost-black);
+}
+
+.mission-text {
+  font-size: 20px;
+  line-height: 1.8;
+  color: var(--almost-black);
+}
+
+/* Stats Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.stat-item h3 {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--muted-bronze);
+  margin-bottom: 10px;
+  font-family: var(--heading-font);
+}
+
+.stat-item p {
+  font-size: 18px;
+  color: var(--almost-black);
+  font-weight: 600;
+}
+
+/* Team Section */
+.team-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.team-content h2 {
+  font-size: 36px;
+  margin-bottom: 25px;
+  color: var(--almost-black);
+}
+
+.team-content p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: var(--almost-black);
+}
+
+.team-members {
+  background: var(--soft-beige);
+  padding: 30px;
+  border-left: 4px solid var(--muted-bronze);
+  text-align: left;
+}
+
+.team-members strong {
+  color: var(--muted-bronze);
+  font-size: 18px;
+}
+
+.team-members ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.team-members li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: var(--almost-black);
+  padding-left: 20px;
+  position: relative;
+}
+
+.team-members li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--muted-bronze);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 36px;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title,
+  .story-text h2,
+  .mission-content h2 {
+    font-size: 32px;
+  }
+
+  .stat-item h3 {
+    font-size: 42px;
+  }
+}
