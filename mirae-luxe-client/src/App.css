@@ -6,8 +6,7 @@
 }
 
 /* Force remove text decoration from everything */
-a, a:hover, a:focus, a:active, a:visited,
-Link, Link:hover, Link:focus, Link:active {
+a, a:hover, a:focus, a:active, a:visited {
   text-decoration: none !important;
 }
 
@@ -17,9 +16,15 @@ Link, Link:hover, Link:focus, Link:active {
   --muted-bronze: #8B7355;
   --pure-white: #FFFFFF;
   --almost-black: #2C2C2C;
-  
+
   --primary-font: 'Montserrat', sans-serif;
   --heading-font: 'Cormorant Garamond', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -27,6 +32,17 @@ body {
   color: var(--almost-black);
   background-color: var(--pure-white);
   line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ← KEY FIX: container must have padding so content never touches edge */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Typography */
@@ -49,7 +65,7 @@ p {
 }
 
 .logo {
-  text-decoration: none !important; /* Force no underline */
+  text-decoration: none !important;
 }
 
 .logo h1 {
@@ -59,7 +75,7 @@ p {
   color: var(--almost-black);
   margin: 0;
   letter-spacing: 3px;
-  text-decoration: none !important; /* No underline on h1 */
+  text-decoration: none !important;
 }
 
 .logo:hover h1 {
@@ -67,7 +83,7 @@ p {
   text-decoration: none !important;
 }
 
-.logo, .logo *, 
+.logo, .logo *,
 .logo:hover, .logo:hover * {
   text-decoration: none !important;
 }
@@ -83,6 +99,7 @@ p {
   letter-spacing: 1px;
   border-radius: 0;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -99,6 +116,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-outline:hover {
@@ -134,11 +152,13 @@ p {
   border-radius: 0;
   padding: 12px 15px;
   font-size: 14px;
+  width: 100%;
 }
 
 .form-control:focus {
   border-color: var(--muted-bronze);
   box-shadow: none;
+  outline: none;
 }
 
 /* Loading Spinner */
@@ -155,6 +175,16 @@ p {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Loading container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  text-align: center;
 }
 
 /* Utility Classes */
@@ -210,37 +240,20 @@ p {
   box-shadow: 0 0 20px rgba(139, 115, 85, 0.4);
 }
 
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
-}
-
 /* Fade In Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in {
   animation: fadeIn 0.6s ease-out;
 }
 
-/* Slide In Animation */
+/* Slide In Animations */
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 .slide-in-left {
@@ -248,33 +261,36 @@ html {
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 .slide-in-right {
   animation: slideInRight 0.6s ease-out;
 }
 
-/* Pulse Animation for Buttons */
+/* Pulse Animation */
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 15px rgba(139, 115, 85, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(139, 115, 85, 0);
-  }
+  0%   { box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.7); }
+  70%  { box-shadow: 0 0 0 15px rgba(139, 115, 85, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 115, 85, 0); }
 }
 
 .btn-pulse {
   animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 32px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 22px; }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .section-padding {
+    padding: 50px 0;
+  }
 }
