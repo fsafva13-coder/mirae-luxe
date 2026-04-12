@@ -11,7 +11,6 @@ namespace MiraeLuxe.API.Data
         {
         }
 
-        // DbSets
         public DbSet<Product> Products { get; set; }
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -29,7 +28,6 @@ namespace MiraeLuxe.API.Data
         {
             base.OnModelCreating(builder);
 
-            // Configure relationships and constraints
             builder.Entity<Order>()
                 .HasOne(o => o.User)
                 .WithMany(u => u.Orders)
@@ -48,7 +46,6 @@ namespace MiraeLuxe.API.Data
                 .HasForeignKey(r => r.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Seed initial data (optional)
             builder.Entity<GiftPromotion>().HasData(
                 new GiftPromotion
                 {

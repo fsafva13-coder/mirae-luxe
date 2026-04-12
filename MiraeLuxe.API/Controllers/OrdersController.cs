@@ -19,7 +19,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // POST: api/Orders/Checkout
         [HttpPost("Checkout")]
         public async Task<ActionResult> Checkout([FromBody] CheckoutModel model)
         {
@@ -144,7 +143,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Orders/History
         [HttpGet("History")]
         public async Task<ActionResult> GetOrderHistory()
         {
@@ -184,7 +182,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(orders);
         }
 
-        // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult> GetOrder(int id)
         {
@@ -228,7 +225,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Orders/Track/{trackingNumber}
         [HttpGet("Track/{trackingNumber}")]
         public async Task<ActionResult> TrackOrder(string trackingNumber)
         {
@@ -337,11 +333,10 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Model
     public class CheckoutModel
     {
-        public string? ShippingAddress { get; set; }  // ← THE FIX: nullable
-        public string? PaymentMethod { get; set; }    // ← THE FIX: nullable
+        public string? ShippingAddress { get; set; }  
+        public string? PaymentMethod { get; set; }    
         public decimal ShippingFee { get; set; } = 0;
     }
 }

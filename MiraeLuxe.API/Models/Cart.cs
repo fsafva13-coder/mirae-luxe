@@ -18,7 +18,6 @@ namespace MiraeLuxe.API.Models
 
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
-        // Navigation Properties
         public virtual ICollection<CartItem> CartItems { get; set; }
     }
 }

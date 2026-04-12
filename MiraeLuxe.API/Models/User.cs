@@ -26,7 +26,6 @@ namespace MiraeLuxe.API.Models
 
         public DateTime? LastLoginDate { get; set; }
 
-        // Navigation Properties
         public virtual Membership Membership { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }

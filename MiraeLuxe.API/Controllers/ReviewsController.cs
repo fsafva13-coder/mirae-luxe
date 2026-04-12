@@ -18,7 +18,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // GET: api/Reviews/Product/5
         [HttpGet("Product/{productId}")]
         public async Task<ActionResult> GetProductReviews(int productId)
         {
@@ -59,26 +58,22 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Reviews
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddReview([FromBody] AddReviewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Check if product exists
             var product = await _context.Products.FindAsync(model.ProductId);
             if (product == null)
                 return NotFound(new { Message = "Product not found" });
 
-            // Check if user already reviewed this product
             var existingReview = await _context.Reviews
                 .FirstOrDefaultAsync(r => r.UserId == userId && r.ProductId == model.ProductId);
 
             if (existingReview != null)
                 return BadRequest(new { Message = "You have already reviewed this product" });
 
-            // Check if verified purchase
             var hasPurchased = await _context.OrderItems
                 .Include(oi => oi.Order)
                 .AnyAsync(oi => oi.ProductId == model.ProductId &&
@@ -99,11 +94,10 @@ namespace MiraeLuxe.API.Controllers
 
             _context.Reviews.Add(review);
 
-            // Update product rating
             var allReviews = await _context.Reviews
                 .Where(r => r.ProductId == model.ProductId)
                 .ToListAsync();
-            allReviews.Add(review); // Include new review
+            allReviews.Add(review); 
 
             product.Rating = (decimal)allReviews.Average(r => r.Rating);
             product.ReviewCount = allReviews.Count;
@@ -118,7 +112,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // PUT: api/Reviews/5
         [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateReview(int id, [FromBody] UpdateReviewModel model)
@@ -136,7 +129,6 @@ namespace MiraeLuxe.API.Controllers
             review.Title = model.Title;
             review.Comment = model.Comment;
 
-            // Update product rating
             var allReviews = await _context.Reviews
                 .Where(r => r.ProductId == review.ProductId)
                 .ToListAsync();
@@ -148,7 +140,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Review updated successfully" });
         }
 
-        // DELETE: api/Reviews/5
         [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReview(int id)
@@ -166,7 +157,6 @@ namespace MiraeLuxe.API.Controllers
             _context.Reviews.Remove(review);
             await _context.SaveChangesAsync();
 
-            // Update product rating
             var remainingReviews = await _context.Reviews
                 .Where(r => r.ProductId == productId)
                 .ToListAsync();
@@ -184,7 +174,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Review deleted successfully" });
         }
 
-        // POST: api/Reviews/5/Helpful
         [Authorize]
         [HttpPost("{id}/Helpful")]
         public async Task<ActionResult> MarkReviewHelpful(int id)
@@ -203,14 +192,12 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Reviews/PendingReminder
         [Authorize]
         [HttpGet("PendingReminder")]
         public async Task<ActionResult> GetPendingReviewReminder()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Find delivered orders without reviews
             var deliveredOrders = await _context.Orders
                 .Include(o => o.OrderItems)
                     .ThenInclude(oi => oi.Product)
@@ -222,7 +209,6 @@ namespace MiraeLuxe.API.Controllers
             if (!deliveredOrders.Any())
                 return Ok(new { ShowReminder = false });
 
-            // Get products user hasn't reviewed yet
             var reviewedProductIds = await _context.Reviews
                 .Where(r => r.UserId == userId)
                 .Select(r => r.ProductId)
@@ -239,7 +225,7 @@ namespace MiraeLuxe.API.Controllers
                     oi.Product.ImageUrl1
                 })
                 .DistinctBy(p => p.ProductId)
-                .Take(3) // Show max 3 products
+                .Take(3) 
                 .ToList();
 
             if (!productsToReview.Any())
@@ -253,23 +239,18 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Reviews/DismissReminder
         [Authorize]
         [HttpPost("DismissReminder")]
         public ActionResult DismissReminder()
         {
-            // In a real app, you'd store this in database or session
-            // For now, just return success
-            // Frontend will handle not showing the reminder again for this session
             return Ok(new { Message = "Reminder dismissed" });
         }
     }
 
-    // DTO Models for ReviewsController
     public class AddReviewModel
     {
         public int ProductId { get; set; }
-        public int Rating { get; set; } // 1-5
+        public int Rating { get; set; } 
         public string Title { get; set; }
         public string Comment { get; set; }
     }

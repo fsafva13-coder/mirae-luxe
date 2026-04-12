@@ -23,7 +23,7 @@ namespace MiraeLuxe.API.Models
         public int Quantity { get; set; }
 
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Price { get; set; } // Price at time of order
+        public decimal Price { get; set; } 
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal Subtotal { get; set; }
@@ -31,6 +31,6 @@ namespace MiraeLuxe.API.Models
         public bool IsFreeGift { get; set; } = false;
 
         [MaxLength(50)]
-        public string SelectedShade { get; set; } // For makeup items
+        public string SelectedShade { get; set; } 
     }
 }

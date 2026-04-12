@@ -19,7 +19,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // GET: api/Cart
         [HttpGet]
         public async Task<ActionResult> GetCart()
         {
@@ -65,22 +64,18 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Cart/AddItem
         [HttpPost("AddItem")]
         public async Task<ActionResult> AddItem([FromBody] AddToCartModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Check if product exists
             var product = await _context.Products.FindAsync(model.ProductId);
             if (product == null)
                 return NotFound(new { Message = "Product not found" });
 
-            // Check stock
             if (product.StockQuantity < model.Quantity)
                 return BadRequest(new { Message = "Insufficient stock" });
 
-            // Get or create cart
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
@@ -97,7 +92,6 @@ namespace MiraeLuxe.API.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Check if item already in cart
             var existingItem = cart.CartItems
                 .FirstOrDefault(ci => ci.ProductId == model.ProductId &&
                                      ci.SelectedShade == (model.SelectedShade ?? string.Empty));
@@ -125,7 +119,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Item added to cart successfully" });
         }
 
-        // PUT: api/Cart/UpdateQuantity
         [HttpPut("UpdateQuantity")]
         public async Task<ActionResult> UpdateQuantity([FromBody] UpdateCartItemModel model)
         {
@@ -156,7 +149,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Quantity updated successfully" });
         }
 
-        // DELETE: api/Cart/RemoveItem/5
         [HttpDelete("RemoveItem/{cartItemId}")]
         public async Task<ActionResult> RemoveItem(int cartItemId)
         {
@@ -177,7 +169,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Item removed from cart" });
         }
 
-        // DELETE: api/Cart/Clear
         [HttpDelete("Clear")]
         public async Task<ActionResult> ClearCart()
         {
@@ -197,13 +188,11 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Models
     public class AddToCartModel
     {
         public int ProductId { get; set; }
         public int Quantity { get; set; } = 1;
-        public string? SelectedShade { get; set; }  // ← THE FIX: nullable so validation passes
-    }
+        public string? SelectedShade { get; set; }  
 
     public class UpdateCartItemModel
     {

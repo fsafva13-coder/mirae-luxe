@@ -19,10 +19,10 @@ namespace MiraeLuxe.API.Models
         public DateTime ExpiryDate { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal DiscountRate { get; set; } = 15.00m; // 15%
+        public decimal DiscountRate { get; set; } = 15.00m; 
 
         [MaxLength(50)]
-        public string MembershipType { get; set; } = "Annual"; // Annual
+        public string MembershipType { get; set; } = "Annual"; 
 
         public bool IsActive { get; set; } = true;
 

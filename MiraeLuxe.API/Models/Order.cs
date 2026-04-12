@@ -30,7 +30,6 @@ namespace MiraeLuxe.API.Models
 
         [MaxLength(50)]
         public string Status { get; set; } = "Pending";
-        // Pending, Paid, Processing, Shipped, Delivered, Cancelled
 
         [Required]
         public string ShippingAddress { get; set; }
@@ -43,12 +42,11 @@ namespace MiraeLuxe.API.Models
 
         public DateTime? DeliveryDate { get; set; }
 
-        public int? FreeGiftProductId { get; set; } // Free gift included
+        public int? FreeGiftProductId { get; set; } 
 
         [ForeignKey("FreeGiftProductId")]
         public virtual Product FreeGift { get; set; }
 
-        // Navigation Properties
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual Payment Payment { get; set; }
     }

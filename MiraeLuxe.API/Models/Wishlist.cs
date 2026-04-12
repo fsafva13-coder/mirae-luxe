@@ -16,7 +16,6 @@ namespace MiraeLuxe.API.Models
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        // Navigation Properties
         public virtual ICollection<WishlistItem> WishlistItems { get; set; }
     }
 }

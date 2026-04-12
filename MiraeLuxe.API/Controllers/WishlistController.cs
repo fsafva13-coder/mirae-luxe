@@ -19,7 +19,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // GET: api/Wishlist
         [HttpGet]
         public async Task<ActionResult> GetWishlist()
         {
@@ -65,7 +64,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Wishlist/Add
         [HttpPost("Add")]
         public async Task<ActionResult> AddToWishlist([FromBody] AddToWishlistModel model)
         {
@@ -113,7 +111,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // DELETE: api/Wishlist/Remove/5
         [HttpDelete("Remove/{wishlistItemId}")]
         public async Task<ActionResult> RemoveFromWishlist(int wishlistItemId)
         {
@@ -133,7 +130,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Removed from wishlist" });
         }
 
-        // DELETE: api/Wishlist/RemoveProduct/5
         [HttpDelete("RemoveProduct/{productId}")]
         public async Task<ActionResult> RemoveProductFromWishlist(int productId)
         {
@@ -153,7 +149,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Removed from wishlist" });
         }
 
-        // GET: api/Wishlist/Check/5
         [HttpGet("Check/{productId}")]
         public async Task<ActionResult> CheckIfInWishlist(int productId)
         {
@@ -166,7 +161,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { IsInWishlist = isInWishlist });
         }
 
-        // POST: api/Wishlist/MoveToCart/5
         [HttpPost("MoveToCart/{wishlistItemId}")]
         public async Task<ActionResult> MoveToCart(int wishlistItemId)
         {
@@ -217,7 +211,7 @@ namespace MiraeLuxe.API.Controllers
                     CartId = cart.CartId,
                     ProductId = wishlistItem.ProductId,
                     Quantity = 1,
-                    SelectedShade = string.Empty,  // ← THE KEY FIX — prevents SqlNullValueException
+                    SelectedShade = string.Empty,  
                     AddedDate = DateTime.Now
                 };
                 _context.CartItems.Add(cartItem);
@@ -230,7 +224,6 @@ namespace MiraeLuxe.API.Controllers
             return Ok(new { Message = "Moved to cart successfully" });
         }
 
-        // DELETE: api/Wishlist/Clear
         [HttpDelete("Clear")]
         public async Task<ActionResult> ClearWishlist()
         {
@@ -250,7 +243,6 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Models for WishlistController
     public class AddToWishlistModel
     {
         public int ProductId { get; set; }

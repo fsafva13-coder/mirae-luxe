@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;  // <-- ADD THIS
+using System.Text.Json.Serialization;  
 
 namespace MiraeLuxe.API.Models
 {
@@ -12,7 +12,7 @@ namespace MiraeLuxe.API.Models
         [Required]
         public int ProductId { get; set; }
 
-        [JsonIgnore]  // <-- ADD THIS TO PREVENT CIRCULAR REFERENCE
+        [JsonIgnore]  
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 

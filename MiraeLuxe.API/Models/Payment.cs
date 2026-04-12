@@ -18,7 +18,7 @@ namespace MiraeLuxe.API.Models
         public decimal Amount { get; set; }
 
         [MaxLength(50)]
-        public string PaymentMethod { get; set; } // Card, PayPal, COD
+        public string PaymentMethod { get; set; } 
 
         [MaxLength(100)]
         public string TransactionId { get; set; }
@@ -27,6 +27,5 @@ namespace MiraeLuxe.API.Models
 
         [MaxLength(50)]
         public string Status { get; set; } = "Pending";
-        // Pending, Success, Failed, Refunded
     }
 }

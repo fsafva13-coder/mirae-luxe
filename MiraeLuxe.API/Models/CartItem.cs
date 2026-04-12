@@ -23,7 +23,7 @@ namespace MiraeLuxe.API.Models
         public int Quantity { get; set; }
 
         [MaxLength(50)]
-        public string SelectedShade { get; set; } // For makeup
+        public string SelectedShade { get; set; } 
 
         public DateTime AddedDate { get; set; } = DateTime.Now;
     }

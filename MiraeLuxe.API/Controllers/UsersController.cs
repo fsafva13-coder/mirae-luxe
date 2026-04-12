@@ -28,7 +28,6 @@ namespace MiraeLuxe.API.Controllers
             _configuration = configuration;
         }
 
-        // POST: api/Users/Register
         [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody] RegisterModel model)
         {
@@ -63,7 +62,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Users/Login
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] LoginModel model)
         {
@@ -78,11 +76,9 @@ namespace MiraeLuxe.API.Controllers
             if (!result.Succeeded)
                 return Unauthorized(new { Message = "Invalid email or password" });
 
-            // Update last login date
             user.LastLoginDate = DateTime.Now;
             await _userManager.UpdateAsync(user);
 
-            // Generate JWT token
             var token = GenerateJwtToken(user);
 
             return Ok(new
@@ -97,7 +93,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Users/Profile
         [Authorize]
         [HttpGet("Profile")]
         public async Task<ActionResult> GetProfile()
@@ -123,7 +118,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // PUT: api/Users/Profile
         [Authorize]
         [HttpPut("Profile")]
         public async Task<ActionResult> UpdateProfile([FromBody] UpdateProfileModel model)
@@ -175,7 +169,6 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Models for UsersController
     public class RegisterModel
     {
         public string Email { get; set; }

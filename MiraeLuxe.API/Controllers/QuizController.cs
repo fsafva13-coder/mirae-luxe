@@ -19,25 +19,21 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // POST: api/Quiz/Submit
         [HttpPost("Submit")]
         public async Task<ActionResult> SubmitQuiz([FromBody] SkinQuizSubmission model)
         {
             var userId = User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Get recommended products based on quiz answers
             var query = _context.Products
                 .Where(p => !p.IsMiniGift && p.StockQuantity > 0)
                 .AsQueryable();
 
-            // Filter by skin type
             if (!string.IsNullOrEmpty(model.SkinType))
             {
                 query = query.Where(p => p.SkinType.Contains(model.SkinType) ||
                                         p.SkinType.Contains("All"));
             }
 
-            // Filter by budget
             if (!string.IsNullOrEmpty(model.BudgetRange))
             {
                 switch (model.BudgetRange)
@@ -57,7 +53,6 @@ namespace MiraeLuxe.API.Controllers
                 }
             }
 
-            // Filter by preferences
             if (!string.IsNullOrEmpty(model.Preferences))
             {
                 if (model.Preferences.Contains("Vegan"))
@@ -66,7 +61,6 @@ namespace MiraeLuxe.API.Controllers
                     query = query.Where(p => p.IsCrueltyFree);
             }
 
-            // Get recommendations by concern
             var recommendations = new List<object>();
 
             if (model.Concerns.Contains("Acne"))
@@ -175,7 +169,6 @@ namespace MiraeLuxe.API.Controllers
                 });
             }
 
-            // Essential products for everyone
             var essentials = await query
                 .Where(p => p.SubCategory == "Sunscreen" ||
                            p.SubCategory == "Facial Cleanser")
@@ -199,10 +192,8 @@ namespace MiraeLuxe.API.Controllers
                 })
             });
 
-            // Save quiz result (if user is logged in)
             if (!string.IsNullOrEmpty(userId))
             {
-                // Collect all recommended product IDs
                 var recommendedProductIds = new List<int>();
 
                 foreach (var recommendation in recommendations)
@@ -257,7 +248,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Quiz/History
         [Authorize]
         [HttpGet("History")]
         public async Task<ActionResult> GetQuizHistory()
@@ -299,12 +289,11 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Models for QuizController
     public class SkinQuizSubmission
     {
-        public string SkinType { get; set; } // Oily, Dry, Combination, Sensitive, Normal
-        public List<string> Concerns { get; set; } // Acne, Dark Spots, Fine Lines, Dryness, Dullness
-        public string BudgetRange { get; set; } // Under AED 100, AED 100-150, etc.
-        public string Preferences { get; set; } // Vegan, Cruelty-free, Both, No preference
+        public string SkinType { get; set; } 
+        public List<string> Concerns { get; set; } 
+        public string BudgetRange { get; set; } 
+        public string Preferences { get; set; } 
     }
 }

@@ -16,7 +16,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts(
             [FromQuery] string? category = null,
@@ -34,7 +33,6 @@ namespace MiraeLuxe.API.Controllers
                     .Where(p => !p.IsMiniGift)
                     .AsQueryable();
 
-                // Apply filters
                 if (!string.IsNullOrEmpty(category))
                     query = query.Where(p => p.Category == category);
 
@@ -64,7 +62,6 @@ namespace MiraeLuxe.API.Controllers
 
                 var products = await query.ToListAsync();
 
-                // Calculate review stats for each product
                 foreach (var product in products)
                 {
                     var reviews = await _context.Reviews
@@ -91,7 +88,6 @@ namespace MiraeLuxe.API.Controllers
             }
         }
 
-        // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -103,7 +99,6 @@ namespace MiraeLuxe.API.Controllers
                 if (product == null)
                     return NotFound();
 
-                // Get reviews separately
                 var reviews = await _context.Reviews
                     .Where(r => r.ProductId == id)
                     .Select(r => new
@@ -121,7 +116,6 @@ namespace MiraeLuxe.API.Controllers
                     })
                     .ToListAsync();
 
-                // Calculate stats
                 product.ReviewCount = reviews.Count;
                 product.Rating = reviews.Any()
                     ? (decimal)reviews.Average(r => r.Rating)
@@ -140,7 +134,6 @@ namespace MiraeLuxe.API.Controllers
             }
         }
 
-        // GET: api/Products/MiniGifts
         [HttpGet("MiniGifts")]
         public async Task<ActionResult<IEnumerable<Product>>> GetMiniGifts()
         {
@@ -159,7 +152,6 @@ namespace MiraeLuxe.API.Controllers
             }
         }
 
-        // GET: api/Products/Categories
         [HttpGet("Categories")]
         public async Task<ActionResult> GetCategories()
         {
@@ -185,7 +177,6 @@ namespace MiraeLuxe.API.Controllers
             }
         }
 
-        // POST: api/Products (Admin only)
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -203,7 +194,6 @@ namespace MiraeLuxe.API.Controllers
             }
         }
 
-        // PUT: api/Products/5 (Admin only)
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, Product product)
         {
@@ -232,7 +222,6 @@ namespace MiraeLuxe.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Products/5 (Admin only)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

@@ -19,7 +19,6 @@ namespace MiraeLuxe.API.Controllers
             _context = context;
         }
 
-        // GET: api/Membership/Status
         [HttpGet("Status")]
         public async Task<ActionResult> GetMembershipStatus()
         {
@@ -84,7 +83,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Membership/Join
         [HttpPost("Join")]
         public async Task<ActionResult> JoinMembership([FromBody] JoinMembershipModel model)
         {
@@ -97,7 +95,6 @@ namespace MiraeLuxe.API.Controllers
             if (user == null)
                 return NotFound(new { Message = "User not found" });
 
-            // Check if already has a valid active membership
             if (user.Membership != null &&
                 user.Membership.IsActive &&
                 user.Membership.ExpiryDate > DateTime.Now)
@@ -109,7 +106,6 @@ namespace MiraeLuxe.API.Controllers
 
             if (user.Membership != null)
             {
-                // Reactivate existing expired/inactive membership record
                 user.Membership.JoinDate = now;
                 user.Membership.ExpiryDate = now.AddYears(1);
                 user.Membership.IsActive = true;
@@ -119,7 +115,6 @@ namespace MiraeLuxe.API.Controllers
             }
             else
             {
-                // Create brand new membership
                 var membership = new Membership
                 {
                     UserId = userId,
@@ -152,7 +147,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Membership/Renew
         [HttpPost("Renew")]
         public async Task<ActionResult> RenewMembership()
         {
@@ -185,7 +179,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // POST: api/Membership/Cancel
         [HttpPost("Cancel")]
         public async Task<ActionResult> CancelMembership()
         {
@@ -212,7 +205,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Membership/Benefits
         [HttpGet("Benefits")]
         public ActionResult GetBenefits()
         {
@@ -231,7 +223,6 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
-        // GET: api/Membership/Savings
         [HttpGet("Savings")]
         public async Task<ActionResult> GetMembershipSavings()
         {
@@ -254,9 +245,8 @@ namespace MiraeLuxe.API.Controllers
         }
     }
 
-    // DTO Model
     public class JoinMembershipModel
     {
-        public string? PaymentMethod { get; set; }  // ← THE FIX: nullable
+        public string? PaymentMethod { get; set; }  
     }
 }

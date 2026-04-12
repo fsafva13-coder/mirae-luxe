@@ -15,11 +15,9 @@ namespace MiraeLuxe.API.Models
         public string Description { get; set; }
 
         public bool MemberGiftEnabled { get; set; } = true;
-        // Members get gift on every order
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal NonMemberMinAmount { get; set; } = 120.00m;
-        // Non-members need AED 120+ for gift
 
         public DateTime StartDate { get; set; }
 
