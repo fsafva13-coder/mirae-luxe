@@ -1,16 +1,8 @@
-/* ========================================
-   PRODUCT DETAIL PAGE
-======================================== */
-
 .product-detail-page {
   padding: 60px 0;
   min-height: 80vh;
   background: var(--soft-beige);
 }
-
-/* ========================================
-   BREADCRUMB
-======================================== */
 
 .breadcrumb {
   font-size: 14px;
@@ -33,10 +25,6 @@
   font-weight: 600;
 }
 
-/* ========================================
-   PRODUCT DETAILS SECTION
-======================================== */
-
 .product-details-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -46,10 +34,6 @@
   padding: 50px;
   border: 1px solid var(--warm-taupe);
 }
-
-/* ========================================
-   PRODUCT GALLERY
-======================================== */
 
 .product-gallery {
   position: relative;
@@ -93,10 +77,6 @@
   box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
 }
 
-/* ========================================
-   BADGES
-======================================== */
-
 .main-image-container .badge {
   position: absolute;
   top: 15px;
@@ -123,10 +103,6 @@
   top: 55px;
   background: #FF6B9D;
 }
-
-/* ========================================
-   PRODUCT INFO SECTION
-======================================== */
 
 .product-info-section {
   position: relative;
@@ -162,10 +138,6 @@
   color: var(--warm-taupe);
 }
 
-/* ========================================
-   RATING
-======================================== */
-
 .product-rating {
   display: flex;
   align-items: center;
@@ -191,10 +163,6 @@
   color: var(--warm-taupe);
 }
 
-/* ========================================
-   PRICE
-======================================== */
-
 .product-price-section {
   display: flex;
   align-items: center;
@@ -216,10 +184,6 @@
   font-weight: 600;
 }
 
-/* ========================================
-   DESCRIPTION & META
-======================================== */
-
 .product-description,
 .product-meta {
   padding: 20px 0;
@@ -239,10 +203,6 @@
   line-height: 1.8;
   color: var(--almost-black);
 }
-
-/* ========================================
-   QUANTITY SELECTOR
-======================================== */
 
 .quantity-section {
   display: flex;
@@ -302,10 +262,6 @@
   margin: 0;
 }
 
-/* ========================================
-   ACTION BUTTONS - ALWAYS VISIBLE
-======================================== */
-
 .product-actions {
   display: flex;
   gap: 15px;
@@ -360,10 +316,6 @@
   box-shadow: 0 8px 20px rgba(139, 115, 85, 0.2);
 }
 
-/* ========================================
-   FEATURES
-======================================== */
-
 .product-features {
   display: flex;
   gap: 15px;
@@ -385,10 +337,6 @@
 .feature-badge span {
   font-size: 18px;
 }
-
-/* ========================================
-   REVIEWS SECTION
-======================================== */
 
 .reviews-section {
   background: var(--pure-white);
@@ -484,10 +432,6 @@
   color: var(--warm-taupe);
 }
 
-/* ========================================
-   RELATED PRODUCTS - PROPER SIZING
-======================================== */
-
 .related-products-section {
   background: var(--pure-white);
   padding: 50px;
@@ -501,16 +445,11 @@
   color: var(--almost-black);
 }
 
-/* ✅ CRITICAL: Proper grid sizing for related products */
 .related-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* ✅ minmax prevents huge cards */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   gap: 30px;
 }
-
-/* ========================================
-   LOADING & ERROR STATES
-======================================== */
 
 .loading-container {
   text-align: center;
@@ -538,10 +477,6 @@
   font-size: 18px;
   color: #F44336;
 }
-
-/* ========================================
-   RESPONSIVE
-======================================== */
 
 @media (max-width: 992px) {
   .product-details-section {
@@ -577,7 +512,7 @@
   }
 
   .related-products-grid {
-    grid-template-columns: repeat(2, 1fr); /* ✅ Exactly 2 columns on mobile */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
   }
 

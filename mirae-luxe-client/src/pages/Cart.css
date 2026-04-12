@@ -9,7 +9,6 @@
   color: var(--almost-black);
 }
 
-/* Empty Cart */
 .empty-cart {
   text-align: center;
   padding: 100px 20px;
@@ -32,16 +31,14 @@
   margin-bottom: 30px;
 }
 
-/* Cart Content */
 .cart-content {
   display: grid;
-  grid-template-columns: 1fr minmax(320px, 400px); /* ✅ FIXED: Flexible order summary */
+  grid-template-columns: 1fr minmax(320px, 400px); 
   gap: 40px;
-  max-width: 100%; /* ✅ FIXED: Prevent overflow */
-  overflow-x: hidden; /* ✅ FIXED: Hide horizontal scroll */
+  max-width: 100%; 
+  overflow-x: hidden; 
 }
 
-/* Cart Items Section */
 .cart-header {
   display: flex;
   justify-content: space-between;
@@ -49,7 +46,7 @@
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 2px solid var(--warm-taupe);
-  flex-wrap: wrap; /* ✅ FIXED: Wrap on smaller screens */
+  flex-wrap: wrap; 
   gap: 10px;
 }
 
@@ -87,7 +84,7 @@
   background: var(--soft-beige);
   border: 1px solid var(--warm-taupe);
   transition: box-shadow 0.3s ease;
-  max-width: 100%; /* ✅ FIXED: Prevent overflow */
+  max-width: 100%; 
 }
 
 .cart-item:hover {
@@ -101,7 +98,7 @@
 }
 
 .item-details {
-  min-width: 0; /* ✅ FIXED: Allow text truncation */
+  min-width: 0; 
 }
 
 .item-details h4 {
@@ -184,7 +181,6 @@
   color: #f44336;
 }
 
-/* Order Summary */
 .order-summary {
   position: sticky;
   top: 120px;
@@ -192,7 +188,7 @@
   background: var(--soft-beige);
   padding: 30px;
   border: 1px solid var(--warm-taupe);
-  max-width: 100%; /* ✅ FIXED: Prevent overflow */
+  max-width: 100%; 
 }
 
 .order-summary h3 {
@@ -209,7 +205,7 @@
   margin-bottom: 15px;
   font-size: 16px;
   color: var(--almost-black);
-  gap: 15px; /* ✅ FIXED: Prevent text overlap */
+  gap: 15px; 
 }
 
 .summary-row.discount {
@@ -253,7 +249,7 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--almost-black);
-  gap: 15px; /* ✅ FIXED: Prevent text overlap */
+  gap: 15px; 
 }
 
 .checkout-btn {
@@ -294,7 +290,6 @@
   color: var(--almost-black);
 }
 
-/* ✅ FIXED: Better responsive breakpoints for zoom and smaller screens */
 @media (max-width: 1400px) {
   .cart-content {
     grid-template-columns: 1fr 360px;
@@ -387,7 +382,6 @@
   }
 }
 
-/* ✅ FIXED: Specific fix for 120% browser zoom */
 @media (min-width: 993px) and (max-width: 1600px) {
   .cart-content {
     grid-template-columns: 1fr 340px;

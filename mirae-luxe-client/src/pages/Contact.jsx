@@ -30,7 +30,6 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
-      {/* Hero Section */}
       <section className="contact-hero" data-aos="fade-in">
         <div className="container">
           <h1 data-aos="fade-up">Get in Touch</h1>
@@ -42,7 +41,6 @@ const Contact = () => {
 
       <div className="container">
         <div className="contact-content">
-          {/* Contact Form */}
           <div className="contact-form-section" data-aos="fade-right">
             <h2>Send Us a Message</h2>
             
@@ -107,7 +105,6 @@ const Contact = () => {
             </form>
           </div>
 
-          {/* Contact Info */}
           <div className="contact-info-section" data-aos="fade-left">
             <h2>Contact Information</h2>
 

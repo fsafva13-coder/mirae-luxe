@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiTrash2, FiShoppingBag } from 'react-icons/fi';
-import { cartAPI, membershipAPI } from '../services/api'; // ← added membershipAPI
+import { cartAPI, membershipAPI } from '../services/api'; 
 import './Cart.css';
 
 const Cart = () => {
@@ -12,7 +12,7 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCart();
-    checkMembership(); // ← added
+    checkMembership(); 
   }, []);
 
   const fetchCart = async () => {
@@ -27,13 +27,11 @@ const Cart = () => {
     }
   };
 
-  // ← ADDED: check real membership status from backend
   const checkMembership = async () => {
     try {
       const response = await membershipAPI.getStatus();
       setIsMember(response.data.isMember || false);
 
-      // Keep localStorage in sync
       const userData = localStorage.getItem('user');
       if (userData) {
         const user = JSON.parse(userData);
@@ -41,7 +39,7 @@ const Cart = () => {
         localStorage.setItem('user', JSON.stringify(user));
       }
     } catch (error) {
-      // Fall back to localStorage if API unavailable
+
       try {
         const userData = localStorage.getItem('user');
         if (userData) {
@@ -94,7 +92,7 @@ const Cart = () => {
 
   const subtotal = cart?.subtotal || 0;
   const memberDiscount = isMember ? subtotal * 0.15 : 0;
-  const shipping = isMember ? 0 : subtotal >= 200 ? 0 : 20; // members always free shipping
+  const shipping = isMember ? 0 : subtotal >= 200 ? 0 : 20; 
   const total = subtotal - memberDiscount + shipping;
   const giftEligible = isMember || subtotal >= 120;
 
@@ -197,7 +195,6 @@ const Cart = () => {
                 Proceed to Checkout
               </button>
 
-              {/* ← Only show membership promo if genuinely not a member */}
               {!isMember && (
                 <div className="membership-promo">
                   <p>Join membership and save 15% on this order!</p>

@@ -5,7 +5,7 @@ import './MyAccount.css';
 
 const MyAccount = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('orders'); // ← default to orders after checkout
+  const [activeTab, setActiveTab] = useState('orders');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -56,7 +56,6 @@ const MyAccount = () => {
     }
   }, [user]);
 
-  // ← Fetch orders from API whenever orders tab is active
   useEffect(() => {
     if (activeTab === 'orders') {
       fetchOrders();
@@ -84,7 +83,6 @@ const MyAccount = () => {
       const response = await membershipAPI.getStatus();
       setMembershipData(response.data);
 
-      // Sync localStorage
       const userData = localStorage.getItem('user');
       if (userData) {
         const u = JSON.parse(userData);
@@ -143,7 +141,6 @@ const MyAccount = () => {
       <div className="container">
         <div className="account-layout">
 
-          {/* Sidebar */}
           <aside className="account-sidebar">
             <div className="user-info">
               <div className="user-avatar">
@@ -182,10 +179,8 @@ const MyAccount = () => {
             </button>
           </aside>
 
-          {/* Main Content */}
           <main className="account-content">
 
-            {/* Profile Tab */}
             {activeTab === 'profile' && (
               <div className="profile-section">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
@@ -257,7 +252,6 @@ const MyAccount = () => {
               </div>
             )}
 
-            {/* Orders Tab — NOW CALLS THE API */}
             {activeTab === 'orders' && (
               <div className="orders-section">
                 <h2>Recent Orders</h2>
@@ -336,7 +330,6 @@ const MyAccount = () => {
               </div>
             )}
 
-            {/* Membership Tab — NOW READS FROM API */}
             {activeTab === 'membership' && (
               <div className="membership-section">
                 <h2>Membership Status</h2>

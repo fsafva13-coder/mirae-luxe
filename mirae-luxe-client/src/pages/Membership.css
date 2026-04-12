@@ -2,7 +2,6 @@
   padding-bottom: 80px;
 }
 
-/* Hero Section */
 .membership-hero {
   background: linear-gradient(135deg, var(--muted-bronze) 0%, var(--almost-black) 100%);
   padding: 80px 0;
@@ -18,10 +17,9 @@
 
 .hero-subtitle {
   font-size: 20px;
-  color: #E8DED3 !important; /* Light beige - FORCED */
+  color: #E8DED3 !important; 
 }
 
-/* Also add this to be extra sure */
 .membership-hero .hero-subtitle {
   color: #E8DED3 !important;
 }
@@ -30,7 +28,6 @@
   color: #E8DED3 !important;
 }
 
-/* Membership Status Card */
 .membership-status-card {
   background: var(--soft-beige);
   padding: 40px;
@@ -91,7 +88,6 @@
   color: var(--almost-black);
 }
 
-/* Pricing Section */
 .pricing-section {
   max-width: 500px;
   margin: 60px auto;
@@ -146,7 +142,7 @@
 
 .period {
   font-size: 20px;
-  color: #8B7355; /* Change this line */
+  color: #8B7355; 
   margin-left: 5px;
 }
 
@@ -163,7 +159,6 @@
   width: 100%;
 }
 
-/* Benefits Section */
 .benefits-section {
   margin: 80px 0;
 }
@@ -197,7 +192,7 @@
 .benefit-icon {
   font-size: 56px;
   margin-bottom: 20px;
-  color: var(--muted-bronze); /* Muted bronze color */
+  color: var(--muted-bronze); 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -233,7 +228,6 @@
   font-weight: 600;
 }
 
-/* Comparison Table */
 .comparison-section {
   margin: 80px 0;
 }
@@ -257,11 +251,11 @@
   text-align: center;
   font-size: 18px;
   color: var(--almost-black);
-  border-left: 1px solid var(--warm-taupe); /* Add vertical line */
+  border-left: 1px solid var(--warm-taupe); 
 }
 
 .header-cell:first-child {
-  border-left: none; /* Remove left border on first cell */
+  border-left: none; 
 }
 
 .header-cell.highlight {
@@ -279,24 +273,23 @@
   padding: 20px;
   font-weight: 600;
   color: var(--almost-black);
-  border-right: 1px solid var(--warm-taupe); /* Add vertical line */
+  border-right: 1px solid var(--warm-taupe); 
 }
 
 .row-cell {
   padding: 20px;
   text-align: center;
-  border-left: 1px solid var(--warm-taupe); /* Complete vertical lines */
-  color: #6B5D50; /* Darker than before but lighter than member column */
+  border-left: 1px solid var(--warm-taupe); 
+  color: #6B5D50;
   font-weight: 500;
 }
 
 .row-cell.highlight {
   background: rgba(139, 115, 85, 0.05);
-  color: var(--almost-black); /* Darker for member column */
+  color: var(--almost-black); 
   font-weight: 600;
 }
 
-/* FAQ Section */
 .faq-section {
   margin: 80px 0;
   max-width: 900px;
@@ -314,15 +307,15 @@
   background: var(--soft-beige);
   padding: 30px;
   border-left: 4px solid var(--muted-bronze);
-  transition: all 0.3s ease; /* Add transition */
-  cursor: pointer; /* Add pointer cursor */
+  transition: all 0.3s ease; 
+  cursor: pointer; 
 }
 
 .faq-item:hover {
-  transform: translateX(10px); /* Slide right on hover */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
-  background: #EBE3D8; /* Slightly lighter background */
-  border-left-width: 6px; /* Thicker border */
+  transform: translateX(10px); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  background: #EBE3D8; 
+  border-left-width: 6px; 
 }
 
 .faq-item h4 {
@@ -333,7 +326,7 @@
 }
 
 .faq-item:hover h4 {
-  color: var(--muted-bronze); /* Change color on hover */
+  color: var(--muted-bronze); 
 }
 
 .faq-item p {
@@ -342,7 +335,6 @@
   color: var(--almost-black);
 }
 
-/* CTA Section */
 .cta-section {
   margin: 80px 0 40px;
 }
@@ -367,7 +359,6 @@
   color: var(--almost-black);
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .membership-hero h1 {
     font-size: 36px;

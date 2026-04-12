@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
        <div className="footer-content">
-  {/* Column 1: About */}
+
   <div className="footer-column">
     <h5>MIRAÉ LUXE</h5>
     <p>
@@ -34,7 +34,6 @@ const Footer = () => {
 </div>
   </div>
 
-  {/* Column 2: Quick Links */}
   <div className="footer-column">
     <h5>Quick Links</h5>
     <ul>
@@ -61,7 +60,6 @@ const Footer = () => {
     </ul>
   </div>
 
-  {/* Column 3: Customer Care */}
   <div className="footer-column">
     <h5>Customer Care</h5>
     <ul>
@@ -88,7 +86,6 @@ const Footer = () => {
     </ul>
   </div>
 
-  {/* Column 4: Connect */}
   <div className="footer-column">
     <h5>Connect</h5>
     <p><strong>Email:</strong></p>
@@ -98,7 +95,6 @@ const Footer = () => {
   </div>
 </div>
 
-        {/* Bottom Bar */}
         <div className="footer-bottom">
           <p>&copy; 2026 MIRAÉ LUXE. All rights reserved.</p>
           <p className="disclaimer">

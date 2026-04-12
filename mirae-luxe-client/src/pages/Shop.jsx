@@ -9,7 +9,7 @@ const Shop = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
-  const [loadCount, setLoadCount] = useState(200); // Load all products
+  const [loadCount, setLoadCount] = useState(200); 
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
@@ -21,10 +21,8 @@ const Shop = () => {
 
   useEffect(() => {
     fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
-  // Gradually show products (20 at a time)
   useEffect(() => {
     setDisplayedProducts(products.slice(0, loadCount));
   }, [products, loadCount]);
@@ -54,7 +52,7 @@ const Shop = () => {
       }
 
       setProducts(filteredProducts);
-      setLoadCount(20); // Reset to 20 when filters change
+      setLoadCount(20); 
     } catch (error) {
       console.error('Error fetching products:', error);
       setProducts([]);
@@ -371,7 +369,6 @@ const Shop = () => {
                   ))}
                 </div>
 
-                {/* Load More Button */}
                 {loadCount < products.length && (
                   <div style={{ textAlign: 'center', margin: '40px 0' }}>
                     <button 

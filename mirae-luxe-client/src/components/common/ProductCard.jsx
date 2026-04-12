@@ -24,8 +24,8 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist }) => {
   };
 
 const handleAddToCart = async (e) => {
-  e.preventDefault(); // Prevent navigation
-  e.stopPropagation(); // Stop event bubbling
+  e.preventDefault(); 
+  e.stopPropagation(); 
   
   try {
     const token = localStorage.getItem('token');
@@ -53,8 +53,8 @@ const handleAddToCart = async (e) => {
 };
 
 const handleAddToWishlist = async (e) => {
-  e.preventDefault(); // Prevent navigation
-  e.stopPropagation(); // Stop event bubbling
+  e.preventDefault(); 
+  e.stopPropagation(); 
   
   try {
     const token = localStorage.getItem('token');
@@ -88,7 +88,6 @@ const handleAddToWishlist = async (e) => {
             alt={product.name}
             className="product-image"
           />
-          {/* ✅ NO BADGES ON IMAGE */}
           <div className="product-hover-overlay">
             <button 
               className="quick-action-btn"
@@ -111,7 +110,6 @@ const handleAddToWishlist = async (e) => {
           <span className="product-brand">{product.brand}</span>
           <h3 className="product-name">{product.name}</h3>
 
-          {/* ✅ BADGES IN DESCRIPTION AREA */}
           {(product.isVegan || product.isCrueltyFree) && (
             <div className="product-badges">
               {product.isVegan && (

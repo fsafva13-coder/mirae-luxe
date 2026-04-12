@@ -1,4 +1,3 @@
-/* Shop Page - NO HORIZONTAL SCROLL */
 .shop-page {
   padding: 60px 0;
   min-height: 80vh;
@@ -143,7 +142,6 @@
   margin-left: 10px;
 }
 
-/* ✅ FIXED GRID - 4 COLUMNS ON DESKTOP */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

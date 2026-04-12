@@ -41,7 +41,7 @@ const handleLogin = async (e) => {
       password: formData.password
     });
 
-    console.log('Full login response:', response); // Check what we get
+    console.log('Full login response:', response); 
 
     if (!response || !response.data) {
       throw new Error('Invalid response from server');
@@ -49,7 +49,7 @@ const handleLogin = async (e) => {
 
     const responseData = response.data;
 
-    // Store token
+    
     const token = responseData.token || responseData.data?.token || responseData.accessToken;
     
     if (!token) {
@@ -58,8 +58,6 @@ const handleLogin = async (e) => {
 
     localStorage.setItem('token', token);
 
-    // UPDATED: Better handling of user data
-    // The backend might return user data in different structures
     let userData;
     
     if (responseData.user) {
@@ -67,13 +65,10 @@ const handleLogin = async (e) => {
     } else if (responseData.data && responseData.data.user) {
       userData = responseData.data.user;
     } else {
-      // If no user object, the response itself might be the user data
       userData = responseData;
     }
 
-    console.log('User data extracted:', userData); // Debug log
-
-    // Create comprehensive user object with all fields
+    console.log('User data extracted:', userData); 
     const userToStore = {
       userId: userData.userId || userData.id || userData.UserId,
       firstName: userData.firstName || userData.FirstName || '',
@@ -116,7 +111,7 @@ const handleRegister = async (e) => {
   setLoading(true);
 
   try {
-    console.log('Attempting registration with:', formData.email); // Debug log
+    console.log('Attempting registration with:', formData.email); 
     
     const response = await usersAPI.register({
       firstName: formData.firstName,
@@ -129,15 +124,11 @@ const handleRegister = async (e) => {
       postalCode: formData.postalCode
     });
 
-    console.log('Registration response:', response); // Debug log
-
-    // Registration successful
+    console.log('Registration response:', response); 
     alert('Account created successfully! Please sign in.');
     
-    // Switch to login form
     setIsLogin(true);
     
-    // Clear form
     setFormData({
       email: '',
       password: '',

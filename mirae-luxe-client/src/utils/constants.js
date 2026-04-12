@@ -1,4 +1,3 @@
-// Brand Colors
 export const COLORS = {
   softBeige: '#F5F0EB',
   warmTaupe: '#D4C4B0',
@@ -7,15 +6,12 @@ export const COLORS = {
   almostBlack: '#2C2C2C',
 };
 
-// Currency
 export const CURRENCY = 'AED';
 
-// Membership
 export const MEMBERSHIP_PRICE = 99;
-export const MEMBER_DISCOUNT = 15; // 15%
-export const NON_MEMBER_GIFT_THRESHOLD = 120; // AED 120
+export const MEMBER_DISCOUNT = 15; 
+export const NON_MEMBER_GIFT_THRESHOLD = 120; 
 
-// Skin Types
 export const SKIN_TYPES = [
   'Oily',
   'Dry',
@@ -25,7 +21,6 @@ export const SKIN_TYPES = [
   'All Skin Types',
 ];
 
-// Categories
 export const CATEGORIES = {
   SKINCARE: 'Skincare',
   MAKEUP: 'Makeup',
@@ -56,7 +51,6 @@ export const MAKEUP_SUBCATEGORIES = [
   'Makeup Brushes',
 ];
 
-// Order Status
 export const ORDER_STATUS = {
   PENDING: 'Pending',
   PAID: 'Paid',
@@ -66,7 +60,6 @@ export const ORDER_STATUS = {
   CANCELLED: 'Cancelled',
 };
 
-// Routes
 export const ROUTES = {
   HOME: '/',
   SHOP: '/shop',

@@ -51,7 +51,7 @@ const Checkout = () => {
 
   const subtotal = cart?.subtotal || 0;
   const memberDiscount = isMember ? subtotal * 0.15 : 0;
-  const shippingFee = isMember ? 0 : subtotal >= 200 ? 0 : 20; // members always get free shipping
+  const shippingFee = isMember ? 0 : subtotal >= 200 ? 0 : 20; 
   const total = subtotal - memberDiscount + shippingFee;
   const giftEligible = isMember || subtotal >= 120;
 
@@ -72,7 +72,6 @@ const Checkout = () => {
       });
 
       alert(`Order placed successfully! Tracking number: ${response.data.trackingNumber}`);
-      // ← FIXED: navigate to my-account where orders are visible, not /orders/:id
       navigate('/my-account');
 
     } catch (error) {

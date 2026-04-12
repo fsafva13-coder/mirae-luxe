@@ -1,7 +1,3 @@
-/* ========================================
-   MY ACCOUNT PAGE - FIXED LAYOUT
-======================================== */
-
 .my-account-page {
   min-height: 100vh;
   background: var(--soft-beige);
@@ -16,20 +12,16 @@
   margin: 0 auto;
 }
 
-/* ========================================
-   SIDEBAR - NORMAL POSITIONING (NOT FIXED)
-======================================== */
 
 .account-sidebar {
   background: var(--pure-white);
   padding: 40px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  height: fit-content; /* IMPORTANT: Not fixed height */
-  position: relative; /* IMPORTANT: Not sticky or fixed */
+  height: fit-content; 
+  position: relative; 
 }
 
-/* User Info */
 .user-info {
   text-align: center;
   margin-bottom: 40px;
@@ -78,7 +70,6 @@
   box-shadow: 0 2px 8px rgba(139, 115, 85, 0.3);
 }
 
-/* Account Navigation */
 .account-nav {
   display: flex;
   flex-direction: column;
@@ -124,10 +115,6 @@
   border-radius: 0 4px 4px 0;
 }
 
-/* ========================================
-   LOGOUT BUTTON - AESTHETIC DESIGN
-======================================== */
-
 .logout-btn {
   width: 100%;
   padding: 14px 20px;
@@ -151,10 +138,6 @@
   box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
 }
 
-/* ========================================
-   MAIN CONTENT - SCROLLABLE
-======================================== */
-
 .account-content {
   background: var(--pure-white);
   padding: 40px;
@@ -170,10 +153,6 @@
   padding-bottom: 20px;
   border-bottom: 2px solid var(--soft-beige);
 }
-
-/* ========================================
-   PROFILE SECTION
-======================================== */
 
 .profile-section {
   animation: fadeIn 0.4s ease;
@@ -213,10 +192,6 @@
   color: var(--almost-black);
   font-weight: 500;
 }
-
-/* ========================================
-   ORDERS SECTION
-======================================== */
 
 .orders-section {
   animation: fadeIn 0.4s ease;
@@ -327,10 +302,6 @@
   transform: translateX(5px);
 }
 
-/* ========================================
-   MEMBERSHIP SECTION
-======================================== */
-
 .membership-section {
   animation: fadeIn 0.4s ease;
 }
@@ -360,7 +331,6 @@
   margin-top: 25px;
 }
 
-/* Membership Status Badges */
 .status-badge-active {
   display: inline-block;
   background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
@@ -430,10 +400,6 @@
   border-bottom: none;
 }
 
-/* ========================================
-   EDIT PROFILE SECTION - IMPROVED SPACING
-======================================== */
-
 .edit-form {
   animation: fadeIn 0.3s ease;
 }
@@ -441,8 +407,8 @@
 .edit-form .info-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px; /* Increased gap */
-  margin-bottom: 0; /* Remove bottom margin */
+  gap: 25px; 
+  margin-bottom: 0; 
 }
 
 .info-item-edit {
@@ -457,7 +423,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--muted-bronze);
-  margin-bottom: 10px; /* Increased from 8px */
+  margin-bottom: 10px; 
 }
 
 .edit-input {
@@ -470,7 +436,7 @@
   background: white;
   transition: all 0.3s ease;
   font-family: inherit;
-  box-sizing: border-box; /* Prevent overflow */
+  box-sizing: border-box; 
 }
 
 .edit-input:focus {
@@ -491,17 +457,16 @@
   opacity: 0.6;
 }
 
-/* Full width fields (like Address) */
 .info-item-edit.full-width {
   grid-column: 1 / -1;
 }
 
 .edit-actions {
-  margin-top: 40px; /* Increased from 30px */
-  padding-top: 30px; /* Add padding */
-  border-top: 2px solid var(--soft-beige); /* Visual separator */
+  margin-top: 40px; 
+  padding-top: 30px; 
+  border-top: 2px solid var(--soft-beige); 
   display: flex;
-  gap: 15px; /* Space between buttons */
+  gap: 15px; 
   justify-content: flex-end;
 }
 
@@ -522,10 +487,6 @@
   background: var(--soft-beige);
   border-color: var(--muted-bronze);
 }
-
-/* ========================================
-   LOADING SPINNER
-======================================== */
 
 .loading-container {
   text-align: center;
@@ -557,10 +518,6 @@
     transform: translateY(0);
   }
 }
-
-/* ========================================
-   RESPONSIVE - MOBILE
-======================================== */
 
 @media (max-width: 992px) {
   .account-layout {

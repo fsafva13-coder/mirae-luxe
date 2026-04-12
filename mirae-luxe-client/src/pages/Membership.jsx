@@ -10,7 +10,7 @@ const Membership = () => {
   const [userEmail, setUserEmail] = useState('');
   const [isMember, setIsMember] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [statusLoading, setStatusLoading] = useState(true); // ← loading while checking API
+  const [statusLoading, setStatusLoading] = useState(true); 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,17 +21,14 @@ const Membership = () => {
       try {
         const user = JSON.parse(userData);
         setUserEmail(user.email);
-        // Set from localStorage first so UI doesn't flash
         setIsMember(user.isMember || false);
       } catch (e) {}
 
-      // ← ALWAYS verify against backend — localStorage can be out of sync
       membershipAPI.getStatus()
         .then(response => {
           const backendIsMember = response.data.isMember || false;
           setIsMember(backendIsMember);
 
-          // Keep localStorage in sync with backend truth
           try {
             const user = JSON.parse(userData);
             user.isMember = backendIsMember;
@@ -40,7 +37,6 @@ const Membership = () => {
         })
         .catch(err => {
           console.error('Could not verify membership status:', err);
-          // Keep whatever localStorage said — already set above
         })
         .finally(() => {
           setStatusLoading(false);
@@ -70,7 +66,6 @@ const Membership = () => {
     try {
       await membershipAPI.join({ plan: 'Annual' });
 
-      // Sync localStorage
       const userData = localStorage.getItem('user');
       if (userData) {
         const user = JSON.parse(userData);
@@ -84,7 +79,6 @@ const Membership = () => {
     } catch (error) {
       console.error('Membership join error:', error);
       if (error.response?.status === 400) {
-        // Backend says already a member — sync the UI
         setIsMember(true);
         const userData = localStorage.getItem('user');
         if (userData) {

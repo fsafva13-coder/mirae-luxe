@@ -4,7 +4,6 @@ import './About.css';
 const About = () => {
   return (
     <div className="about-page">
-      {/* Hero Section */}
       <section className="about-hero" data-aos="fade-in">
         <div className="container">
           <h1 data-aos="fade-up">About MIRAÉ LUXE</h1>
@@ -13,8 +12,6 @@ const About = () => {
           </p>
         </div>
       </section>
-
-      {/* Story Section */}
       <section className="story-section section-padding">
         <div className="container">
           <div className="story-content">
@@ -53,7 +50,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="values-section section-padding bg-beige">
         <div className="container">
           <h2 className="section-title" data-aos="fade-up">Our Core Values</h2>
@@ -97,7 +93,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
       <section className="mission-section section-padding">
         <div className="container">
           <div className="mission-content" data-aos="fade-up">
@@ -111,7 +106,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="stats-section section-padding bg-beige">
         <div className="container">
           <div className="stats-grid">
@@ -135,7 +129,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Note */}
       <section className="team-section section-padding">
         <div className="container">
           <div className="team-content" data-aos="fade-up">

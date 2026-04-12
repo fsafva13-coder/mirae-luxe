@@ -1,7 +1,3 @@
-/* ========================================
-   FLOATING CHAT BUTTON
-======================================== */
-
 .chat-bubble {
   position: fixed;
   bottom: 30px;
@@ -45,10 +41,6 @@
   50%       { box-shadow: 0 4px 30px rgba(139, 115, 85, 0.6); }
 }
 
-/* ========================================
-   CHAT WINDOW
-======================================== */
-
 .chat-window {
   position: fixed;
   bottom: 30px;
@@ -68,10 +60,6 @@
   from { opacity: 0; transform: translateY(20px) scale(0.95); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-/* ========================================
-   CHAT HEADER
-======================================== */
 
 .chat-header {
   background: linear-gradient(135deg, var(--muted-bronze) 0%, #A68B6A 100%);
@@ -126,10 +114,6 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* ========================================
-   CHAT MESSAGES CONTAINER
-======================================== */
-
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -146,12 +130,6 @@
   border-radius: 10px;
 }
 
-/* ========================================
-   MESSAGE ROWS
-   assistant row: full width, left aligned
-   user row: full width, right aligned via margin-left auto on group
-======================================== */
-
 .chat-message {
   display: flex;
   width: 100%;
@@ -159,13 +137,13 @@
 }
 
 .chat-message.assistant {
-  flex-direction: row;       /* avatar | bubble */
+  flex-direction: row;       
   align-items: flex-end;
   gap: 10px;
 }
 
 .chat-message.user {
-  flex-direction: row;       /* group pushed to right */
+  flex-direction: row;       
   justify-content: flex-end;
 }
 
@@ -174,21 +152,13 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ========================================
-   USER GROUP — keeps bubble + avatar together
-======================================== */
-
 .user-group {
   display: flex;
-  flex-direction: row;       /* bubble | avatar */
+  flex-direction: row;      
   align-items: flex-end;
   gap: 10px;
-  max-width: 85%;            /* prevents group from going full width */
+  max-width: 85%;            
 }
-
-/* ========================================
-   AVATARS
-======================================== */
 
 .message-avatar {
   width: 32px;
@@ -215,10 +185,6 @@
   font-weight: 600;
 }
 
-/* ========================================
-   MESSAGE BUBBLES
-======================================== */
-
 .message-content {
   padding: 12px 16px;
   border-radius: 15px;
@@ -242,10 +208,6 @@
   border-bottom-right-radius: 4px;
 }
 
-/* ========================================
-   TYPING INDICATOR
-======================================== */
-
 .typing-indicator {
   display: flex;
   gap: 5px;
@@ -267,10 +229,6 @@
   0%, 60%, 100% { transform: translateY(0); }
   30%           { transform: translateY(-10px); }
 }
-
-/* ========================================
-   QUICK QUESTIONS
-======================================== */
 
 .quick-questions {
   padding: 15px 20px 20px;
@@ -306,10 +264,6 @@
   border-color: var(--muted-bronze);
   transform: translateX(5px);
 }
-
-/* ========================================
-   CHAT INPUT
-======================================== */
 
 .chat-input-container {
   display: flex;
@@ -362,10 +316,6 @@
   cursor: not-allowed;
 }
 
-/* ========================================
-   CHAT FOOTER
-======================================== */
-
 .chat-footer {
   padding: 10px 20px;
   background: var(--soft-beige);
@@ -374,10 +324,6 @@
   font-size: 11px;
   color: var(--warm-taupe);
 }
-
-/* ========================================
-   RESPONSIVE
-======================================== */
 
 @media (max-width: 768px) {
   .chat-window {

@@ -47,25 +47,21 @@ const SkinQuiz = () => {
 const handleSubmit = async () => {
   setLoading(true);
   try {
-    // Convert preferences array to string for backend
     const preferencesString = quizData.preferences.length > 0 
       ? quizData.preferences.join(', ') 
       : 'No preference';
 
-    // Submit to backend
     const response = await quizAPI.submitQuiz({
       skinType: quizData.skinType,
       concerns: quizData.concerns,
       budgetRange: quizData.budgetRange,
-      preferences: preferencesString // Backend expects a string, not array
+      preferences: preferencesString 
     });
 
-    console.log('Backend response:', response.data); // Debug
+    console.log('Backend response:', response.data); 
 
-    // Save to localStorage as backup
     localStorage.setItem('lastQuizData', JSON.stringify(quizData));
     
-    // Navigate with backend recommendations
     navigate('/quiz-results', { 
       state: { quizResults: response.data } 
     });
@@ -83,7 +79,7 @@ const handleSubmit = async () => {
       case 1: return quizData.skinType !== '';
       case 2: return quizData.concerns.length > 0;
       case 3: return quizData.budgetRange !== '';
-      case 4: return true; // Preferences are optional
+      case 4: return true; 
       default: return false;
     }
   };
@@ -91,7 +87,6 @@ const handleSubmit = async () => {
   return (
     <div className="skin-quiz-page">
       <div className="container">
-        {/* Progress Bar */}
         <div className="quiz-progress" data-aos="fade-down">
           <div className="progress-bar">
             <div 
@@ -102,9 +97,7 @@ const handleSubmit = async () => {
           <p className="progress-text">Step {step} of 4</p>
         </div>
 
-        {/* Quiz Content */}
         <div className="quiz-content" data-aos="fade-up">
-          {/* Step 1: Skin Type */}
           {step === 1 && (
             <div className="quiz-step">
               <h2>What's your skin type?</h2>
@@ -131,7 +124,6 @@ const handleSubmit = async () => {
             </div>
            )}
 
-           {/* Step 2: Skin Concerns */}
            {step === 2 && (
              <div className="quiz-step">
                <h2>What are your main skin concerns?</h2>
@@ -158,7 +150,6 @@ const handleSubmit = async () => {
             </div>
           )}
 
-          {/* Step 3: Budget */}
           {step === 3 && (
             <div className="quiz-step">
               <h2>What's your budget per product?</h2>
@@ -184,7 +175,6 @@ const handleSubmit = async () => {
             </div>
           )}
 
-          {/* Step 4: Preferences */}
           {step === 4 && (
             <div className="quiz-step">
               <h2>Any specific preferences?</h2>
@@ -209,7 +199,6 @@ const handleSubmit = async () => {
             </div>
           )}
 
-          {/* Navigation Buttons */}
           <div className="quiz-navigation">
             {step > 1 && (
               <button className="btn-outline" onClick={handleBack}>

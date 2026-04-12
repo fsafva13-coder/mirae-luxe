@@ -155,7 +155,6 @@
   }
 }
 
-/* Recommendation Groups */
 .recommendation-group {
   margin-bottom: 50px;
 }
@@ -204,7 +203,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Routine Advice */
 .routine-advice {
   margin: 40px 0;
 }
@@ -230,7 +228,6 @@
   line-height: 1.8;
 }
 
-/* Budget Badge */
 .budget-badge {
   display: inline-block;
   background: var(--muted-bronze);
@@ -241,12 +238,10 @@
   font-weight: 600;
 }
 
-/* Action Section */
 .action-section {
   margin: 50px 0;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .recommendation-header h3 {
     font-size: 24px;

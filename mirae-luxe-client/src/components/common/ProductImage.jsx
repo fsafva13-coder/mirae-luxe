@@ -6,7 +6,6 @@ function ProductImage({ src, alt, className, style }) {
 
   const handleError = () => {
     if (!hasError) {
-      // Retry once after 500ms
       setTimeout(() => {
         setImgSrc(`${src}?retry=${Date.now()}`);
         setHasError(true);

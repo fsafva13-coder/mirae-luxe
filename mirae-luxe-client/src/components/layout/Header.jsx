@@ -13,12 +13,10 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Function to scroll to top
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Function to handle navigation with scroll to top
   const handleNavClick = (path) => {
     setIsMenuOpen(false);
     navigate(path);
@@ -27,23 +25,20 @@ const Header = () => {
 
   return (
     <header className="header">
-      {/* Top Bar */}
+  
       <div className="header-top">
         <div className="container">
           <p>Free shipping on orders over AED 200 | Members get 15% off + free gift on every order!</p>
         </div>
       </div>
 
-      {/* Main Header */}
       <div className="header-main">
         <div className="container">
           <div className="header-content">
-            {/* Mobile Menu Toggle */}
             <button className="menu-toggle" onClick={toggleMenu}>
               {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
 
-{/* Logo */}
 <Link to="/" onClick={scrollToTop} style={{ textDecoration: 'none' }}>
   <div className="logo">
     <img 
@@ -59,7 +54,6 @@ const Header = () => {
   </div>
 </Link>
 
-{/* Navigation */}
 <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
   <Link 
     to="/" 
@@ -104,35 +98,31 @@ const Header = () => {
     Contact
   </Link>
 </nav>
-            {/* Header Icons */}
 <div className="header-icons">
-  {/* Account Icon */}
   <div onClick={() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/my-account'); // Go to account if logged in
+      navigate('/my-account'); 
     } else {
-      navigate('/login'); // Go to login if not logged in
+      navigate('/login'); 
     }
     scrollToTop();
   }}>
     <FiUser size={22} />
   </div>
 
-  {/* Wishlist Icon */}
   <div onClick={() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/wishlist'); // Go to wishlist if logged in
+      navigate('/wishlist'); 
     } else {
-      navigate('/login', { state: { from: '/wishlist', message: 'Please login to view your wishlist' } }); // Ask to login
+      navigate('/login', { state: { from: '/wishlist', message: 'Please login to view your wishlist' } }); 
     }
     scrollToTop();
   }}>
     <FiHeart size={22} />
   </div>
 
-  {/* Cart Icon */}
   <div onClick={() => { navigate('/cart'); scrollToTop(); }}>
     <FiShoppingCart size={22} />
     {cartCount > 0 && <span className="badge">{cartCount}</span>}

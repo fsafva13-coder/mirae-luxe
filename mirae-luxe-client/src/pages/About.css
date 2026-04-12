@@ -2,7 +2,6 @@
   padding-bottom: 0;
 }
 
-/* Hero Section */
 .about-hero {
   background: linear-gradient(135deg, var(--muted-bronze) 0%, var(--almost-black) 100%);
   padding: 100px 0;
@@ -18,10 +17,9 @@
 
 .hero-subtitle {
   font-size: 22px;
-  color: #E8DED3 !important; /* Light beige - FORCED */
+  color: #E8DED3 !important; 
 }
 
-/* Also add this to be extra sure */
 .about-hero .hero-subtitle {
   color: #E8DED3 !important;
 }
@@ -30,7 +28,6 @@
   color: #E8DED3 !important;
 }
 
-/* Story Section */
 .story-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -80,7 +77,6 @@
   filter: drop-shadow(0 4px 8px rgba(139, 115, 85, 0.2));
 }
 
-/* Values Section */
 .section-title {
   font-size: 42px;
   text-align: center;
@@ -124,7 +120,6 @@
   color: var(--almost-black);
 }
 
-/* Mission Section */
 .mission-content {
   max-width: 900px;
   margin: 0 auto;
@@ -143,7 +138,6 @@
   color: var(--almost-black);
 }
 
-/* Stats Section */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -169,7 +163,6 @@
   font-weight: 600;
 }
 
-/* Team Section */
 .team-content {
   max-width: 800px;
   margin: 0 auto;

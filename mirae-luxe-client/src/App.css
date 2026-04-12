@@ -1,11 +1,9 @@
-/* MIRAÉ LUXE Global Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Force remove text decoration from everything */
 a, a:hover, a:focus, a:active, a:visited {
   text-decoration: none !important;
 }
@@ -37,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* ← KEY FIX: container must have padding so content never touches edge */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -45,7 +42,6 @@ body {
   padding: 0 20px;
 }
 
-/* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
   font-weight: 400;
@@ -88,7 +84,6 @@ p {
   text-decoration: none !important;
 }
 
-/* Buttons */
 .btn-primary {
   background-color: var(--muted-bronze);
   border: none;
@@ -124,7 +119,6 @@ p {
   color: var(--pure-white);
 }
 
-/* Containers */
 .container-custom {
   max-width: 1200px;
   margin: 0 auto;
@@ -135,7 +129,6 @@ p {
   padding: 80px 0;
 }
 
-/* Cards */
 .card {
   border: 1px solid var(--warm-taupe);
   border-radius: 0;
@@ -146,7 +139,6 @@ p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Forms */
 .form-control {
   border: 1px solid var(--warm-taupe);
   border-radius: 0;
@@ -161,7 +153,6 @@ p {
   outline: none;
 }
 
-/* Loading Spinner */
 .spinner {
   border: 3px solid var(--soft-beige);
   border-top: 3px solid var(--muted-bronze);
@@ -177,7 +168,6 @@ p {
   100% { transform: rotate(360deg); }
 }
 
-/* Loading container */
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -187,13 +177,11 @@ p {
   text-align: center;
 }
 
-/* Utility Classes */
 .text-bronze { color: var(--muted-bronze); }
 .text-taupe { color: var(--warm-taupe); }
 .bg-beige { background-color: var(--soft-beige); }
 .bg-white { background-color: var(--pure-white); }
 
-/* Spacing */
 .mt-1 { margin-top: 10px; }
 .mt-2 { margin-top: 20px; }
 .mt-3 { margin-top: 30px; }
@@ -209,12 +197,10 @@ p {
 .pt-5 { padding-top: 50px; }
 .pb-5 { padding-bottom: 50px; }
 
-/* Text Alignment */
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
-/* Hover Animations */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -240,7 +226,6 @@ p {
   box-shadow: 0 0 20px rgba(139, 115, 85, 0.4);
 }
 
-/* Fade In Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -250,7 +235,6 @@ p {
   animation: fadeIn 0.6s ease-out;
 }
 
-/* Slide In Animations */
 @keyframes slideInLeft {
   from { opacity: 0; transform: translateX(-30px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -269,7 +253,6 @@ p {
   animation: slideInRight 0.6s ease-out;
 }
 
-/* Pulse Animation */
 @keyframes pulse {
   0%   { box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.7); }
   70%  { box-shadow: 0 0 0 15px rgba(139, 115, 85, 0); }
@@ -280,7 +263,6 @@ p {
   animation: pulse 2s infinite;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   h1 { font-size: 32px; }
   h2 { font-size: 26px; }

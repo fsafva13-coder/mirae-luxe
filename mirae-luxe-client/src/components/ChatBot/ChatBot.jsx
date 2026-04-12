@@ -17,23 +17,23 @@ ABOUT MIRAÉ LUXE:
 
 PRODUCT CATEGORIES & PRICING:
 Skincare:
-- Cleansers: AED 79–95 (Gentle Gel Cleanser, Deep Foam Cleanser, Nourishing Oil Cleanser, etc.)
-- Serums: AED 129–169 (Hyaluronic Acid Serum AED 149, Niacinamide Serum AED 139, Vitamin C Serum AED 159)
-- Moisturizers: AED 149–199 (Hydrating Cream, Brightening Moisturizer, Anti-Aging Cream)
-- Eye Creams: AED 129–159
-- Toners: AED 89–119
-- Sunscreens: AED 99–139 (SPF 30, SPF 50)
-- Masks: AED 99–149
+- Cleansers: AED 79-95 (Gentle Gel Cleanser, Deep Foam Cleanser, Nourishing Oil Cleanser, etc.)
+- Serums: AED 129-169 (Hyaluronic Acid Serum AED 149, Niacinamide Serum AED 139, Vitamin C Serum AED 159)
+- Moisturizers: AED 149-199 (Hydrating Cream, Brightening Moisturizer, Anti-Aging Cream)
+- Eye Creams: AED 129-159
+- Toners: AED 89-119
+- Sunscreens: AED 99-139 (SPF 30, SPF 50)
+- Masks: AED 99-149
 
 Makeup:
-- Foundations: AED 129–179
+- Foundations: AED 129-179
 - Lipsticks (Velvet Matte): AED 89
-- Eyeshadow Palettes: AED 149–199
-- Eyeliners: AED 69–89
-- Mascaras: AED 99–129
-- Blush & Bronzers: AED 99–139
-- Setting Sprays: AED 89–119
-- Makeup Brushes: AED 55–70
+- Eyeshadow Palettes: AED 149-199
+- Eyeliners: AED 69-89
+- Mascaras: AED 99-129
+- Blush & Bronzers: AED 99-139
+- Setting Sprays: AED 89-119
+- Makeup Brushes: AED 55-70
 
 MEMBERSHIP (AED 99/year):
 - 15% off ALL products on every order
@@ -48,9 +48,9 @@ SHIPPING & DELIVERY:
 - Free shipping on orders over AED 200
 - AED 20 flat rate for orders under AED 200
 - Members always get free shipping
-- Dubai: 1–2 business days
-- UAE: 2–3 business days
-- GCC: 3–5 business days
+- Dubai: 1-2 business days
+- UAE: 2-3 business days
+- GCC: 3-5 business days
 - Free gift included on orders over AED 120 (non-members) or every order (members)
 
 SKIN QUIZ:
@@ -208,7 +208,7 @@ const ChatBot = () => {
           <div className="chat-messages">
             {messages.map((message, index) => (
               message.role === 'assistant' ? (
-                // ASSISTANT: avatar on left, bubble on right
+               
                 <div key={index} className="chat-message assistant">
                   <div className="message-avatar assistant-avatar">✨</div>
                   <div className="message-content assistant-bubble">
@@ -216,7 +216,7 @@ const ChatBot = () => {
                   </div>
                 </div>
               ) : (
-                // USER: whole group pushed to right, bubble then avatar
+                
                 <div key={index} className="chat-message user">
                   <div className="user-group">
                     <div className="message-content user-bubble">

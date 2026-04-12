@@ -5,7 +5,6 @@ import App from './App';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-// Initialize AOS
 AOS.init({
   duration: 800,
   easing: 'ease-in-out',
@@ -21,4 +20,3 @@ root.render(
 );
 
 
-// build trigger

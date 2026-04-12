@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-// Base API URL (backend)
 const API_BASE_URL = 'https://mirae-luxe-production.up.railway.app/api';
 
-// Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -11,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Add token to requests if available
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -25,7 +22,6 @@ api.interceptors.request.use(
   }
 );
 
-// API endpoints
 export const productsAPI = {
   getAll: (params) => api.get('/Products', { params }),
   getById: (id) => api.get(`/Products/${id}`),
@@ -40,11 +36,9 @@ export const usersAPI = {
   updateProfile: (data) => api.put('/Users/Profile', data),
 };
 
-// ✅ FIXED: Using /Cart/AddItem (your backend endpoint)
 export const cartAPI = {
   getCart: () => api.get('/Cart'),
   
-  // ✅ CORRECT ENDPOINT: /Cart/AddItem
   addToCart: (data) => {
     console.log('cartAPI.addToCart called with:', data);
     return api.post('/Cart/AddItem', data);

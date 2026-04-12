@@ -1,4 +1,3 @@
-/* Product Card - ORIGINAL LAYOUT - NO CHANGES */
 .product-card {
   background: var(--pure-white);
   border: 1px solid var(--warm-taupe);
@@ -37,8 +36,6 @@
 .product-card:hover .product-image {
   transform: scale(1.05);
 }
-
-/* ✅ NO BADGES ON IMAGES - REMOVED */
 
 .product-hover-overlay {
   position: absolute;
@@ -136,7 +133,6 @@
   color: var(--warm-taupe);
 }
 
-/* ✅ VEGAN/CRUELTY-FREE BADGES IN DESCRIPTION (NOT ON IMAGE) */
 .product-badges {
   display: flex;
   gap: 8px;

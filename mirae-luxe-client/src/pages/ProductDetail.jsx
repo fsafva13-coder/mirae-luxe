@@ -24,10 +24,8 @@ const fetchProductDetails = async () => {
   try {
     const response = await productsAPI.getById(id);
     
-    // ✅ FIX: Extract the product object from response.data.product
     setProduct(response.data.product);
 
-    // Fetch related products
     const relatedResponse = await productsAPI.getAll({
       category: response.data.product.category
     });
@@ -58,7 +56,6 @@ const fetchProductDetails = async () => {
     }
   };
 
-  // ✅ FIXED: Actually call cart API instead of alert
   const handleAddToCart = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -88,7 +85,6 @@ const fetchProductDetails = async () => {
     }
   };
 
-  // ✅ FIXED: Actually call wishlist API instead of alert
   const handleAddToWishlist = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -108,7 +104,7 @@ const fetchProductDetails = async () => {
     alert('Please login to add items to cart');
     navigate('/login');
   } else if (error.response?.status === 400) {
-    alert(error.response.data?.message || 'This item is out of stock');  // ← specific message
+    alert(error.response.data?.message || 'This item is out of stock');  
   } else {
     alert('Failed to add to cart. Please try again.');
   }
@@ -159,7 +155,6 @@ const fetchProductDetails = async () => {
   return (
     <div className="product-detail-page">
       <div className="container">
-        {/* Breadcrumb */}
         <nav className="breadcrumb" data-aos="fade-down">
           <span onClick={() => navigate('/')}>Home</span> / 
           <span onClick={() => navigate('/shop')}>Shop</span> / 
@@ -167,9 +162,7 @@ const fetchProductDetails = async () => {
           <span className="current">{product.name}</span>
         </nav>
 
-        {/* Product Details */}
         <section className="product-details-section" data-aos="fade-up">
-          {/* Image Gallery */}
           <div className="product-gallery">
             <div className="main-image-container">
               <img 
@@ -200,7 +193,6 @@ const fetchProductDetails = async () => {
             )}
           </div>
 
-          {/* Product Info */}
           <div className="product-info-section">
             <div className="product-header">
               <span className="product-brand">{product.brand}</span>
@@ -208,7 +200,6 @@ const fetchProductDetails = async () => {
               <p className="product-category">{product.category} • {product.subCategory}</p>
             </div>
 
-{/* Rating */}
 {product.rating > 0 && (
   <div className="product-rating">
     <div className="stars">
@@ -220,7 +211,6 @@ const fetchProductDetails = async () => {
   </div>
 )}
 
-{/* Price */}
 <div className="product-price-section">
   <span className="price">AED {(product.price || 0).toFixed(2)}</span>
   {product.stockQuantity < 10 && product.stockQuantity > 0 && (
@@ -228,13 +218,11 @@ const fetchProductDetails = async () => {
   )}
 </div>
 
-            {/* Description */}
             <div className="product-description">
               <h3>About This Product</h3>
               <p>{product.description}</p>
             </div>
 
-            {/* Skin Type */}
             {product.skinType && (
               <div className="product-meta">
                 <h4>Best For:</h4>
@@ -242,7 +230,6 @@ const fetchProductDetails = async () => {
               </div>
             )}
 
-            {/* Key Ingredients */}
             {product.keyIngredients && (
               <div className="product-meta">
                 <h4>Key Ingredients:</h4>
@@ -250,7 +237,6 @@ const fetchProductDetails = async () => {
               </div>
             )}
 
-            {/* Quantity Selector */}
             <div className="quantity-section">
               <label>Quantity:</label>
               <div className="quantity-selector">
@@ -278,7 +264,6 @@ const fetchProductDetails = async () => {
               </div>
             </div>
 
-            {/* ✅ FIXED: Action Buttons - ALWAYS VISIBLE */}
             <div className="product-actions">
               <button 
                 className="btn-primary add-to-cart-btn"
@@ -295,7 +280,6 @@ const fetchProductDetails = async () => {
               </button>
             </div>
 
-            {/* Features */}
             <div className="product-features">
               {product.isVegan && (
                 <div className="feature-badge">
@@ -311,7 +295,6 @@ const fetchProductDetails = async () => {
           </div>
         </section>
 
-        {/* Reviews Section */}
         <section className="reviews-section" data-aos="fade-up">
           <h2>Customer Reviews</h2>
           {reviewsLoading ? (
@@ -354,7 +337,6 @@ const fetchProductDetails = async () => {
           )}
         </section>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section className="related-products-section" data-aos="fade-up">
             <h2>You May Also Like</h2>

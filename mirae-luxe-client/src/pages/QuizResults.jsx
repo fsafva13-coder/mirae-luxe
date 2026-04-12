@@ -9,16 +9,14 @@ const QuizResults = () => {
   const [quizResults, setQuizResults] = useState(null);
 
   useEffect(() => {
-    // Get quiz results from navigation state
     const results = location.state?.quizResults;
     
     if (!results) {
-      // No quiz results - redirect to quiz
       navigate('/skin-quiz');
       return;
     }
     
-    console.log('Quiz Results:', results); // Debug
+    console.log('Quiz Results:', results); 
     setQuizResults(results);
   }, [location, navigate]);
 
@@ -38,7 +36,6 @@ const QuizResults = () => {
           <p>{quizResults.message || 'Quiz completed successfully!'}</p>
         </section>
 
-        {/* Skin Analysis */}
         <section className="skin-analysis" data-aos="fade-up">
           <div className="analysis-card">
             <h2>Your Skin Type</h2>
@@ -76,7 +73,6 @@ const QuizResults = () => {
           )}
         </section>
 
-        {/* Routine Advice */}
         {quizResults.routineAdvice && (
           <section className="routine-advice" data-aos="fade-up">
             <div className="advice-card">
@@ -86,7 +82,6 @@ const QuizResults = () => {
           </section>
         )}
 
-        {/* Personalized Recommendations by Concern */}
         {quizResults.recommendations && quizResults.recommendations.length > 0 && (
           <section className="recommendations-section" data-aos="fade-up">
             <h2>Your Personalized Product Recommendations</h2>
@@ -115,7 +110,6 @@ const QuizResults = () => {
           </section>
         )}
 
-        {/* Action Buttons */}
         <section className="action-section" data-aos="fade-up">
           <div className="action-buttons">
             <button 
@@ -133,7 +127,6 @@ const QuizResults = () => {
           </div>
         </section>
 
-        {/* General Tips */}
         <section className="tips-section" data-aos="fade-up">
           <h2>Skincare Tips for {quizResults.skinType} Skin</h2>
           <div className="tips-grid">
@@ -150,7 +143,6 @@ const QuizResults = () => {
   );
 };
 
-// Helper functions
 const getSkinTypeDescription = (skinType) => {
   const descriptions = {
     'Dry': 'Your skin tends to feel tight and may show flaky patches. Focus on deep hydration and barrier repair.',
