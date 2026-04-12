@@ -193,11 +193,11 @@ namespace MiraeLuxe.API.Controllers
         public int ProductId { get; set; }
         public int Quantity { get; set; } = 1;
         public string? SelectedShade { get; set; }
+    }
 
-        public class UpdateCartItemModel
-        {
-            public int CartItemId { get; set; }
-            public int Quantity { get; set; }
-        }
+    public class UpdateCartItemModel
+    {
+        public int CartItemId { get; set; }
+        public int Quantity { get; set; }
     }
 }
