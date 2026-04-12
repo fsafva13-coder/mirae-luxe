@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API URL (backend)
-const API_BASE_URL = 'https://localhost:7078/api';
+const API_BASE_URL = 'https://mirae-luxe-production.up.railway.app/api';
 
 // Create axios instance
 const api = axios.create({
