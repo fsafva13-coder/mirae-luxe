@@ -14,13 +14,11 @@ const Home = () => {
 
   const fetchBestSellers = async () => {
     try {
-      // Fetch products and get top rated ones
       const response = await productsAPI.getAll({});
       const products = response.data;
       
-      // Sort by rating and get top 4
       const topProducts = products
-        .filter(p => p.rating > 0)
+        .filter(p => p.rating >= 0)
         .sort((a, b) => b.rating - a.rating)
         .slice(0, 4);
       
@@ -35,76 +33,68 @@ const Home = () => {
 
   const handleAddToCart = (product) => {
     console.log('Add to cart:', product);
-    alert(`${product.name} added to cart!`);
   };
 
   const handleAddToWishlist = (productId) => {
     console.log('Add to wishlist:', productId);
-    alert('Added to wishlist!');
   };
 
   return (
     <div className="home-page">
 
-{/* Hero Section */}
-<section className="hero" data-aos="fade-in">
-  <div className="hero-content">
-    <h1 data-aos="fade-down" data-aos-delay="200">MIRAÉ LUXE</h1>
-    <p data-aos="fade-up" data-aos-delay="400">Elevate Your Beauty Ritual</p>
-    <Link to="/shop" data-aos="zoom-in" data-aos-delay="800">
-      <button className="btn-primary btn-pulse">SHOP NOW</button>
-    </Link>
-  </div>
-</section>
-
-{/* Best Sellers */}
-<section className="best-sellers section-padding" data-aos="fade-up" data-aos-duration="1000" data-aos-offset="200">
-  <div className="container">
-    <h2 data-aos="fade-down" data-aos-delay="100">Best Sellers</h2>
-    <p className="section-subtitle" data-aos="fade-up" data-aos-delay="200">
-      Our most-loved products, handpicked by our community
-    </p>
-    
-    {loading ? (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Loading best sellers...</p>
-      </div>
-    ) : bestSellers.length > 0 ? (
-      <>
-        <div className="products-grid">
-          {bestSellers.map((product, index) => (
-            <div 
-              key={product.productId} 
-              data-aos="zoom-in" 
-              data-aos-delay={100 * (index + 1)}
-              data-aos-duration="800"
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-4">
-          <Link to="/shop">
-            <button className="btn-primary">View All Products</button>
+      <section className="hero" data-aos="fade-in">
+        <div className="hero-content">
+          <h1 data-aos="fade-down" data-aos-delay="200">MIRAÉ LUXE</h1>
+          <p data-aos="fade-up" data-aos-delay="400">Elevate Your Beauty Ritual</p>
+          <Link to="/shop" data-aos="zoom-in" data-aos-delay="800">
+            <button className="btn-primary btn-pulse">SHOP NOW</button>
           </Link>
         </div>
-      </>
-    ) : (
-      <div className="empty-state">
-        <p>✨ Our best sellers will appear here soon!</p>
-        <p style={{ fontSize: '14px', color: 'var(--warm-taupe)', marginTop: '10px' }}>
-          Start your backend server and add products to see them here.
-        </p>
-        <Link to="/shop" style={{ marginTop: '20px', display: 'inline-block' }}>
-          <button className="btn-primary">Browse All Products</button>
-        </Link>
-      </div>
-    )}
-  </div>
-</section>
+      </section>
 
-      {/* Features */}
+      <section className="best-sellers section-padding" data-aos="fade-up" data-aos-duration="1000" data-aos-offset="200">
+        <div className="container">
+          <h2 data-aos="fade-down" data-aos-delay="100">Best Sellers</h2>
+          <p className="section-subtitle" data-aos="fade-up" data-aos-delay="200">
+            Our most-loved products, handpicked by our community
+          </p>
+          
+          {loading ? (
+            <div className="loading-container">
+              <div className="spinner"></div>
+              <p>Loading best sellers...</p>
+            </div>
+          ) : bestSellers.length > 0 ? (
+            <>
+              <div className="products-grid">
+                {bestSellers.map((product, index) => (
+                  <div 
+                    key={product.productId} 
+                    data-aos="zoom-in" 
+                    data-aos-delay={100 * (index + 1)}
+                    data-aos-duration="800"
+                  >
+                    <ProductCard product={product} />
+                  </div>
+                ))}
+              </div>
+              <div className="text-center mt-4">
+                <Link to="/shop">
+                  <button className="btn-primary">View All Products</button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            <div className="empty-state">
+              <p>✨ Our best sellers will appear here soon!</p>
+              <Link to="/shop" style={{ marginTop: '20px', display: 'inline-block' }}>
+                <button className="btn-primary">Browse All Products</button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+
       <section className="features section-padding">
         <div className="container">
           <h2 className="text-center mb-5" data-aos="fade-up">Why MIRAÉ LUXE</h2>
@@ -128,7 +118,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Category Showcase */}
       <section className="category-showcase section-padding bg-beige">
         <div className="container">
           <h2 className="text-center mb-5" data-aos="fade-up">Shop By Category</h2>
@@ -149,48 +138,46 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Membership CTA */}
       <section 
-       className="membership-cta section-padding" 
-       style={{ 
-         background: 'linear-gradient(135deg, #5A4D40 0%, #3D342B 100%)',
-         color: '#FFFFFF',
-         border: 'none',
-         outline: 'none',
-         borderTop: 'none',
-         borderBottom: 'none'
-       }}
-       data-aos="fade-up"
-     >
-    <div className="container">
-      <div className="membership-content">
-        <div className="membership-text" data-aos="slide-in-left">
-          <h2 style={{ color: '#FFFFFF' }}>Become a Member</h2>
-          <p className="lead" style={{ color: '#E8DED3' }}>
-            Unlock exclusive benefits and elevate your beauty experience
-          </p>
-          <ul className="benefits-list">
-            <li style={{ color: '#FFFFFF' }}>✓ 15% off every order</li>
-            <li style={{ color: '#FFFFFF' }}>✓ Free mini product with every purchase</li>
-            <li style={{ color: '#FFFFFF' }}>✓ Early access to new launches</li>
-            <li style={{ color: '#FFFFFF' }}>✓ Member-only sales & events</li>
-          </ul>
-          <Link to="/membership">
-            <button className="btn-primary mt-3">JOIN FOR AED 99/YEAR</button>
-          </Link>
-        </div>
-        <div className="membership-image" data-aos="slide-in-right">
-          <div className="membership-badge">
-            <span className="badge-text">PREMIUM</span>
-            <span className="badge-price">AED 99</span>
-            <span className="badge-period">/year</span>
+        className="membership-cta section-padding" 
+        style={{ 
+          background: 'linear-gradient(135deg, #5A4D40 0%, #3D342B 100%)',
+          color: '#FFFFFF',
+          border: 'none',
+          outline: 'none',
+          borderTop: 'none',
+          borderBottom: 'none'
+        }}
+        data-aos="fade-up"
+      >
+        <div className="container">
+          <div className="membership-content">
+            <div className="membership-text" data-aos="slide-in-left">
+              <h2 style={{ color: '#FFFFFF' }}>Become a Member</h2>
+              <p className="lead" style={{ color: '#E8DED3' }}>
+                Unlock exclusive benefits and elevate your beauty experience
+              </p>
+              <ul className="benefits-list">
+                <li style={{ color: '#FFFFFF' }}>✓ 15% off every order</li>
+                <li style={{ color: '#FFFFFF' }}>✓ Free mini product with every purchase</li>
+                <li style={{ color: '#FFFFFF' }}>✓ Early access to new launches</li>
+                <li style={{ color: '#FFFFFF' }}>✓ Member-only sales & events</li>
+              </ul>
+              <Link to="/membership">
+                <button className="btn-primary mt-3">JOIN FOR AED 99/YEAR</button>
+              </Link>
+            </div>
+            <div className="membership-image" data-aos="slide-in-right">
+              <div className="membership-badge">
+                <span className="badge-text">PREMIUM</span>
+                <span className="badge-price">AED 99</span>
+                <span className="badge-period">/year</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-      {/* Skin Quiz CTA */}
       <section className="cta-section section-padding bg-beige" data-aos="fade-up">
         <div className="container text-center">
           <h2 data-aos="fade-up">Find Your Perfect Match</h2>
@@ -203,7 +190,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="values-section section-padding">
         <div className="container">
           <h2 className="text-center mb-5" data-aos="fade-up">Our Values</h2>
