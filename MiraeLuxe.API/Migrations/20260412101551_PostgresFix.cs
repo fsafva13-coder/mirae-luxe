@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MiraeLuxe.API.Migrations
 {
-    /// <inheritdoc />
     public partial class PostgresFix : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTime>(
@@ -151,7 +149,6 @@ namespace MiraeLuxe.API.Migrations
                 oldType: "timestamp with time zone");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTime>(

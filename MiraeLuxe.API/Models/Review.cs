@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;  
+using System.Text.Json.Serialization;
 
 namespace MiraeLuxe.API.Models
 {
@@ -12,12 +12,11 @@ namespace MiraeLuxe.API.Models
         [Required]
         public int ProductId { get; set; }
 
-        [JsonIgnore]  
+        [JsonIgnore]
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
-        [Required]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
