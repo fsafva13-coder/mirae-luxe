@@ -66,7 +66,7 @@ namespace MiraeLuxe.API.Controllers
                 var review = new Review
                 {
                     ProductId = model.ProductId,
-                    UserId = "00000000-0000-0000-0000-000000000001",
+                    UserId = null,
                     Rating = model.Rating,
                     Title = model.Title,
                     Comment = model.Comment,
