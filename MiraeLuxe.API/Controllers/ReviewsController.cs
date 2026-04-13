@@ -34,8 +34,8 @@ namespace MiraeLuxe.API.Controllers
                     r.ReviewDate,
                     r.IsVerifiedPurchase,
                     r.HelpfulCount,
-                    ReviewerName = $"{r.User.FirstName} {r.User.LastName.Substring(0, 1)}.",
-                    ReviewerInitials = $"{r.User.FirstName.Substring(0, 1)}{r.User.LastName.Substring(0, 1)}"
+                    ReviewerName = r.User != null ? $"{r.User.FirstName} {r.User.LastName.Substring(0, 1)}." : "Verified Customer",
+                    ReviewerInitials = r.User != null ? $"{r.User.FirstName.Substring(0, 1)}{r.User.LastName.Substring(0, 1)}" : "VC"
                 })
                 .ToListAsync();
 
@@ -61,34 +61,41 @@ namespace MiraeLuxe.API.Controllers
         [HttpPost("Seed")]
         public async Task<ActionResult> SeedReview([FromBody] SeedReviewModel model)
         {
-            var review = new Review
+            try
             {
-                ProductId = model.ProductId,
-                UserId = model.UserId,
-                Rating = model.Rating,
-                Title = model.Title,
-                Comment = model.Comment,
-                ReviewDate = model.ReviewDate,
-                IsVerifiedPurchase = model.IsVerifiedPurchase,
-                HelpfulCount = model.HelpfulCount
-            };
+                var review = new Review
+                {
+                    ProductId = model.ProductId,
+                    UserId = "00000000-0000-0000-0000-000000000001",
+                    Rating = model.Rating,
+                    Title = model.Title,
+                    Comment = model.Comment,
+                    ReviewDate = model.ReviewDate,
+                    IsVerifiedPurchase = model.IsVerifiedPurchase,
+                    HelpfulCount = model.HelpfulCount
+                };
 
-            _context.Reviews.Add(review);
+                _context.Reviews.Add(review);
 
-            var allReviews = await _context.Reviews
-                .Where(r => r.ProductId == model.ProductId)
-                .ToListAsync();
-            allReviews.Add(review);
+                var allReviews = await _context.Reviews
+                    .Where(r => r.ProductId == model.ProductId)
+                    .ToListAsync();
+                allReviews.Add(review);
 
-            var product = await _context.Products.FindAsync(model.ProductId);
-            if (product != null)
-            {
-                product.Rating = (decimal)allReviews.Average(r => r.Rating);
-                product.ReviewCount = allReviews.Count;
+                var product = await _context.Products.FindAsync(model.ProductId);
+                if (product != null)
+                {
+                    product.Rating = (decimal)allReviews.Average(r => r.Rating);
+                    product.ReviewCount = allReviews.Count;
+                }
+
+                await _context.SaveChangesAsync();
+                return Ok(new { Message = "Review seeded" });
             }
-
-            await _context.SaveChangesAsync();
-            return Ok(new { Message = "Review seeded" });
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
         [Authorize]
