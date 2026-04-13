@@ -3,7 +3,7 @@
 
 ![React](https://img.shields.io/badge/React-18.x-61DAFB?style=flat&logo=react&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET_Core-10.0-512BD4?style=flat&logo=dotnet&logoColor=white)
-![SQL Server](https://img.shields.io/badge/SQL_Server-2022-CC2927?style=flat&logo=microsoftsqlserver&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Railway-336791?style=flat&logo=postgresql&logoColor=white)
 ![Groq AI](https://img.shields.io/badge/Groq_AI-LLaMA_3.3-FF6B35?style=flat)
 ![JWT](https://img.shields.io/badge/Auth-JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
@@ -16,6 +16,16 @@
 **MIRAÉ LUXE** is a production-ready, full-stack luxury beauty e-commerce platform designed to deliver a seamless, premium shopping experience for skincare and makeup enthusiasts. The platform solves the fragmented online beauty shopping experience by combining intelligent product discovery (AI assistant + skin quiz), a complete purchase lifecycle (cart, checkout, orders), and a loyalty membership system — all within a cohesive, brand-consistent UI.
 
 Built as a team capstone project for the University of West London (2026), MIRAÉ LUXE demonstrates end-to-end software engineering across frontend, backend, database, and AI integration layers.
+
+---
+
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Frontend (Vercel)** | [https://mirae-luxe.vercel.app](https://mirae-luxe.vercel.app) |
+| **Backend (Railway)** | [https://mirae-luxe-production.up.railway.app](https://mirae-luxe-production.up.railway.app) |
+| **Database** | PostgreSQL on Railway |
 
 ---
 
@@ -42,20 +52,20 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 |-------|-----------|
 | **Frontend** | React.js 18, React Router v6, Axios, CSS3 |
 | **Backend** | ASP.NET Core (.NET 10), Entity Framework Core |
-| **Database** | SQL Server (SSMS), EF Core Migrations |
+| **Database** | PostgreSQL (Railway), EF Core Migrations |
 | **Authentication** | ASP.NET Core Identity, JWT Bearer Tokens |
 | **AI Chat** | Groq Cloud API — LLaMA 3.3-70B Versatile |
 | **AI Imagery** | AI image generation tools (product visuals) |
 | **Image Hosting** | ImgBB |
 | **Version Control** | Git, GitHub |
 | **Dev Tools** | Visual Studio 2022, VS Code, Postman |
-| **Deployment (planned)** | Vercel (Frontend), Azure App Service (Backend), Azure SQL |
+| **Deployment** | Vercel (Frontend), Railway (Backend + Database) |
 
 ---
 
 ## 📸 Screenshots
 
-> *Replace placeholders below with actual screenshots after deployment*
+> *Replace placeholders below with actual screenshots*
 
 ### 🏠 Homepage & Best Sellers
 ![Homepage](https://via.placeholder.com/800x450?text=MIRAÉ+LUXE+Homepage)
@@ -92,7 +102,7 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 
 - Node.js 18+ and npm
 - .NET SDK 10.0
-- SQL Server (Express or full)
+- SQL Server (Express or full) for local development
 - Visual Studio 2022
 - Git
 
@@ -135,11 +145,19 @@ Frontend runs at: `http://localhost:3000`
 ### 3. Backend Setup
 
 1. Open `MiraeLuxe.API/MiraeLuxe.API.sln` in **Visual Studio 2022**
-2. Update the connection string in `appsettings.json`:
+2. Create `appsettings.json` using `appsettings.example.json` as template:
 
 ```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MiraeLuxeDB;Trusted_Connection=True;TrustServerCertificate=True"
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=MiraeLuxeDB;Trusted_Connection=True;TrustServerCertificate=True"
+  },
+  "JwtSettings": {
+    "SecretKey": "your_jwt_secret_key_here",
+    "Issuer": "MiraeLuxeAPI",
+    "Audience": "MiraeLuxeClient",
+    "ExpiryMinutes": 1440
+  }
 }
 ```
 
@@ -157,11 +175,11 @@ Backend runs at: `https://localhost:7078`
 
 ### 4. Seed the Database
 
-After the backend is running, use SSMS or the provided JSON files to seed:
+After the backend is running, use the provided upload tools to seed:
 
 - 64 skincare products
 - 88 makeup products
-- Reviews (3–5 per product, 4.5–5.0 star ratings)
+- Reviews (3–5 per product)
 
 ---
 
@@ -240,6 +258,7 @@ mirae-luxe/
     ├── Data/
     │   └── ApplicationDbContext.cs
     ├── Migrations/
+    ├── appsettings.example.json
     └── Program.cs
 ```
 
@@ -262,13 +281,13 @@ mirae-luxe/
 
 **Circular Reference Error** — EF Core's JSON serialiser caused infinite loops between `Product` and `Review` models. Resolved with `[JsonIgnore]` on the navigation property.
 
-**NULL SelectedShade Validation** — .NET 10's nullable reference type enforcement rejected cart requests without the optional `SelectedShade` field. Fixed by marking the DTO property as `string?` — a subtle but critical difference between .NET versions.
+**NULL SelectedShade Validation** — .NET 10's nullable reference type enforcement rejected cart requests without the optional `SelectedShade` field. Fixed by marking the DTO property as `string?`.
 
-**Membership State Sync** — Frontend `localStorage` fell out of sync with backend membership state across sessions. Fixed by always verifying membership status via API on page load rather than trusting cached data.
+**PostgreSQL Migration** — Migrated from SQL Server to PostgreSQL for cloud deployment. Required new EF Core migrations and handling of timestamp timezone differences via `AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true)`.
 
-**Smart App Control** — Windows 11's application control policy blocked recompiled DLLs during active development. Resolved by unblocking specific files via file properties.
+**Membership State Sync** — Frontend `localStorage` fell out of sync with backend membership state across sessions. Fixed by always verifying membership status via API on page load.
 
-**AI Model Deprecation** — `llama3-8b-8192` was decommissioned mid-project. Migrated to `llama-3.3-70b-versatile` with a single line change — reinforcing the value of abstracting model names into constants.
+**AI Model Deprecation** — `llama3-8b-8192` was decommissioned mid-project. Migrated to `llama-3.3-70b-versatile` with a single line change.
 
 **AI Image Coordination** — Coordinating AI-generated product imagery across team members required a structured shared workflow via Google Drive and standardised ImgBB upload links.
 
@@ -285,18 +304,6 @@ mirae-luxe/
 - [ ] **Mobile App** — React Native version for iOS and Android
 - [ ] **Inventory Alerts** — Low stock notifications for admin management
 - [ ] **Internationalisation** — Multi-currency and multi-language support
-
----
-
-## 🌐 Live Demo
-
-> Deployment in progress — links will be updated post-submission
-
-| Service | URL |
-|---------|-----|
-| Frontend (Vercel) | *Coming soon* |
-| Backend (Azure App Service) | *Coming soon* |
-| Database (Azure SQL) | *Coming soon* |
 
 ---
 
