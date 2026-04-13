@@ -11,6 +11,12 @@
 
 ---
 
+> 🖥️ **Best viewed on desktop.** MIRAÉ LUXE is optimised for desktop resolutions (1280px and above). The mobile experience is functional but some layout elements and features are designed for larger screens.
+
+> 📷 **Note on product images:** Some product images may display an "Image not found" placeholder. This is due to **ImgBB's free tier CDN bandwidth limitations** and is **not a code issue**. Product images are served from ImgBB-hosted URLs stored in the database. Refreshing the page or viewing on a different network may resolve individual image load failures.
+
+---
+
 ## 📌 Project Overview
 
 **MIRAÉ LUXE** is a production-ready, full-stack luxury beauty e-commerce platform designed to deliver a seamless, premium shopping experience for skincare and makeup enthusiasts. The platform solves the fragmented online beauty shopping experience by combining intelligent product discovery (AI assistant + skin quiz), a complete purchase lifecycle (cart, checkout, orders), and a loyalty membership system — all within a cohesive, brand-consistent UI.
@@ -42,7 +48,7 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 - 📦 **Order Management** — Full order history with item breakdown, discount savings, and tracking
 - 🎨 **AI-Generated Product Imagery** — All product visuals created using AI image generation tools
 - 🌱 **100% Vegan & Cruelty-Free** — Brand values reflected throughout the platform
-- 📱 **Responsive Design** — Optimised for desktop and mobile
+- 📱 **Responsive Design** — Optimised for desktop; functional on mobile
 
 ---
 
@@ -56,10 +62,21 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 | **Authentication** | ASP.NET Core Identity, JWT Bearer Tokens |
 | **AI Chat** | Groq Cloud API — LLaMA 3.3-70B Versatile |
 | **AI Imagery** | AI image generation tools (product visuals) |
-| **Image Hosting** | ImgBB |
+| **Image Hosting** | ImgBB (free CDN — see image notice above) |
 | **Version Control** | Git, GitHub |
 | **Dev Tools** | Visual Studio 2022, VS Code, Postman |
 | **Deployment** | Vercel (Frontend), Railway (Backend + Database) |
+
+---
+
+## ⚠️ Known Limitations
+
+| Limitation | Details |
+|-----------|---------|
+| **Desktop Optimised** | Best experience at 1280px+. Mobile is functional but some features are designed for larger screens. |
+| **ImgBB Image Loading** | Some product images may not load due to ImgBB free tier CDN limits. This is an external service limitation — not a code bug. |
+| **Simulated Payments** | Checkout is fully simulated — no real financial transactions occur. This is an academic project. |
+| **Railway Cold Start** | The Railway backend may take 5–10 seconds to respond after a period of inactivity (free tier sleep behaviour). |
 
 ---
 
@@ -102,7 +119,7 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 
 - Node.js 18+ and npm
 - .NET SDK 10.0
-- SQL Server (Express or full) for local development
+- SQL Server Express 2022 (for local backend development)
 - Visual Studio 2022
 - Git
 
@@ -235,6 +252,7 @@ mirae-luxe/
 │   │   │   └── api.js              # Axios API service layer
 │   │   └── App.js
 │   ├── .env.example
+│   ├── vercel.json                 # React Router SPA rewrite rule
 │   └── package.json
 │
 └── MiraeLuxe.API/                  # ASP.NET Core Backend
@@ -291,6 +309,8 @@ mirae-luxe/
 
 **AI Image Coordination** — Coordinating AI-generated product imagery across team members required a structured shared workflow via Google Drive and standardised ImgBB upload links.
 
+**ImgBB Free Tier** — Product images are hosted on ImgBB's free CDN. Intermittent "image not found" errors may occur under high traffic due to free tier bandwidth limits. This is an external service limitation, not a code issue. A production deployment would use a paid CDN (Cloudinary, AWS S3).
+
 ---
 
 ## 🔮 Future Improvements
@@ -302,6 +322,7 @@ mirae-luxe/
 - [ ] **Review Submission** — Allow authenticated customers to write and submit reviews
 - [ ] **Social Login** — Google/Facebook OAuth via ASP.NET Identity
 - [ ] **Mobile App** — React Native version for iOS and Android
+- [ ] **Paid Image CDN** — Migrate from ImgBB free tier to Cloudinary or AWS S3
 - [ ] **Inventory Alerts** — Low stock notifications for admin management
 - [ ] **Internationalisation** — Multi-currency and multi-language support
 
