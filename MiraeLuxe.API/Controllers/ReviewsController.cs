@@ -58,6 +58,39 @@ namespace MiraeLuxe.API.Controllers
             });
         }
 
+        [HttpPost("Seed")]
+        public async Task<ActionResult> SeedReview([FromBody] SeedReviewModel model)
+        {
+            var review = new Review
+            {
+                ProductId = model.ProductId,
+                UserId = model.UserId,
+                Rating = model.Rating,
+                Title = model.Title,
+                Comment = model.Comment,
+                ReviewDate = model.ReviewDate,
+                IsVerifiedPurchase = model.IsVerifiedPurchase,
+                HelpfulCount = model.HelpfulCount
+            };
+
+            _context.Reviews.Add(review);
+
+            var allReviews = await _context.Reviews
+                .Where(r => r.ProductId == model.ProductId)
+                .ToListAsync();
+            allReviews.Add(review);
+
+            var product = await _context.Products.FindAsync(model.ProductId);
+            if (product != null)
+            {
+                product.Rating = (decimal)allReviews.Average(r => r.Rating);
+                product.ReviewCount = allReviews.Count;
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(new { Message = "Review seeded" });
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddReview([FromBody] AddReviewModel model)
@@ -97,7 +130,7 @@ namespace MiraeLuxe.API.Controllers
             var allReviews = await _context.Reviews
                 .Where(r => r.ProductId == model.ProductId)
                 .ToListAsync();
-            allReviews.Add(review); 
+            allReviews.Add(review);
 
             product.Rating = (decimal)allReviews.Average(r => r.Rating);
             product.ReviewCount = allReviews.Count;
@@ -225,7 +258,7 @@ namespace MiraeLuxe.API.Controllers
                     oi.Product.ImageUrl1
                 })
                 .DistinctBy(p => p.ProductId)
-                .Take(3) 
+                .Take(3)
                 .ToList();
 
             if (!productsToReview.Any())
@@ -250,7 +283,7 @@ namespace MiraeLuxe.API.Controllers
     public class AddReviewModel
     {
         public int ProductId { get; set; }
-        public int Rating { get; set; } 
+        public int Rating { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
     }
@@ -260,5 +293,17 @@ namespace MiraeLuxe.API.Controllers
         public int Rating { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
+    }
+
+    public class SeedReviewModel
+    {
+        public int ProductId { get; set; }
+        public string UserId { get; set; }
+        public int Rating { get; set; }
+        public string Title { get; set; }
+        public string Comment { get; set; }
+        public DateTime ReviewDate { get; set; }
+        public bool IsVerifiedPurchase { get; set; }
+        public int HelpfulCount { get; set; }
     }
 }
