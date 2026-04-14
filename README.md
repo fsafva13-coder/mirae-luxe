@@ -81,35 +81,38 @@ Built as a team capstone project for the University of West London (2026), MIRA�
 ---
 
 ## 📸 Screenshots
-
-> *Replace placeholders below with actual screenshots*
-
 ### 🏠 Homepage & Best Sellers
-![Homepage](https://via.placeholder.com/800x450?text=MIRAÉ+LUXE+Homepage)
+![Image](https://github.com/user-attachments/assets/3c665bc9-6e45-4e4f-84d8-0b9ff47eeb3b)
+
+![Image](https://github.com/user-attachments/assets/9560db9a-d5ae-4ea9-ac25-3fcb1977d8c7)
 
 ### 🛍️ Shop All — Product Catalogue
-![Shop Page](https://via.placeholder.com/800x450?text=Shop+All+Page+with+Filters)
+<img width="1884" height="911" alt="Image" src="https://github.com/user-attachments/assets/dfc4eb5a-7ac6-4a0e-9ce3-a76db18d4b49" />
 
 ### 🧴 Product Detail Page
-![Product Detail](https://via.placeholder.com/800x450?text=Product+Detail+Page)
+<img width="1877" height="910" alt="Image" src="https://github.com/user-attachments/assets/a1f4b9ba-e78d-45c9-b39e-964b81520de8" />
 
 ### 🛒 Shopping Cart
-![Cart](https://via.placeholder.com/800x450?text=Shopping+Cart)
+![Image](https://github.com/user-attachments/assets/a08c9489-6dff-4b32-925d-8ff19e5a6179)
 
 ### 💳 Checkout
-![Checkout](https://via.placeholder.com/800x450?text=Checkout+Page)
+![Image](https://github.com/user-attachments/assets/5f7c06ff-2377-4267-b9c9-0fba1762cb3d)
 
 ### 🧪 Skin Quiz & Recommendations
-![Skin Quiz](https://via.placeholder.com/800x450?text=Skin+Quiz+Results)
+![Image](https://github.com/user-attachments/assets/49f946db-f6c8-4290-8205-f816fa76bdd9)
+
+![Image](https://github.com/user-attachments/assets/e8e02981-b0de-4a08-a598-643ac40f2a0c)
 
 ### 💎 Membership Page
-![Membership](https://via.placeholder.com/800x450?text=Membership+Page)
+![Image](https://github.com/user-attachments/assets/f2ff8875-8367-4c69-8b0c-56c217686c3a)
 
 ### 🤖 AI Beauty Assistant
-![ChatBot](https://via.placeholder.com/800x450?text=AI+Beauty+Assistant+Chat)
+![Image](https://github.com/user-attachments/assets/b44f39ab-400b-483d-86bd-98e637920148)
 
 ### 👤 My Account — Orders & Profile
-![My Account](https://via.placeholder.com/800x450?text=My+Account+Orders+Page)
+<img width="1888" height="904" alt="Image" src="https://github.com/user-attachments/assets/31c6bffb-cced-4d0c-9212-726f41cfb842" />
+
+<img width="1881" height="905" alt="Image" src="https://github.com/user-attachments/assets/382f6d8a-6642-4722-b9eb-9ae1630c8b3b" />
 
 ---
 
